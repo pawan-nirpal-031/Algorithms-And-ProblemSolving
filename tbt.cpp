@@ -51,15 +51,18 @@ class tbt
                 }
                 if(nn->d<par->d){
                     par->lptr = nn;
+
                     nn->rptr = par;
-                    nn->lptr = dummy;
+                    nn->lptr = par->lptr;
                     par->lth = 1;
+                    cout<<nn->d<<" attached to left of "<<par->d<<endl;
 
                 }else{
-                    nn->rptr = dummy;
+                    nn->rptr = par->rptr;
                     nn->lptr = par;
                     par->rth = 1;
                     par->rptr = nn;
+                    cout<<nn->d<<" attached to right of "<<par->d<<endl;
                 }
 
             }
@@ -69,14 +72,25 @@ class tbt
         void inorder(){
             node*tmp=root;
             while(1){
-                while(tmp->lptr!=dummy){
-                    if(tmp->lth ==1){
-                        tmp = tmp->lptr;
-                    }
-                        
+                while(tmp->lth ==1){
+                    
+                    tmp = tmp->lptr;
+                       
                 }
+                int flg =0;
                 cout<<tmp->d<<' ';
-
+                while(tmp->rth==0){
+                    if(tmp->rptr==dummy){
+                        flg =1;
+                        break;
+                    }
+                    tmp = tmp->rptr;
+                    cout<<tmp->d<<' ';
+                }
+                tmp = tmp->rptr;
+                if(flg==1){
+                    break;
+                }
             }
 
 
@@ -85,3 +99,17 @@ class tbt
         }
 
 };
+int main(){
+    tbt t;
+    int n;
+    cin>>n;
+    for (int i = 0; i < n; i++)
+    {
+        cout<<"Enter val"<<endl;
+        int x;
+        cin>>x;
+        t.create(x);
+    }
+    t.inorder();
+    return 0;
+}
