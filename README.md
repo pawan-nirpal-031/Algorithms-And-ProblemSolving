@@ -11,3 +11,5 @@ https://algorithms.tutorialhorizon.com
 https://algorithms.tutorialhorizon.com/prims-algorithm-minimum-spanning-tree-mst/
 
 https://www.codechef.com/LTIME80B/problems/POPTUNNL#
+
+https://codeforces.com/contest/1292/problem/A
