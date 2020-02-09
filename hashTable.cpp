@@ -44,17 +44,16 @@ class HT{
     }
     int find(int k){
         node* tmp = &t[hash(k)];
-        int ans =0;
         if(tmp->d==k){
-            ans =  hash(k);
+           return hash(k);
         }else{
             while(tmp->d!=k){
                 tmp = tmp->nxt;
             }
-           ans =  hash(k);
+           return  hash(k);
         }
-       if(k!=-1)return ans;
-       else return -1;
+       return -1;
+   
     }
     void show(){
         for(int i =0;i<n;i++){
