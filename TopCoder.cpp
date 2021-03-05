@@ -13,6 +13,19 @@ typedef long double ld;
 #define InpGrph(g,e) while(e--){ll x;ll y;cin>>x>>y ;g[x].pub(y);g[y].pub(x);}
 #define FastIO ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
+ll args(ll l,ll r,ll a[],ll n){
+  map<ll,ll>h;
+  for(ll i=l;i<=r;i++){
+    h[a[i]]++;
+  }
+  ll c=0;
+  for(auto p : h){
+    if(p.second>1){
+      c+=p.second;
+    }
+  }
+  return c;
+}
 
 int main(){
   FastIO;
