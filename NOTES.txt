@@ -1,0 +1,10 @@
+                                    ----NOTES----
+    
+    C — Walk in Multiplication Table
+
+    Note that we can walk to any pair (i,j) in i+j−2 steps. Thus, we simply need to find the pair 
+    (i,j) with i*j=N that minimizes i+j. Luckily, we can enumerate all possible pairs (i,j) and 
+    check them in O(N−−√). To do this, without loss of generality, we can assume i≤j, and we 
+    must have i≤N−−√ since N=ij≥i2, so N−−√2≥i2, so N−−√≥i. Thus, we can iterate over all possible 
+    values of i from 1 to N−−√ and, among all working pairs (i,j), we pick the lowest value of 
+    i+j−2 and print it.

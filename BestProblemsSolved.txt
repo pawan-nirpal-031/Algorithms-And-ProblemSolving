@@ -1,0 +1,32 @@
+1)  Problem :  https://www.codechef.com/submit/CHFNSWPS 
+    Soln Link : https://www.codechef.com/viewsolution/35632299
+
+2) Problem : https://www.codechef.com/COOK107B/problems/SLUSH
+   Soln Link : https://www.codechef.com/viewsolution/35777205
+
+3) Problem : https://www.codechef.com/problems/ISHVALA
+   Soln Link : https://www.codechef.com/viewsolution/36185445
+
+4) Problem : https://www.codechef.com/AUG20B/problems/SKMP
+   Soln Link : https://www.codechef.com/viewsolution/36437544
+
+5) Problem :  https://www.codechef.com/COLE2020/problems/CLPNT
+   Soln Link : https://www.codechef.com/viewsolution/35679698
+
+6) Problem : https://www.codechef.com/CENS2020/problems/CENS20G
+   Soln Link : https://www.codechef.com/viewsolution/37015267
+
+7) Problem : https://www.codechef.com/submit/CENS20A
+   Soln Link : https://www.codechef.com/viewsolution/37019588
+
+8) Problem : https://www.hackerearth.com/practice/algorithms/dynamic-programming/introduction-to-dynamic-programming-1/practice-problems/algorithm/win-the-game/description/
+   Soln Link : C:\Users\jayspc\Documents\VsCode\CodeForces\Concepts\BestProblems\ProbalityOFWin.cpp
+
+9) Problem : https://www.hackerearth.com/practice/algorithms/dynamic-programming/introduction-to-dynamic-programming-1/practice-problems/algorithm/xsquare-and-two-arrays/description/
+   Soln Link : PrefixSums.cpp this directory
+
+10) Problem : https://atcoder.jp/contests/abc144/tasks/abc144_c
+    Soln Link : WalkINMulTbl.cpp this directory
+
+11) Problem : https://www.codechef.com/problems/ARRGAME
+    Soln Link : GameOnStrip.cpp   this directory
