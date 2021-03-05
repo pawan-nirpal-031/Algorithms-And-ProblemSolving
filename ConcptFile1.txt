@@ -1,0 +1,48 @@
+
+                  1) Range add queries in O(1) time using diffrance array and Prefix sums
+
+       [# This problem can be solved using segment tree with lazy updates in O(log N) time per query 
+        but we can do better here, as update operation is not given. We can process each query in 
+        constant time using this logic, when a query to add V is 
+        given in range [a, b] we will add V to arr[a] and –V to arr[b+1] now if we want to get the actual values of array
+        we will convert the above array into prefix sum array. See below example to understand,
+        
+        Example:
+            Arr = [0, 0, 0, 0, 0, 0]
+            rangeUpdate1 [0, 2], add 100
+
+            Arr = [100, 0, 0, -100, 0, 0]
+            rangeUpdate1 [1, 5], add 100
+
+            Arr = [100, 100, 0, -100, 0, 0, -100]
+            rangeUpdate1 [2, 3], add 100
+
+            Arr = [100, 100, 100, -100, -100, 0, -100]    
+            Now we will convert above operation array to prefix sum array as shown below,
+            
+            Arr = [100, 200, 300, 200, 100, 100]
+            Which is the final updated array.
+
+        So in effect, when we add a value V to specific index of array, It represents adding V to all elements 
+        right to this index, that is why we add –V after range to remove its effect after its range of add query.
+        Please note in below code, if range spans till the last index, the addition of –V is omitted to be in 
+        memory limit of the array.
+        
+        code :
+            void Query(ll a,ll b,ll v,ll arr[],ll n){         
+                arr[a]+=v;
+                if(b+1<n){
+                    arr[b+1]-=v;
+                }
+            }
+            void AdjustAndPrint(ll arr[],int n){
+                for(ll i=1;i<n;i++){
+                    arr[i]+=arr[i-1];
+                }
+                for(ll i=0;i<n;i++){
+                    cout<<arr[i]<<" ";
+                }
+            }  
+            Similar technique is applied in higher dims see 2dRangeUpdateQueriesInO(1).cpp 
+            and it's question at : https://www.codechef.com/submit/CENS20A
+        ]
