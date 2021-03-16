@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef unsigned long long int ull;
+typedef long long int ll;
+typedef long double ld;
+#define Mod 1000000007
+#define Infinity (ll)1e18
+#define Append(a) push_back(a)
+#define Pair(a,b) make_pair(a,b)
+#define Clear(a) for(ll &x : a){x=0;}
+#define Point(x) std::fixed<<setprecision(15)<<x
+#define SetBits(x) __builtin_popcount(x);
+#define DebugCase(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
+#define FastIO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define Status(b)  (cout<<(b?"First\n":"Second\n"));
+#define Print(x) cout<<x
+#define Input(x) cin>>x
+
+bool cases =1;
+void GenrateRandom(){
+
+}
+
+void SolveCase(){
+  int n;
+  cin>>n;
+  vector<int>f(n+1,0);
+  for(int i =1;i<=n;i++){   
+   int x;
+   cin>>x;
+   f[x]+=1;
+  }
+  int curr = 1;
+  if((f[1]<1 or (n==1))){
+    Status(0);
+    return;
+  }
+  for(int i = 2;i<=n;i++){
+    if(f[i-1]==1){
+      if(f[i]==1) continue;
+      if(f[i]==0) {
+        Status(curr xor 1);
+        return;
+      }
+    }
+    if(f[i-1]>1){
+      int diff = f[i-1]-1;
+      f[i]+=diff;
+      f[i-1]=1;
+      curr = (curr+diff)%2;
+    }
+  }
+  Status(curr xor 1);
+}
+
+
+int main(){
+  FastIO;
+  int t = 1;
+  if(cases) cin>>t;
+  while(t--){
+    SolveCase();
+  }
+  return 0;
+} 

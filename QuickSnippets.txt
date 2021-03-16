@@ -1,0 +1,77 @@
+    
+for(int i=0;i<n;i++){
+    for(int j =0;j<m;j++){
+        
+    }   
+}
+
+
+    
+class SegmentTree{
+    
+    private: 
+
+        int n;
+        vector<int>arr;
+        vector<int>tree;
+
+        void UpdateHelper(int ss,int se,int ti,int val,int aindx){
+            if(ss==se && ss==aindx){
+                tree[ti] = arr[aindx] = val;
+                return;
+            }
+            int mid = (ss+se)/2;
+            if(aindx>=ss && aindx<=mid){
+                UpdateHelper(ss,mid,2*ti,val,aindx);
+            }else if(aindx>=mid+1&&aindx<=se) {
+                UpdateHelper(mid+1,se,2*ti+1,val,aindx);
+            }
+            tree[ti] = Merge(tree[2*ti],tree[2*ti+1]);
+        }
+
+        int QueryHelper(int ss,int se,int ti,int qs,int qe){
+            if(qs==ss&&qe==se){
+                return tree[ti];
+            }
+            else if(qs>se||qe<ss){
+                return 0; // return identity
+            }
+            int mid = (ss+se)/2;
+            return Merge(QueryHelper(ss,mid,2*ti,qs,min(mid,qe)),QueryHelper(mid+1,se,2*ti+1,max(qs,mid+1),qe));
+        }
+
+        void Build(int ss,int se,int ti){
+            if(ss==se){
+                tree[ti] = arr[se];
+                return;
+            }
+            int mid = (ss+se)/2;
+            Build(ss,mid,2*ti);
+            Build(mid+1,se,2*ti+1);
+            tree[ti] = Merge(tree[2*ti],tree[2*ti+1]);
+        }
+    
+    public:
+
+        SegmentTree(int size,vector<int>&array){
+            n = size;
+            arr.resize(n+1);
+            arr = array;
+            tree.resize(4*n);
+            Build(1,n,1);         
+        }
+
+        int Merge(int a,int b){
+            return (a+b);
+        } 
+
+        void Update(int val,int indx){
+            UpdateHelper(1,n,1,val,indx);
+        }
+
+        int Query(int qs,int qe){
+           return QueryHelper(1,n,1,qs,qe);
+        }
+        
+};
+
