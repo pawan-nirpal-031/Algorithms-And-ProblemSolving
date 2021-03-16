@@ -19,15 +19,7 @@ typedef long double ld;
 bool cases =1;
 
 void SolveCase(){
-    ll n,k;
-    cin>>n>>k;
-    ll cnt =0;
-    while(n--){
-        ll v;
-        cin>>v;
-        if((v+k)%7==0) cnt+=1;
-    }
-    cout<<cnt<<'\n';
+    
 }
 
 int main(){
