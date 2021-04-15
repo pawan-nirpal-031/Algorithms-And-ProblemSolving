@@ -46,10 +46,75 @@ void SingleSourceShortestPathDFSOnTrees(){ // works on on trees
   }
 }
 
+bool BipartiteTestUtil(int u,bool col_u,vector<bool>&vis,vector<bool>&col,vector<int>g[]){
+  vis[u] = 1;
+  col[u] = col_u;
+  for(int v : g[u]){
+    if(not vis[v]){
+       if(not BipartiteTestUtil(v,col_u^1,vis,col,g)) return 0;
+    }
+    else {
+      if(col[v]==col[u]) return 0;
+    }
+  }
+  return 1; 
+}
 
+
+
+bool CycleDetectionUtil(int u,int par,vector<bool>&vis,vector<int>g[]){
+  vis[u] =1;
+  for(int v : g[u]){
+    if(not vis[v]) return CycleDetectionUtil(v,u,vis,g);
+    else {
+      if(v!=par) return 1;
+    }
+  }
+  return 0;
+}
+
+void CycleDetection(){
+  int n,m;
+  cin>>n>>m;
+  vector<int>g[n+1];
+  while(m--){
+    int x,y;
+    cin>>x>>y;
+    g[x].push_back(y);
+    g[y].push_back(x);
+  }
+  vector<bool>vis(n+1,0);
+  Status(CycleDetectionUtil(1,0,vis,g));
+}
+
+
+int Timer;
+void InOutTimeForQueryProcessingUtil(int u,vector<bool>&vis,vector<int>g[],vector<pair<int,int>>&InOut){
+  vis[u] = 1;
+  InOut[u].first = ++Timer;
+  for(int v : g[u]) if(not vis[v]) InOutTimeForQueryProcessingUtil(v,vis,g,InOut);
+  InOut[u].second = ++Timer;
+}
+
+void InOutTimeForQueryProcessing(){
+  int n,m;
+  cin>>n>>m;
+  Timer =0;
+  vector<int>g[n+1];
+  vector<bool>vis(n+1,0);
+  while(m--){
+    int x,y;
+    cin>>x>>y;
+    g[x].push_back(y);
+    g[y].push_back(x);
+  }
+  vector<pair<int,int>>InOutData(n+1,{0,0});// InOutData = (Intime,Outime)
+  InOutTimeForQueryProcessingUtil(1,vis,g,InOutData);
+  for(int i =1;i<=n;i++) cout<<i<<", In : "<<InOutData[i].first<<" Out : "<<InOutData[i].second<<'\n';
+}
 
 int main(){
   FastIO;
-  
+  InOutTimeForQueryProcessing();
   return 0;
 } 
