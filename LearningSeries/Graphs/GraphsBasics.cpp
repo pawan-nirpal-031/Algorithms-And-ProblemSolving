@@ -46,27 +46,7 @@ void SingleSourceShortestPathDFSOnTrees(){ // works on on trees
   }
 }
 
-bool BipartiteTestUtil(int u,int col_u,vector<bool>&vis,vector<bool>&col,vector<int>g[]){
-  if(not vis[u]){
-    vis[u] = 1;
-    col[u] = col_u;
-  }
-  for(int v : g[u]){
-    if(not vis[v]) return BipartiteTestUtil(v,col_u^1,vis,col,g);
-    else {
-      if(col[v]==col[u]) return 0;
-    }
-  }
-  return 1; 
-}
 
-bool BipartiteTest(){
-  int n,m;
-  cin>>n>>m;
-  vector<int>g[n+1];
-  vector<bool>vis(n+1,0),col(n+1,0);
-  Status(BipartiteTestUtil(1,1,vis,col,g));
-}
 
 int main(){
   FastIO;
