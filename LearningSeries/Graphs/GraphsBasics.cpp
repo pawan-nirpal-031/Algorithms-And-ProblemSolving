@@ -16,7 +16,57 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
+void SingleSourceShortestPathDFSUtilOnTrees(int u,vector<ll>&info,vector<int>g[],int par){
+  if(info[u]!=Mod){
+    info[u] = min(info[u],1+info[par]);
+    return;
+  }else{
+    info[u] = 1+info[par];
+    for(int v : g[u]) SingleSourceShortestPathDFSUtilOnTrees(v,info,g,u);
+  }
+}
 
+void SingleSourceShortestPathDFSOnTrees(){ // works on on trees 
+  int n,m;
+  cin>>n>>m;
+  int src;
+  cin>>src;
+  vector<int>g[n+1];
+  while(m--){
+    int x,y;
+    cin>>x>>y;
+    g[x].push_back(y);
+    g[y].push_back(x);
+  }
+  vector<ll>info(n+1,Mod);
+  info[0] = -1;
+  SingleSourceShortestPathDFSUtilOnTrees(src,info,g,0);
+  for(int i =1;i<=n;i++){
+    cout<<i<<" "<<info[i]<<'\n';
+  }
+}
+
+bool BipartiteTestUtil(int u,int col_u,vector<bool>&vis,vector<bool>&col,vector<int>g[]){
+  if(not vis[u]){
+    vis[u] = 1;
+    col[u] = col_u;
+  }
+  for(int v : g[u]){
+    if(not vis[v]) return BipartiteTestUtil(v,col_u^1,vis,col,g);
+    else {
+      if(col[v]==col[u]) return 0;
+    }
+  }
+  return 1; 
+}
+
+bool BipartiteTest(){
+  int n,m;
+  cin>>n>>m;
+  vector<int>g[n+1];
+  vector<bool>vis(n+1,0),col(n+1,0);
+  Status(BipartiteTestUtil(1,1,vis,col,g));
+}
 
 int main(){
   FastIO;
