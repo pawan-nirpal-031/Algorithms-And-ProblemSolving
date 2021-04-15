@@ -1,4 +1,4 @@
-# Graph Thoery 
+# Graph Theory 
 
 > Cycle detection : Cycle has important property of, it provides multiple paths between two nodes. A cycle exits in an undirected graph if it has a back-edge, A back-edge is an edge of some node v with it's non parent ancestor, so to check for cycle, we need to find out for any node v we need to check if any of it's non-parent ancestor's are visited or not, if yes return true. 
 
