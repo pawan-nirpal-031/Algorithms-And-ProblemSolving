@@ -113,8 +113,83 @@ void InOutTimeForQueryProcessing(){
   for(int i =1;i<=n;i++) cout<<i<<", In : "<<InOutData[i].first<<" Out : "<<InOutData[i].second<<'\n';
 }
 
+int max_dist,max_node;
+void DaimeterOfATree(int u,int dist_u,vector<bool>&vis,vector<int>g[]){
+    vis[u] = 1;
+    if(dist_u>max_dist){
+        max_dist = dist_u;
+        max_node = u;
+    }
+    for(int v : g[u]) if(not vis[v]) DaimeterOfATree(v,dist_u+1,vis,g);
+}
+
+void DaimeterOfATree(){
+  int n;
+  cin>>n;
+  vector<int>g[n+1];
+  vector<bool>vis(n+1,0);
+  for(int i =0;i<n-1;i++){
+      int x,y;
+      cin>>x>>y;
+      g[x].push_back(y);
+      g[y].push_back(x);
+  }
+  max_dist =0;
+  DaimeterOfATree(1,0,vis,g);
+  for(int i=1;i<=n;i++) vis[i] =0;
+  max_dist =0;
+  int u = max_node;
+  DaimeterOfATree(max_node,0,vis,g);
+  int v = max_node;
+  cout<<max_dist;
+}
+
+int SubtreeSizesUtil(int u,int par,vector<int>&sizes,vector<int>g[]){
+  for(int v : g[u]) if(v!=par) sizes[u]+=SubtreeSizesUtil(v,u,sizes,g);
+  return sizes[u];
+}
+
+
+void SubtreeSizes(){
+  int n;
+  cin>>n;
+  int m = n-1;
+  vector<int>g[n+1];
+  while(m--){
+    int x,y;
+    cin>>x>>y;
+    g[x].push_back(y);
+    g[y].push_back(x);
+  }
+  vector<bool>vis(n+1,0);
+  vector<int>sizes(n+1,1);
+  SubtreeSizesUtil(1,0,sizes,g);
+  cout<<'\n';
+  for(int i =1;i<=n;i++){
+    cout<<i<<" "<<sizes[i]<<'\n';
+  }
+}
+
+vector<int> SingleSourceShortestPathBFSUtil(vector<int>g[],vector<bool>&vis,int root,int n){
+  queue<int>que;
+  que.push(root);
+  vector<int>dist(n+1,0);
+  while(not que.empty()){
+    int curr = que.front();
+    que.pop();
+    vis[curr] = 1;
+    for(int v : g[curr]){
+      if(vis[v]) continue;
+      vis[v] = 1;
+      que.push(v);
+      dist[v] = 1 + dist[curr];
+    }
+  }
+  return dist;
+}
+
 int main(){
   FastIO;
-  InOutTimeForQueryProcessing();
+  
   return 0;
 } 
