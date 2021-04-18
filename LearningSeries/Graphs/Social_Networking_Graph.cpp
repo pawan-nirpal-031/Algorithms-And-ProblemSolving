@@ -30,9 +30,48 @@ query.
 */
 
 
+vector<int> SingleSourceShortestPathBFSUtil(vector<int>g[],vector<bool>&vis,int root,int n){
+  queue<int>que;
+  que.push(root);
+  vector<int>dist(n,0);
+  dist[root] = 0;
+  while(not que.empty()){
+    int curr = que.front();
+    que.pop();
+    vis[curr] = 1;
+    for(int v : g[curr]){
+      if(not vis[v]){
+        vis[v] = 1;
+        que.push(v);
+        dist[v] = 1 + dist[curr];
+      }
+    }
+  }
+  return dist;
+}
+
 int main(){
   FastIO;
-  
+  int n,m;
+  cin>>n>>m;
+  vector<int>g[n];
+  while(m--){
+    int x,y;
+    cin>>x>>y;
+    g[x].push_back(y);
+    g[y].push_back(x);
+  }
+  int q;
+  cin>>q;
+  while(q--){
+    int v,d;
+    cin>>v>>d;
+    vector<bool>vis(n,0);
+    vector<int>dist = SingleSourceShortestPathBFSUtil(g,vis,v,n);
+    int cnt =0;
+    for(int i =0;i<n;i++) if(dist[i]==d) cnt+=1;
+    cout<<cnt<<'\n';
+  }
   return 0;
 } 
-// If Solved Mark (0/1) here => []
+// If Solved Mark (0/1) here => [1]
