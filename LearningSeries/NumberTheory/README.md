@@ -1,6 +1,6 @@
 # Number Theory Notes
 
-> All divisors of a number N occour in pairs of (a,b) where a*b = N 
+    All divisors of a number N occour in pairs of (a,b) where a*b = N 
     1) Gcd(x,1) = 1;
       Lcm(x,1)  = x
       Gcd(x,y) = g;
