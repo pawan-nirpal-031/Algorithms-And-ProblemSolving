@@ -1,4 +1,3 @@
-// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -17,11 +16,18 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
+bool cases =1;
 
+void SolveCase(){
+    
+}
 
 int main(){
   FastIO;
-  
+  int t = 1;
+  if(cases) cin>>t;
+  while(t--){
+      SolveCase();
+  }
   return 0;
 } 
-// If Solved Mark (0/1) here => []

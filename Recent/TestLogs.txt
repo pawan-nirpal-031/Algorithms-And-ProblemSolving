@@ -19,3 +19,15 @@ f3ec1c4a54fc21fbf2e1403e0ed5c0bd
 40 27 1 1
 38 20 1 1
 30 28 1 1
+
+
+Cloning into 'C:\Users\jayspc\Documents\GitHub\AlgorithmsAndProblemSolving\A2OJ-Ladder'...
+remote: Enumerating objects: 400, done.        
+remote: Total 400 (delta 0), reused 0 (delta 0), pack-reused 400        
+Receiving objects: 100% (400/400), 408.76 KiB | 72.00 KiB/s, done.
+Resolving deltas: 100% (169/169), done.
+error: invalid path 'ladders/11. Codeforces Rating < 1300/README.md'
+fatal: unable to checkout working tree
+warning: Clone succeeded, but checkout failed.
+You can inspect what was checked out with 'git status'
+and retry with 'git restore --source=HEAD :/'
