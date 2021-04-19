@@ -16,6 +16,22 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
+inline ull Gcd(ull a,ull b) {return (a%b==0?b:Gcd(b,a%b));}
+
+ll Lcm(ll a,ll b){ return (a*b)/Gcd(a,b); }
+
+ll Power(ll a,ll n){
+    if(n==1) return a;
+    ll half = Power(a,n>>1);
+    return (n&1?half*half*a:half*half);
+}
+
+ll ModulorExponention(ll a,ll n,ll m){
+    if(n==1) return a%m;
+    ll half = ModulorExponention(a,n>>1,m)%m;
+    return ((n&1)?(((half*half)%m)*(a%m))%m:(half*half)%m);
+}
+
 bool PrimalityInRootN(ll n){
     if(n==1) return 0;
     for(int i = 2;i*i<=n;i++) if(n%i==0) return 0;
@@ -43,9 +59,33 @@ vector<bool> PrimalityUsingSeive(ll max_limit){ // O(NLog(LogN))
     return primes;
 }
 
+vector<pair<int,int>> PrimeFactorizationInRootN(ll n){
+  vector<pair<int,int>>prime_factors;
+  for(int i = 2;i*i<=n;i++){
+      if(n%i==0){
+          int freq =0;
+          while(n%i==0){
+              freq+=1;
+              n/=i;
+          }
+          prime_factors.push_back({i,freq});
+      }
+  }
+  if(n!=1) prime_factors.push_back({n,1}); 
+  return prime_factors; 
+}
+
+vector<vector<ll>> FactorizationOfARangeOfNumbers(ll n){ 
+// This could check prime and factors otherwise in O(Nlog(N)) for all numbers betwwen 1 to n
+    vector<vector<ll>>Factors(n+1);
+    for(int i = 1;i<=n;i++){
+        for(int j = i; j<=n;j+=i) Factors[j].emplace_back(i);
+    }
+    return Factors;
+}
+
 int main(){
   FastIO;
   
-
   return 0;
 } 
