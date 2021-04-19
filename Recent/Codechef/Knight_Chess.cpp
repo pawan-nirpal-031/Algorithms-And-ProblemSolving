@@ -20,8 +20,33 @@ typedef long double ld;
 
 bool cases =1;
 
-void SolveCase(){
+// void SolveCase(){
 
+// }
+void SolveCase(){
+  int n,x;
+  cin>>n>>x;
+  int a[n];
+  for(int i =0;i<n;i++){
+    cin>>a[i];
+  }
+  sort(a,a+n);
+  vector<int>prefix(n,0),suffix(n,0);
+  suffix[n-1] = prefix[0] = 1;
+  for(int i =1;i<n;i++) prefix[i] = (a[i-1]!=a[i]?1 + prefix[i-1]:prefix[i-1]);
+  for(int i = n-2;i>=0;i--) suffix[i] = (a[i+1]!=a[i]?1 + suffix[i+1]:suffix[i+1]);
+  int ans = 0;
+  for(int i = 0;i<=n-x;i++){
+    if(i==0){
+      ans = max(ans,(x<n?suffix[x]:0));
+    }else if(i==n-x){
+      ans = max(ans, (n-x-1>=0?prefix[n-x-1]:0));
+    }else{
+      ans = max(ans,((i-1>=0)?prefix[i-1]:0)+((i+x<n)?suffix[i+x]:0));
+    }
+  }
+  //for(int i =0;i<n;i++) cout<<prefix[i]<<' ';
+  cout<<min(ans,prefix[n-1])<<'\n';
 }
 
 int main(){
