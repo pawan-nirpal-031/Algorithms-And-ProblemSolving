@@ -1,4 +1,4 @@
-https://codeforces.com/contest/1472/problem/A
 https://codeforces.com/contest/1472/problem/D
 https://codeforces.com/contest/1055/problem/B
 https://codeforces.com/problemset/problem/433/A
+https://codeforces.com/problemset/problem/370/A
