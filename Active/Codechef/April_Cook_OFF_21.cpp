@@ -200,3 +200,20 @@ int main(){
 } 
 // If Solved Mark (0/1) here => [1]
 
+
+void Solve(){
+    int n,m;
+    cin>>n>>m;
+    int x,y;
+    cin>>x>>y; 
+    int a,b;
+    cin>>a>>b;
+    int t_d = abs(n-x) + abs(m-y);
+    int strde = min(n-a,m-b);
+    int p_d = strde;
+    if(a+strde==n and b+strde==m) p_d = strde;
+    if(a+strde==n and b+strde!=m) p_d+=(m-(b+strde));
+    if(a+strde!=n and b+strde==m) p_d+=(n-(a+strde));
+    if(t_d<=p_d)cout<<"YES\n";
+    else cout<<"NO\n";
+}
