@@ -2,3 +2,9 @@ https://codeforces.com/contest/1472/problem/D
 https://codeforces.com/contest/1055/problem/B
 https://codeforces.com/problemset/problem/433/A
 https://codeforces.com/problemset/problem/370/A
+https://codeforces.com/contest/1466/problem/C
+https://codeforces.com/contest/702/problem/B
+https://codeforces.com/problemset/problem/919/B
+https://codeforces.com/problemset/problem/1206/B
+
+https://codeforces.com/contest/702/problem/C

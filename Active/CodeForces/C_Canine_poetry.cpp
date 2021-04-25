@@ -1,4 +1,4 @@
-// Problem Link : 
+// Problem Link : https://codeforces.com/contest/1466/problem/C
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -41,8 +41,34 @@ In the third test case, the initial poem already doesn't contain any palindromes
 
 */
 
+/*
+
+The main observation is that if there exists a palindrome of length larger than 3, then there exists a palindrome of length 2 or 3. This observation allows us to simplify the task to erasing all palindromes of length 2 or 3. We can also notice that each character will be replaced at most once.
+
+From now on, there are a few possible solutions. The easiest one is to iterate over a word from left to right. When we encounter a palindrome (of length 2 or 3) ending on the current position, consisting of unmarked elements, we greedily mark this character as the one we want to replace. The number of marked characters is the answer, as it turns out that we can obtain a valid palindrome-less sequence by replacing only the letters on the marked positions. The complexity is O(n).
+
+The sketch of proof is as follows: it is sufficient to ensure that each marked character does not coincide with 4 neighboring characters, so we are still left with 22 remaining possibilities.
+
+We can try different approaches too. One of these is a dp-based solution, where the state dp[i][ca][cb] denotes the minimal result after analyzing first i elements, where characters si and si−1 are equal to ca and cb respectively. This dp can be implemented in O(n⋅262), which should pass, but is pretty messy to implement, so we want to improve it.
+
+We can notice that we are not interested in the last 2 characters' exact values, but only if these were changed or not (the same observation as in the greedy solution). Thanks to this, our state changes to dp[i][ci][ci−1], where ci encodes whether i-th character was changed. This dp can be cleanly implemented in linear time.
+
+*/
+
 void Solve(){
-    
+    string s;
+    cin>>s;
+    int n = s.length();
+    vector<bool>used(n+1,0);
+    int ans =0;
+    for(int i = 2;i<=n;i++){
+      bool need = 0;
+      if((s[i]==s[i-1]) and (not used[i-1])) need = 1;
+      if(i>2 and (s[i]==s[i-2]) and  (not used[i-2])) need = 1;
+      used[i] = need;
+      ans+=used[i];
+    }
+    cout<<ans<<'\n';
 }
 
 int main(){
