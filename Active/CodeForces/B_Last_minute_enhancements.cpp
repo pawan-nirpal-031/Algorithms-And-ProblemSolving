@@ -14,8 +14,6 @@ typedef long double ld;
 #define DebugCase(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
 #define FastIO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 #define Status(b) (cout<<(b?"YES\n":"NO\n"));
-#define Print(x) cout<<x
-#define Input(x) cin>>x
 
 
 /*
@@ -32,7 +30,24 @@ Given the song as a sequence of integers describing the notes, find out the maxi
 */
 
 void Solve(){
-    
+    int n;
+    cin>>n;
+    vector<int>frq(2*n+5,0);
+    int max_val = 0;
+    for(int i =0;i<n;i++){
+      int x;
+      cin>>x;
+      max_val = max(max_val,x);
+      frq[x]+=1;
+    }
+    for(int i =1;i<=max_val;i++){
+      if(frq[i]<=1) continue;
+      frq[i]-=1;
+      frq[i+1]+=1;
+    }
+    int ans =0;
+    for(int i =1;i<=max_val+1;i++) if(frq[i]>=1) ans+=1;
+    cout<<ans<<"\n";
 }
 
 int main(){
@@ -42,4 +57,4 @@ int main(){
   while(t--) Solve();
   return 0;
 } 
-// If Solved Mark (0/1) here => []
+// If Solved Mark (0/1) here => [1]
