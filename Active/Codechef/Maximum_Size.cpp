@@ -85,3 +85,4 @@ int main(){
   return 0;
 } 
 // If Solved Mark (0/1) here => [1]
+// those who will risk going too far can possibly find out how far one can go
