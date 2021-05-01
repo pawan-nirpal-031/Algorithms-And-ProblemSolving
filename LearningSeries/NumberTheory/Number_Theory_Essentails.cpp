@@ -84,6 +84,7 @@ vector<vector<ll>> FactorizationOfARangeOfNumbers(ll n){
     return Factors;
 }
 
+
 int main(){
   FastIO;
   
