@@ -62,7 +62,7 @@ void Genrate(ll curr,ll add){
     Genrate(curr+add,add);
 }
 
-void Solve(){
+void Solve(){// Runs in 46ms , 16000 kb memory 
     ll n;
     cin>>n;
     Genrate(1,1);
@@ -74,19 +74,18 @@ void Solve(){
     cout<<ans<<'\n';
 }
 
+void MoreElegentSoln(){ // Runs in 15ms , 3600 kb memory 
+  ll n;
+  cin>>n;
+  ll res =0;
+  for(ll p = 1;p<=n;p=p*10+1) for(int d = 1;d<=9;d++) if(p*d<=n) res+=1;
+  cout<<res<<'\n';
+}
+
 /*
 
 Note that every ordinary number can be represented as d⋅(100+101+…+10k). Therefore, to count all ordinary numbers among the numbers from 1 to n, it is enough to count the number of (d,k) pairs such that d⋅(100+101+…+10k)≤n. In the given constraints, it is enough to iterate over d from 1 to 9 and k from 0 to 8.
 
-int res = 0;
-  for (ll pw = 1; pw <= n; pw = pw * 10 + 1) {
-    for (int d = 1; d <= 9;  d++) {
-      if (pw * d <= n) {
-        res++;
-      }
-    }
-  }
-  cout << res << endl;
 
 */
 
@@ -94,7 +93,7 @@ int main(){
   FastIO;
   int t;
   cin>>t;
-  while(t--) Solve();
+  while(t--) MoreElegentSoln();
 
   return 0;
 } 
