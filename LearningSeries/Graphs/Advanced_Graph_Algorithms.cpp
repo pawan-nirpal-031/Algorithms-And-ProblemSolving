@@ -56,6 +56,14 @@ void FindingBrides(){
     }
 }
 
+
+
+
+void ArticulationPoints(){
+
+}
+
+
 int main(){
   FastIO;
   

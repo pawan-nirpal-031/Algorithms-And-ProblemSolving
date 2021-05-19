@@ -188,45 +188,9 @@ vector<int> SingleSourceShortestPathBFSUtil(vector<int>g[],vector<bool>&vis,int 
   return dist;
 }
 
-int BridgeTimer =0;
-void BridgesInAGraphUtil(vector<int>&InTime,vector<int>&LowestTime,vector<bool>&vis,int u,int par,vector<int>g[],vector<pair<int,int>>&bridges){
-  vis[u] = 1;
-  LowestTime[u] = InTime[u] = BridgeTimer++;
-  for(int v : g[u]){
-    if(v==par) continue;
-    if(vis[v]){ // this edge is a backedge
-      LowestTime[u] = min(LowestTime[u],InTime[v]); 
-    }else{// this is a forward-edge
-      BridgesInAGraphUtil(InTime,LowestTime,vis,v,u,g,bridges);
-      if(LowestTime[v]>InTime[u]){
-        bridges.push_back({u,v});
-      }
-      LowestTime[u] = min(LowestTime[v],LowestTime[u]); 
-    }
-  }
-}
-
-void BridgesInAGraph(){
-  int n,m;
-  cin>>n>>m;
-  vector<int>g[n+1];
-  while(m--){
-    int x,y;
-    cin>>x>>y;
-    g[x].push_back(y);
-    g[y].push_back(x);
-  }
-  vector<int>InTime(n+1,0),LowestTime(n+1,0);
-  vector<bool>vis(n+1,0);
-  vector<pair<int,int>>bridges;
-  BridgesInAGraphUtil(InTime,LowestTime,vis,1,0,g,bridges);
-  for(auto ed : bridges){
-    cout<<ed.first<<", "<<ed.second<<'\n';
-  }
-}
 
 int main(){
   FastIO;
-  BridgesInAGraph();
+
   return 0;
 } 
