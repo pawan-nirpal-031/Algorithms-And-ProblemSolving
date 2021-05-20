@@ -38,6 +38,10 @@ void SolveCase(){
         cin>>x;
         a[x]+=1;
     }
+    if(k==0){
+        cout<<-1;
+        return;
+    }
     int cnt = 0;
     for(auto x : a){
         cnt+=x.second;
