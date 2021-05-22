@@ -1,4 +1,4 @@
-// Problem Link : 
+// Problem Link : https://codeforces.com/contest/1520/problem/D
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -41,16 +41,17 @@ void Solve(){
     int n;
     cin>>n;
     unordered_map<ll,ll>frq;
-    int max_diff = 0;
-    ll a[n];
     for(int i =0;i<n;i++){
         int x;
         cin>>x;
-        a[i] = x-i-1;
         frq[x-(i+1)]+=1;
     }
-    //for(auto p : frq) cout<<p.first<<' '<<p.second<<'\n';
-    for(int i =0;i<n;i++) cout<<a[i]<<" ";
+    ll ans =0;
+    for(auto p : frq){
+        ll n1 = p.second;
+        ans+=((n1*(n1-1))>>1);
+    }
+    cout<<ans<<'\n';
 }
 
 
@@ -63,4 +64,4 @@ int main(){
   }
   return 0;
 } 
-// If Solved Mark (0/1) here => []
+// If Solved Mark (0/1) here => [1]
