@@ -30,10 +30,39 @@ For example, in case n=2, a1=3 and a2=5 an envelope can have any integer from 1 
 For each of m letters by the room number among all n dormitories, determine the particular dormitory and the room number in a dormitory where this letter should be delivered.v
 
 */
+int GetIndx(ull prefix[],ull e,int n){
+    ll left = 0;
+    ll right = n-1;
+    int ans = n-1;
+    while(left<=right){
+        ll mid = ((right+left)>>1);
+        if(prefix[mid]<e){
+            left = mid+1;
+        }else{
+            ans = mid;
+            right = mid-1;
+        }
+    }
+    return ans;
+}
 
 int main(){
   FastIO;
-  
+  int n,q;
+  cin>>n>>q;
+  ull a[n];
+  ull prefix[n];
+  for(int i =0;i<n;i++){
+      cin>>a[i];
+      prefix[i] = ((i>0)?prefix[i-1]+a[i]:a[0]);
+  }
+  while(q--){
+      ull x;
+      cin>>x;
+      ull dorm = GetIndx(prefix,x,n);
+      ull room = x - (dorm>0?prefix[dorm-1]:0);
+      cout<<dorm+1<<" "<<room<<'\n';
+  }
   return 0;
 } 
-// If Solved Mark (0/1) here => []
+// If Solved Mark (0/1) here => [1]

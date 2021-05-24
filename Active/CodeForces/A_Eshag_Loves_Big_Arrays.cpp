@@ -1,4 +1,4 @@
-// Problem Link : 
+// Problem Link : https://codeforces.com/contest/1529/problem/A
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -18,24 +18,14 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
+/*
+Problem Statement : 
+
+*/
 
 int main(){
   FastIO;
-  int n,t;
-  cin>>n>>t;
-  string s;
-  cin>>s;
-  int len = s.length();
-  for(int i =1;i<=t;i++){
-      for(int j =0;j<len-1;){
-          if(s[j]=='B' and s[j+1]=='G'){
-              s[j] = 'G';
-              s[j+1] = 'B';
-              j+=2;
-          }else j+=1;
-      }
-  }
-  cout<<s;
+  
   return 0;
 } 
-// If Solved Mark (0/1) here => [1]
+// If Solved Mark (0/1) here => []
