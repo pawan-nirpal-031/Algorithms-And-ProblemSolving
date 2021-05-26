@@ -1,5 +1,8 @@
-Div3 1:  http://codeforces.com/contest/977
+Div3 1:  http://codeforces.com/contest/977 $
+
+
 Div3 2:  http://codeforces.com/contest/978
+
 Div3 3:  http://codeforces.com/contest/988
 Div3 4:  http://codeforces.com/contest/999
 Div3 5:  http://codeforces.com/contest/1003

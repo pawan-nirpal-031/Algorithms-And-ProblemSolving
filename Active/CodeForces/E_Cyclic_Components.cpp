@@ -44,10 +44,11 @@ int NofNodes = 0;
 int SumOfDegrees = 0;
 
 bool CanbeCycleutil(vector<int>g[],int u,vector<bool>&vis){
-    if(g[u].size()!=2) return 0; // this node doesn't have a degree 2, so the component isn't a Cycle graph
+    if(g[u].size()!=2)  return 0;
     vis[u] = 1;
-    for(int v : g[u]) if(not vis[v]) return CanbeCycleutil(g,v,vis);
-    return 1; // the entire component has been traversed and all nodes were found to be degree 2, so this one is cycle graph
+    bool b = 1;
+    for(int v : g[u]) if(not vis[v]) b = CanbeCycleutil(g,v,vis);
+    return b;
 }
 
 void IsCycle(){
@@ -62,7 +63,7 @@ void IsCycle(){
     }
     vector<bool>vis(n+1,0);
     int ans = 0;
-    for(int i =1;i<=n;i++) if(not vis[i]) ans+=CanbeCycleutil(g,i,vis);  
+    for(int i =1;i<=n;i++) if(not vis[i]) ans+=CanbeCycleutil(g,i,vis);
     cout<<ans;
 }
 
@@ -71,4 +72,4 @@ int main(){
   IsCycle();
   return 0;
 } 
-// If Solved Mark (0/1) here => [0]
+// If Solved Mark (0/1) here => [1]
