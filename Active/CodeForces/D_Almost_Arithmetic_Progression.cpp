@@ -1,4 +1,4 @@
-// Problem Link : 
+// Problem Link : https://codeforces.com/contest/978/problem/D
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -35,7 +35,34 @@ It is possible that the resulting sequence contains element equals 0.
 
 int main(){
   FastIO;
-  
+  int n;
+  cin>>n;
+  vector<ll>b(n,0);
+  if(n<3){
+    cout<<0;
+    return 0;
+  }
+  for(ll &x : b) cin>>x;
+  ll ans = LLONG_MAX;
+  for(int d1 = -1;d1<=1;d1++){
+    for(int d2 = -1;d2<=1;d2++){
+      ll a1 = b[0]+d1;
+      ll a2 = b[1]+d2;
+      bool np =0;
+      ll cnt = abs(d1)+abs(d2);
+      for(int i = 2;i<n;i++){
+        ll ai = a1 + (i-1)*(a2-a1);
+        if(abs(ai-b[i])<=1){
+           if(ai!=b[i]) cnt+=1;
+        }
+      }
+      if(np) break;
+      else{
+        if(cnt<ans) ans = cnt;
+      }
+    }
+  }
+  cout<<ans;
   return 0;
 } 
 // If Solved Mark (0/1) here => []
