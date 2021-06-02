@@ -1,80 +1,83 @@
-#include <algorithm>
-#include <cassert>
-#include <cstdio>
-#include <iostream>
-#include <string>
-#include <vector>
-
+#include <bits/stdc++.h>
 using namespace std;
+typedef unsigned long long int ull;
+typedef long long int ll;
+typedef long double ld;
+#define Mod 1000000007
+#define Infinity (ll)1e18
+#define Append(a) push_back(a)
+#define Pair(a,b) make_pair(a,b)
+#define Clear(a) for(ll &x : a){x=0;}
+#define Point(x) std::fixed<<setprecision(15)<<x
+#define SetBits(x) __builtin_popcount(x);
+#define DebugCase(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
+#define FastIO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define Status(b) (cout<<(b?"YES\n":"NO\n"));
+#define Print(x) cout<<x
+#define Input(x) cin>>x
+#define null NULL
 
-int const Letters =    4;
-int const NA      =   -1;
+const int trie_size = 26;
 
-struct Node
-{
-	int next [Letters];
-
-	Node ()
-	{
-		fill (next, next + Letters, NA);
-	}
-
-	bool isLeaf () const
-	{
-	    return (next[0] == NA && next[1] == NA && next[2] == NA && next[3] == NA);
-	}
+class node{
+    public:
+        int count; // nof strings that start with the prefix that ends at this node
+        bool is_end;
+        node* links[trie_size];
+        node(){
+            count = 0;
+            is_end = 0;
+            for(int i =0;i<trie_size;i++) links[i] = NULL;
+        }
+        node* GetNewNode(){
+            return new node();
+        }
 };
 
-int letterToIndex (char letter)
-{
-	switch (letter)
-	{
-		case 'A': return 0; break;
-		case 'C': return 1; break;
-		case 'G': return 2; break;
-		case 'T': return 3; break;
-		default: assert (false); return -1;
-	}
-}
+class Trie{
+    private:
+        node* root;
+        int number_of_nodes;
+    public:
+        Trie(){
+            root = node().GetNewNode();
+            number_of_nodes = 0;
+        }
 
-vector <int> solve (const string& text, int n, const vector <string>& patterns)
-{
-	vector <int> result;
+        void Insert(string s){
+            node* temp = root;
+            for(int i =0;i<s.length();i++){
+                int indx = s[i]-'A';
+                if(temp->links[indx]==null){
+                    temp->links[indx] = node().GetNewNode();
+                    number_of_nodes+=1;
+                }
+                temp->count+=1;
+                temp = temp->links[indx];
+            }
+            temp->is_end = 1;
+        }
 
-	// write your code here
+        
+        int NumberOFNodes(){
+            return number_of_nodes;
+        }
 
-	return result;
-}
+        bool Search(string s){
+            node *temp = root;
+            for(int i=0;i<s.length();i++){
+                int indx = s[i]-'a';
+                if(temp->links[indx]==null) return 0;
+                temp = temp->links[indx];
+            }
+            return temp->is_end;
+        }
+};
 
-int main (void)
-{
-	string t;
-	cin >> text;
 
-	int n;
-	cin >> n;
 
-	vector <string> patterns (n);
-	for (int i = 0; i < n; i++)
-	{
-		cin >> patterns[i];
-	}
-
-	vector <int> ans;
-	ans = solve (t, n, patterns);
-
-	for (int i = 0; i < (int) ans.size (); i++)
-	{
-		cout << ans[i];
-		if (i + 1 < (int) ans.size ())
-		{
-			cout << " ";
-		}
-		else
-		{
-			cout << endl;
-		}
-	}
-
-	return 0;
-}
+int main(){
+  FastIO;
+  
+  return 0;
+} 
