@@ -63,12 +63,13 @@ class Trie{
             return number_of_nodes;
         }
 
-        bool Search(string s){
+        bool Search(string &text,int curr_indx){
             node *temp = root;
-            for(int i=0;i<s.length();i++){
-                int indx = s[i]-'a';
+            for(int i=curr_indx;i<text.length();i++){
+                int indx = text[i]-'A';
+                if(temp->is_end==1) return 1;
                 if(temp->links[indx]==null) return 0;
-                temp = temp->links[indx];
+				temp = temp->links[indx];
             }
             return temp->is_end;
         }
@@ -78,6 +79,16 @@ class Trie{
 
 int main(){
   FastIO;
-  
+  string text;
+  cin>>text;
+  int q;
+  cin>>q;
+  Trie t;
+  while(q--){
+	  string s;
+	  cin>>s;
+	  t.Insert(s);
+  }
+  for(int i =0;i<text.length();i++) if(t.Search(text,i)) cout<<i<<' ';
   return 0;
 } 
