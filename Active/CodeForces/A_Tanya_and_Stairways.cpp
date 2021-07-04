@@ -1,3 +1,4 @@
+// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -17,35 +18,43 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
+/*
+Problem Statement : 
 
-int LowerIndx(ll a[],ll e,ll n){
-    if(a[n-1]<e) return -1;
-    if(a[0]>=e) return 0;
-    int low = 0;
-    int high = n-1;
-    while(high-low>1){
-        ll mid = ((low+high)>>1);
-        if(a[mid]>=e) high = mid;
-        else low = mid;
-    }
-    return (a[high]>=e?high:-1);
-}
 
-int HigherIndx(ll a[],ll e,ll n){
-    if(a[0]>e) return -1;
-    if(a[n-1]<=e) return n-1;
-    int low = 0;
-    int high = n-1;
-    while(high-low>1){
-        ll mid = ((low+high)>>1);
-        if(a[mid]<=e) low = mid;
-        else high = mid;
-    }
-    return (a[low]<=e?low:-1);
-}
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
 
 int main(){
   FastIO;
-  
+  int n;
+  cin>>n;
+  ll a[n];
+  ll cnt =0;
+  vector<int>step_len;
+  for(ll &x : a){
+      cin>>x;
+      if(x==1) cnt+=1;
+  }
+  for(int i =0;i<n;i++){
+      if(i==0){
+          if(n==1 or (n>1 and a[1]==1)) step_len.push_back(1);
+      }else if(i==n-1){
+          step_len.push_back(a[i]);
+      }else{
+          if(a[i+1]==1) step_len.push_back(a[i]);
+      }
+  }
+  cout<<cnt<<'\n';
+  for(int x : step_len) cout<<x<<' ';
   return 0;
 } 
+// If Solved Mark (0/1) here => [1]

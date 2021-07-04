@@ -27,44 +27,55 @@ Your task is to find minimal r that each city has been provided by cellular netw
 
 If r = 0 then a tower provides cellular network only for the point where it is located. One tower can provide cellular network for any number of cities, but all these cities must be at the distance which is no more than r from this tower.
 
+Input
+The first line contains two positive integers n and m (1 ≤ n, m ≤ 105) — the number of cities and the number of cellular towers.
+
+The second line contains a sequence of n integers a1, a2, ..., an ( - 109 ≤ ai ≤ 109) — the coordinates of cities. It is allowed that there are any number of cities in the same point. All coordinates ai are given in non-decreasing order.
+
+The third line contains a sequence of m integers b1, b2, ..., bm ( - 109 ≤ bj ≤ 109) — the coordinates of cellular towers. It is allowed that there are any number of towers in the same point. All coordinates bj are given in non-decreasing order.
+
+Output
+Print minimal r so that each city will be covered by cellular network.
+
 */
 
-bool CanProvideNewtork(ll cities[],ll towers[],int n,int m,int dist){
-   for(int i = 0;i<n;i++){
-     bool covered = 0;
-     if(i<m){
-       ll tow_i = towers[i];
-       ll city_i = cities[i];
-       if(city_i>=tow_i-dist or city_i<=tow_i+dist) covered = 1;
-     }
-     if(i+1<m){
-       ll tow_x = towers[i+1];
-       ll city_x = cities[i+1];
-       if(city_x>=tow_x-dist or city_x<=tow_x+dist) covered = 1;
-     }
-     if(not covered) return 0;
-   }
-   return 1;
+
+/*
+Author's solution : 
+
+
+
+*/
+
+bool Fits(ll cities[],ll towers[],ll n,ll m,ll radius){
+  int t = 0;
+  int reach = 0;
+  for(int c = 0;c<n;){
+    if(t>=m) break;
+    if(cities[c]<=towers[t]+radius){
+      reach+=(cities[c]>=towers[t]-radius);
+      c+=1;
+    }else{
+      t+=1;
+    }
+  }
+  return reach==n;
 }
 
 int main(){
   FastIO;
-  int n,m;
+  ll n,m;
   cin>>n>>m;
-  ll cities[n];
-  ll towers[m];
+  ll cities[n],towers[m];
   for(ll &x : cities) cin>>x;
   for(ll &x : towers) cin>>x;
-  ll r_high = 1e18;// distance such that network can be surely provided
-  ll r_low = 0; // distance such that network can't be provided
-  // while(r_high-r_low>1){
-  //   ll mid = (r_low + ((r_high-r_low)>>1));
-  //   if(CanProvideNewtork(cities,towers,n,m,mid)) r_high = mid;
-  //   else r_low = mid;
-  // }
-  // if(CanProvideNewtork(cities,towers,n,m,r_low)) cout<<r_low;
-  // else cout<<r_high;
-  cout<<CanProvideNewtork(cities,towers,n,m,100);
+  ll low = 0;
+  ll high = Infinity;
+  while(high>low+1){
+    ll mid = (low + ((high-low)>>1));
+    (Fits(cities,towers,n,m,mid)?high=mid:low=mid);
+  }
+  cout<<(Fits(cities,towers,n,m,low)?low:high);
   return 0;
 } 
-// If Solved Mark (0/1) here => []
+// If Solved Mark (0/1) here => [1]

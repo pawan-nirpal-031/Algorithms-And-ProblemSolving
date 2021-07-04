@@ -84,7 +84,7 @@ void MoreElegentSoln(){ // Runs in 15ms , 3600 kb memory
 
 /*
 
-Note that every ordinary number can be represented as d⋅(100+101+…+10k). Therefore, to count all ordinary numbers among the numbers from 1 to n, it is enough to count the number of (d,k) pairs such that d⋅(100+101+…+10k)≤n. In the given constraints, it is enough to iterate over d from 1 to 9 and k from 0 to 8.
+Note that every ordinary number can be represented as d⋅(10^0+10^1+…+10^k). Therefore, to count all ordinary numbers among the numbers from 1 to n, it is enough to count the number of (d,k) pairs such that d⋅(100+101+…+10k)≤n. In the given constraints, it is enough to iterate over d from 1 to 9 and k from 0 to 8.
 
 
 */
