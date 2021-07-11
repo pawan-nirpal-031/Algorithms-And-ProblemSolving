@@ -1,3 +1,4 @@
+// Problem Link : https://atcoder.jp/contests/abc206/tasks/abc206_a
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -17,10 +18,29 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
+/*
+Problem Statement : 
 
+
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
 
 int main(){
   FastIO;
- 
+  int n;
+  cin>>n;
+  int x = (int)(floor(1.08*n));
+  if(x<206) cout<<"Yay!";
+  else if(x==206) cout<<"so-so";
+  else cout<<":(";
   return 0;
 } 
+// If Solved Mark (0/1) here => [1]

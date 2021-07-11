@@ -177,59 +177,38 @@ class GraphUtility{
     } 
 };
 
-class RangeQueryStructureUtility{
-  private:
-    int sqrt_blk_size;
-
+class SegmentTreeUtility{
   public:
-    
-    ll SqrtDecompositionMin(ll a[],ll sqrt_array[],ll n,ll l,ll r){
-      int low = l/sqrt_blk_size;
-      int high = r/sqrt_blk_size;
-      ll min_val = INT_MAX;
-      if(low==high){
-        for(int i =l;i<=r;i++) min_val = min(min_val,a[i]);
-        return min_val;
-      }else{
-        for(int i = l;i<sqrt_blk_size*(low+1);i++) min_val = min(min_val,a[i]);
-        for(int i = low+1;i<high;i++) min_val = min(min_val,sqrt_array[i]);
-        for(int i = high*sqrt_blk_size;i<=r;i++) min_val = min(min_val,a[i]);
-      }
-      return min_val;
-    }
-
-    
-
-    int SegmentTreeMerge(int a,int b){
+    int merge(int a,int b){
         return a+b;
     }
 
-    void SegmentTreeBuild(int a[],vector<int>&tree,int seg_left,int seg_right,int tree_indx){
+    void Build(int a[],vector<int>&tree,int seg_left,int seg_right,int tree_indx){
         if(seg_left==seg_right){
             tree[tree_indx] = a[seg_left];
             return;
         }
         int mid = (seg_left+seg_right)>>1;
-        SegmentTreeBuild(a,tree,seg_left,mid,2*tree_indx);
-        SegmentTreeBuild(a,tree,mid+1,seg_right,2*tree_indx+1);
-        tree[tree_indx] = SegmentTreeMerge(tree[2*tree_indx],tree[2*tree_indx+1]);
+        Build(a,tree,seg_left,mid,2*tree_indx);
+        Build(a,tree,mid+1,seg_right,2*tree_indx+1);
+        tree[tree_indx] = merge(tree[2*tree_indx],tree[2*tree_indx+1]);
     }
 
-    void SegmentTreePointUpdate(int a[],vector<int>&tree,int seg_left,int seg_right,int tree_indx,int update_indx,int update_val){
+    void PointUpdate(int a[],vector<int>&tree,int seg_left,int seg_right,int tree_indx,int update_indx,int update_val){
         if(seg_left==seg_right and seg_left==update_indx){
             tree[tree_indx] = a[update_indx] = update_val;
             return;
         }
         int mid = (seg_left+seg_right)>>1;
         if(update_indx>mid){
-            SegmentTreePointUpdate(a,tree,mid+1,seg_right,2*tree_indx+1,update_indx,update_val);
+            PointUpdate(a,tree,mid+1,seg_right,2*tree_indx+1,update_indx,update_val);
         }else{
-            SegmentTreePointUpdate(a,tree,seg_left,mid,2*tree_indx,update_indx,update_val);
+            PointUpdate(a,tree,seg_left,mid,2*tree_indx,update_indx,update_val);
         }
-        tree[tree_indx] = SegmentTreeMerge(tree[2*tree_indx],tree[2*tree_indx+1]);
+        tree[tree_indx] = merge(tree[2*tree_indx],tree[2*tree_indx+1]);
     }
 
-    void SegmentTreeRangeUpdate(vector<int>&tree,vector<int>&lazy,int tree_indx,int seg_left,int seg_right,int update_left,int update_right,int update_val){
+    void RangeUpdate(vector<int>&tree,vector<int>&lazy,int tree_indx,int seg_left,int seg_right,int update_left,int update_right,int update_val){
         if(lazy[tree_indx]>0){
             int update_val = lazy[tree_indx];
             tree[tree_indx]+=(seg_right-seg_left+1)*(update_val);
@@ -253,12 +232,12 @@ class RangeQueryStructureUtility{
             return;
         }
         int mid = (seg_left+seg_right)>>1;
-        SegmentTreeRangeUpdate(tree,lazy,2*tree_indx,seg_left,mid,update_left,update_right,update_val);
-        SegmentTreeRangeUpdate(tree,lazy,2*tree_indx+1,mid+1,seg_right,update_left,update_right,update_val);
-        tree[tree_indx] = SegmentTreeMerge(tree[2*tree_indx],tree[2*tree_indx+1]);
+        RangeUpdate(tree,lazy,2*tree_indx,seg_left,mid,update_left,update_right,update_val);
+        RangeUpdate(tree,lazy,2*tree_indx+1,mid+1,seg_right,update_left,update_right,update_val);
+        tree[tree_indx] = merge(tree[2*tree_indx],tree[2*tree_indx+1]);
     }
 
-    int SegmentTreeQuery(vector<int>&tree,vector<int>&lazy,int seg_left,int seg_right,int tree_indx,int query_left,int query_right){
+    int Query(vector<int>&tree,vector<int>&lazy,int seg_left,int seg_right,int tree_indx,int query_left,int query_right){
         if(lazy[tree_indx]>0){
             int update_val = lazy[tree_indx];
             tree[tree_indx]+=(seg_right-seg_left+1)*(update_val);
@@ -271,7 +250,7 @@ class RangeQueryStructureUtility{
         if(query_left>=seg_left and query_right<=seg_right) return tree[tree_indx]; // Full overlap
         if(query_left>seg_right or query_right<seg_left)  return 0; // Return Identity elment as zero overlap
         int mid = (seg_left+seg_right)>>1;
-        return SegmentTreeMerge(SegmentTreeQuery(tree,lazy,seg_left,mid,2*tree_indx,query_left,query_right),SegmentTreeQuery(tree,lazy,mid+1,seg_right,2*tree_indx+1,query_left,query_right));
+        return merge(Query(tree,lazy,seg_left,mid,2*tree_indx,query_left,query_right),Query(tree,lazy,mid+1,seg_right,2*tree_indx+1,query_left,query_right));
     }
 
 };
@@ -307,7 +286,7 @@ public:
 
     pair<ll,ll> QuickLookUpInfo(ll a[],int n,ll x){
         /*
-            This function returns (-1,-1)if element is not present, if the element is present in an sorted array, then it returns a pair of indices required element, if multiple copies exist of required element this function returns (lower_occurnace, higher_occuerance) index pairs, in case of single occurance it returns (x,x) that is same index.
+            This function returns (-1,-1)if element is not present, if the element is present in an sorted array, if present it returns a pair of indices required element, if multiple copies exist of required element this function returns (lower_occurnace, higher_occuerance) index pairs, in case of single occurance it returns (x,x) that is same index.
         */
         ll l = 0;
         ll r = n-1;
@@ -345,4 +324,19 @@ int main(){
 
   return 0;
 } 
+
+/*
+    Undirected 0-indexed graph input  
+
+int n,m;
+cin>>n>>m;
+vector<int>g[n];
+while(m--){
+    int a,b;
+    cin>>a>>b;
+    g[a].push_back(b);
+    g[b].push_back(a);
+}
+
+*/
 

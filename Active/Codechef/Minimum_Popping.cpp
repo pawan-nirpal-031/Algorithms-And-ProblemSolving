@@ -1,4 +1,4 @@
-// Problem Link : 
+// Problem Link : https://www.codechef.com/START4C/problems/DEQUEUE
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -21,15 +21,9 @@ typedef long double ld;
 /*
 Problem Statement : 
 
+You are given a double-ended queue Q. Initially, it contains elements Q1,Q2,…,QM in this order. Each of these elements is an integer between 1 and N (inclusive) and each integer between 1 and N (inclusive) occurs in the queue at least once.
 
-
-*/
-
-
-/*
-Author's solution : 
-
-
+We want to pop some (possibly zero) elements from the front of the queue and some (not necessarily the same number, possibly zero) elements from the back. Among all the popped elements, each integer between 1 and N (inclusive) should appear at least once. Find the smallest possible total number of elements we need to pop.
 
 */
 

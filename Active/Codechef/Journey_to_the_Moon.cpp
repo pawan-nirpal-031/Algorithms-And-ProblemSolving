@@ -102,4 +102,4 @@ int main(){
   cout<<ans;
   return 0;
 } 
-// If Solved Mark (0/1) here => []
+// If Solved Mark (0/1) here => [1]

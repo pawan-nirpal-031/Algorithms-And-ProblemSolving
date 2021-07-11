@@ -17,10 +17,33 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
+void C(){
+    ll n,k;
+  cin>>n>>k;
+  ll a[n];
+  vector<pair<ll,int>>cache(n,{0,0});
+  ll f = k/n;
+  for(int i =0;i<n;i++){
+      cin>>a[i];
+      cache[i].first = a[i]+f;
+      cache[i].second = i;
+  }
+  sort(a,a+n);
+  k-=(f*n);
+  for(int i =0;i<k;i++){
+      cache[i].first+=1;
+  }
+  for(int i =0;i<n;i++){
+      cout<<(cache[i].first - a[cache[i].second])<<'\n';
+  }
+}
 
+void B(){
+    
+}
 
 int main(){
   FastIO;
- 
+  B();
   return 0;
 } 

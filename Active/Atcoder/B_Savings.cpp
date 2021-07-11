@@ -1,3 +1,4 @@
+// Problem Link : https://atcoder.jp/contests/abc206/tasks/abc206_b 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -17,10 +18,33 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
+/*
+Problem Statement : 
 
+
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
 
 int main(){
   FastIO;
- 
+  ll n;
+  cin>>n;
+  ll low = 0;
+  ll high = (1e9);
+  while(high>low+1){
+      ll mid = ((low+high)>>1);
+      if(((mid*(mid+1))>>1)>=n) high = mid;
+      else low =mid;
+  }
+  cout<<(((low*(low+1))>>1)>=n?low:high);
   return 0;
 } 
+// If Solved Mark (0/1) here => [1]
