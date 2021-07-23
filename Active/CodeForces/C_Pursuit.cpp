@@ -1,4 +1,4 @@
-// Problem Link : https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/D
+// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -21,13 +21,7 @@ typedef long double ld;
 /*
 Problem Statement : 
 
-Given an array of n integers ai. Let's say that the segment of this array a[l..r] (1≤l≤r≤n) is good if the sum of elements on this segment is at least s. Your task is to find the number of good segments.
 
-Input
-The first line contains integers n and s (1≤n≤105, 1≤s≤1018). The second line contains integers ai (1≤ai≤109).
-
-Output
-Print one integer, the number of good segments.
 
 */
 

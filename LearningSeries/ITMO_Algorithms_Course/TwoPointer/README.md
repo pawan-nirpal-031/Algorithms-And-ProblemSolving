@@ -1,5 +1,6 @@
     
-## Two Pointers Method
+# Two Pointers Method
+
     The Two Pointers Method is an important technique that is often used in competetive programming.
     What is this method? The easiest way to explain it is with the example of the task "Merging two sorted arrays".
 
@@ -103,39 +104,49 @@
 
 
 
-### Segment with good sum Now we use the same technique to solve a different problem. You are given an array a consisting of non-negative integers. It is necessary to find in this array a segment of numbers [l;r], the sum of elements on which does not exceed s and the length of the segment is maximum.Let's solve this problem with the two-pointer method. We will maintain some segment of the array (its left and right boundaries will be the same two pointers), as well as the sum on this segment. We will slowly move both boundaries of this segment to the right. If we move the right border one element forward, and the sum on the new segment is no more than s, then we can leave the left border in place. It makes no sense to move it forward, since the current segment is already coming up. If we added a right element and the sum has become more than s, then we need to move the left border forward. You need to move it forward until the sum on the segment again becomes less than or equal to s. This is done using any of the implementations shown in the previous step. But in this particular task, it is more convenient to move the right border with the for cycle, and tighten the left border with the while cycle. The complexity of the algorithm is also linear. 
-    x = 0, L = 0  for R = 0..n-1
-     x += a[R]
-    while x > s:
-        x -= a[L]
-        L++
-    res = max(res, R - L + 1) If we want to find a segment with a sum greater than or equal to s (in this case, the length of the segment, on the contrary, needs to be minimized), then a similar algorithm can be used. We will again move the right border with the for cycle, and move the left one forward until the sum remains greater than or equal to s. However, in this version, a case appears in which for a fixed right boundary of the segments with the required sum does not exist at all. Therefore, when updating the answer, you need to add a check. x = 0, L = 0 
+# Segment with good sum :
+    Now we use the same technique to solve a different problem. You are given an array a consisting of non-negative integers. It is necessary to find in this array a segment of numbers [l;r], the sum of elements on which does not exceed s and the length of the segment is maximum.Let's solve this problem with the two-pointer method. We will maintain some segment of the array (its left and right boundaries will be the same two pointers), as well as the sum on this segment. We will slowly move both boundaries of this segment to the right. If we move the right border one element forward, and the sum on the new segment is no more than s, then we can leave the left border in place. It makes no sense to move it forward, since the current segment is already coming up. If we added a right element and the sum has become more than s, then we need to move the left border forward. You need to move it forward until the sum on the segment again becomes less than or equal to s. This is done using any of the implementations shown in the previous step. But in this particular task, it is more convenient to move the right border with the for cycle, and tighten the left border with the while cycle. The complexity of the algorithm is also linear. 
+
+        x = 0, L = 0  for R = 0..n-1
+         += a[R]
+        while x > s:
+            x -= a[L]
+            L++
+        res = max(res, R - L + 1)
+
+    If we want to find a segment with a sum greater than or equal to s (in this case, the length of the segment, on the contrary, needs to be minimized), then a similar algorithm can be used. We will again move the right border with the for cycle, and move the left one forward until the sum remains greater than or equal to s. However, in this version, a case appears in which for a fixed right boundary of the segments with the required sum does not exist at all. Therefore, when updating the answer, you need to add a check. x = 0, L = 0 
     
-    for R = 0..n-1
-    x += a[R]
-    while x - a[L] >= s:
-        x -= a[L]
-        L++
-    if x >= s:
-       res = min(res, R - L + 1) These are two options for a fairly general task. In such problems, you need to look for the longest (shortest) segment with some property. Both options are solved using the two pointer method. One more modification is to find the number of segments, the sum of elements on which does not exceed s. You need to make minimal changes to the code of the first task. Since the for loop iterates over the right border, let's count how many segments fit for each right border. In the previous problem, we moved the left border until we found the first segment with the sum not exceeding s. This segment has the maximum length among all segments of interest to us with such a right boundary. This means that if we marked the left border as l, and the right border as r, then all segments starting to the left of l do not suit us, and all segments whose left border is in the interval [l,r] suit us. If we have fixed r and found the minimum l such that the sum on the segment [l;r] does not exceed s, then there are exactly r−l+1 possible segments with such a right boundary.
-    x = 0, L = 0
-    for R = 0..n-1
-     x += a[R]
-     while x > s:
-        x -= a[L]
-        L++
-     res += R - L + 1 The same algorithm works for the modification of the second problem. Other problemsSuppose you received a problem at the contest in which you need to do something similar: find the longest (shortest) good segment or count the number of good segments. How do you know if you can apply the two-pointer method to it? First, one of the following two properties must be met: if the segment [L,R] is good, then any segment nested in it is also good (in this case, you can apply the code from the first problem);
+        for R = 0..n-1
+        x += a[R]
+        while x - a[L] >= s:
+            x -= a[L]
+            L++
+        if x >= s:
+       res = min(res, R - L + 1) 
+
+    These are two options for a fairly general task. In such problems, you need to look for the longest (shortest) segment with some property. Both options are solved using the two pointer method. One more modification is to find the number of segments, the sum of elements on which does not exceed s. You need to make minimal changes to the code of the first task. Since the for loop iterates over the right border, let's count how many segments fit for each right border. In the previous problem, we moved the left border until we found the first segment with the sum not exceeding s. This segment has the maximum length among all segments of interest to us with such a right boundary. This means that if we marked the left border as l, and the right border as r, then all segments starting to the left of l do not suit us, and all segments whose left border is in the interval [l,r] suit us. If we have fixed r and found the minimum l such that the sum on the segment [l;r] does not exceed s, then there are exactly r−l+1 possible segments with such a right boundary.
+        
+        x = 0, L = 0
+        for R = 0..n-1
+        x += a[R]
+        while x > s:
+            x -= a[L]
+            L++
+        res += R - L + 1 
+     
+    The same algorithm works for the modification of the second problem. Other problemsSuppose you received a problem at the contest in which you need to do something similar: find the longest (shortest) good segment or count the number of good segments. How do you know if you can apply the two-pointer method to it? First, one of the following two properties must be met: if the segment [L,R] is good, then any segment nested in it is also good (in this case, you can apply the code from the first problem);
     if the segment [L,R] is good, then any segment that contains it is also good (in this case, you can apply the code from the second problem).
     Secondly, you should be able to recalculate your function (check if current segment is good or bad), while moving the left or right border by one to the right.
 
     In such tasks, the code almost always looks like this:
 
-    L = 0
-    for R = 0..n-1
-        add(a[R])
-        while not good():
-            remove(a[L])
-            L++
+        L = 0
+        for R = 0..n-1
+            add(a[R])
+            while not good():
+                remove(a[L])
+                L++
+
     To solve such problems, you need to implement three functions: add, remove, and good.
     Segment with a small set
     Let's solve a classical problem.

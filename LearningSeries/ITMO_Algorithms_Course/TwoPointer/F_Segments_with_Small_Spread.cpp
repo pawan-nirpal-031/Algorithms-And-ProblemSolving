@@ -1,3 +1,4 @@
+// Problem Link : https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/F
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -17,10 +18,27 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
+/*
+Problem Statement : 
 
+Given an array of n integers ai. Let's say that a segment of this array a[l..r] (1≤l≤r≤n) is good if the difference between the maximum and minimum elements on this segment is at most k. Your task is to find the number of different good segments.
+
+Input
+The first line contains integers n and k (1≤n≤105, 0≤k≤1018). The second line contains integers ai (1≤ai≤1018).
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
 
 int main(){
   FastIO;
   
   return 0;
 } 
+// If Solved Mark (0/1) here => []

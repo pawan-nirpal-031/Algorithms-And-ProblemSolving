@@ -16,11 +16,22 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
+int get(int g[],int u){
+    return g[u];
+}
 
-
+void merge(int g[],int u,int v){
+    if(g[u]==g[v]) return;
+    
+}
 
 int main(){
   FastIO;
+  int n;
+  cin>>n;
+  g[n+1];
+  for(int i =0;i<=n;i++) g[i] = i;
   
+
   return 0;
 } 

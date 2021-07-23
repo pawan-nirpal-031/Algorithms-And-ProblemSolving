@@ -1,3 +1,4 @@
+// Problem Link : https://codeforces.com/edu/course/2/lesson/9/2/practice/contest/307093/problem/G
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -17,10 +18,30 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
+/*
+Problem Statement : 
 
+Given an array of n integers ai. Let's say that a segment of this array a[l..r] (1≤l≤r≤n) is good if the GCD of all numbers on this segment is 1. Your task is to find the shortest good segment.
+
+Input
+The first line contains an integer n (1≤n≤105). The second line contains integers ai (1≤ai≤1018).
+
+Output
+Print one number, the minimum length of a good segment. If there is no good segment, print −1.
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
 
 int main(){
   FastIO;
   
   return 0;
 } 
+// If Solved Mark (0/1) here => []

@@ -7,12 +7,12 @@ typedef long double ld;
 #define Infinity (ll)1e18
 #define Append(a) push_back(a)
 #define Pair(a,b) make_pair(a,b)
-#define Clear(a) for(ll &x : a) x=0;
+#define Clear(a) for(ll &x : a){x=0;}
 #define Point(x) std::fixed<<setprecision(15)<<x
 #define SetBits(x) __builtin_popcount(x);
-#define GoogleOutput(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
+#define DebugCase(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
 #define FastIO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define BoolAns(b) (cout<<(b?"Yes\n":"No\n"));
+#define Status(b) (cout<<(b?"YES\n":"NO\n"));
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
@@ -112,71 +112,124 @@ class StringUtility{
 };
 
 class GraphUtility{
+  private:
+    int nodes_per_comp;
+    void ConnectedComponentsInfoUtil(vector<int>g[],vector<bool>&vis,int u){
+        vis[u] = 1;
+        nodes_per_comp+=1;
+        for(int v : g[u]) if(not vis[v]) ConnectedComponentsInfoUtil(g,vis,v);
+    }
   public:
 
-    void DfsTreeFlattening(vector<int>&flattend_tree,vector<pair<int,int>>&range,int curr_node,int par_curr,vector<int>g[]){
+    vector<pair<int,int>> ConnectedComponentsInfo(vector<int>g[],int n){
+        /*
+           components_data(i) =  (starting_pt_of_comp,number_of_nodes_in_comp)
+           components_data.size() = number of components
+        */
+        vector<pair<int,int>>components_data;
+        vector<bool>vis(n,0);
+        for(int i =0;i<n;i++){
+            if(not vis[i]){
+                nodes_per_comp = 0;
+                ConnectedComponentsInfoUtil(g,vis,i);
+                components_data.push_back({i,nodes_per_comp});
+            }
+        }
+        return components_data;
+    }
+
+    vector<int> BfsSingleSourceShortestPath(vector<int>g[],int n,int src){
+        vector<int>dist(n,INT_MAX);
+        dist[src] =0;
+        vector<bool>vis(n,0);
+        queue<int>process;
+        process.push(src);
+        vis[src] =1;
+        while(not process.empty()){
+            int curr_node = process.front();
+            process.pop();
+            for(int v : g[curr_node]){
+                if(vis[v]) continue;
+                vis[v] =1;
+                dist[v] = 1 + dist[curr_node];
+                process.push(v);
+            }  
+        }
+        return dist;
+    }
+
+    void TreeFlatteningUtil(vector<int>&flattend_tree,vector<pair<int,int>>&range,int curr_node,int par_curr,vector<int>g[]){
       flattend_tree.push_back(curr_node);
       range[curr_node].first = flattend_tree.size();
       for(int &child : g[curr_node]){
         if(child!=par_curr){
-          DfsTreeFlattening(flattend_tree,range,child,curr_node,g);
+          TreeFlatteningUtil(flattend_tree,range,child,curr_node,g);
         }
       }
       range[curr_node].second = flattend_tree.size();
     } 
 
-    void TreeFlattening(){
-      int n = 100;
-      cin>>n;
+    pair<vector<int>,vector<pair<int,int>>> TreeFlattening(vector<int>graph[],int n){
       vector<int>flattend_tree;
       vector<pair<int,int>>range(n+1,{0,0});
-      vector<int>graph[n+1];
-      int m = n-1;
-      while(m--){
-        int x,y;
-        cin>>x>>y;
-        graph[x].emplace_back(y);
-        graph[y].emplace_back(x);
-      }
-      GraphUtility().DfsTreeFlattening(flattend_tree,range,1,0,graph);
-      for(int i =0;i<n;i++){
-        cout<<"start of "<<i+1<<": "<<range[i+1].first<<", end position  : "<<range[i+1].second<<endl;
-      }
+      GraphUtility().TreeFlatteningUtil(flattend_tree,range,1,0,graph);
+      return {flattend_tree,range};
     } 
 };
 
-class SegmentTree{
+class RangeQueryStructureUtility{
+  private:
+    int sqrt_blk_size;
+
   public:
-    int merge(int a,int b){
+    
+    ll SqrtDecompositionMin(ll a[],ll sqrt_array[],ll n,ll l,ll r){
+      int low = l/sqrt_blk_size;
+      int high = r/sqrt_blk_size;
+      ll min_val = INT_MAX;
+      if(low==high){
+        for(int i =l;i<=r;i++) min_val = min(min_val,a[i]);
+        return min_val;
+      }else{
+        for(int i = l;i<sqrt_blk_size*(low+1);i++) min_val = min(min_val,a[i]);
+        for(int i = low+1;i<high;i++) min_val = min(min_val,sqrt_array[i]);
+        for(int i = high*sqrt_blk_size;i<=r;i++) min_val = min(min_val,a[i]);
+      }
+      return min_val;
+    }
+
+    
+
+    int SegmentTreeMerge(int a,int b){
         return a+b;
     }
 
-    void Build(int a[],vector<int>&tree,int seg_left,int seg_right,int tree_indx){
+    void SegmentTreeBuild(int a[],vector<int>&tree,int seg_left,int seg_right,int tree_indx){
         if(seg_left==seg_right){
             tree[tree_indx] = a[seg_left];
             return;
         }
         int mid = (seg_left+seg_right)>>1;
-        Build(a,tree,seg_left,mid,2*tree_indx);
-        Build(a,tree,mid+1,seg_right,2*tree_indx+1);
-        tree[tree_indx] = merge(tree[2*tree_indx],tree[2*tree_indx+1]);
+        SegmentTreeBuild(a,tree,seg_left,mid,2*tree_indx);
+        SegmentTreeBuild(a,tree,mid+1,seg_right,2*tree_indx+1);
+        tree[tree_indx] = SegmentTreeMerge(tree[2*tree_indx],tree[2*tree_indx+1]);
     }
 
-    void PointUpdate(int a[],vector<int>&tree,int seg_left,int seg_right,int tree_indx,int update_indx,int update_val){
+    void SegmentTreePointUpdate(int a[],vector<int>&tree,int seg_left,int seg_right,int tree_indx,int update_indx,int update_val){
         if(seg_left==seg_right and seg_left==update_indx){
             tree[tree_indx] = a[update_indx] = update_val;
             return;
         }
         int mid = (seg_left+seg_right)>>1;
         if(update_indx>mid){
-            PointUpdate(a,tree,mid+1,seg_right,2*tree_indx+1,update_indx,update_val);
+            SegmentTreePointUpdate(a,tree,mid+1,seg_right,2*tree_indx+1,update_indx,update_val);
         }else{
-            PointUpdate(a,tree,seg_left,mid,2*tree_indx,update_indx,update_val);
+            SegmentTreePointUpdate(a,tree,seg_left,mid,2*tree_indx,update_indx,update_val);
         }
-        tree[tree_indx] = merge(tree[2*tree_indx],tree[2*tree_indx+1]);
+        tree[tree_indx] = SegmentTreeMerge(tree[2*tree_indx],tree[2*tree_indx+1]);
     }
 
-    void RangeUpdate(vector<int>&tree,vector<int>&lazy,int tree_indx,int seg_left,int seg_right,int update_left,int update_right,int update_val){
+    void SegmentTreeRangeUpdate(vector<int>&tree,vector<int>&lazy,int tree_indx,int seg_left,int seg_right,int update_left,int update_right,int update_val){
         if(lazy[tree_indx]>0){
             int update_val = lazy[tree_indx];
             tree[tree_indx]+=(seg_right-seg_left+1)*(update_val);
@@ -200,12 +253,12 @@ class SegmentTree{
             return;
         }
         int mid = (seg_left+seg_right)>>1;
-        RangeUpdate(tree,lazy,2*tree_indx,seg_left,mid,update_left,update_right,update_val);
-        RangeUpdate(tree,lazy,2*tree_indx+1,mid+1,seg_right,update_left,update_right,update_val);
-        tree[tree_indx] = merge(tree[2*tree_indx],tree[2*tree_indx+1]);
+        SegmentTreeRangeUpdate(tree,lazy,2*tree_indx,seg_left,mid,update_left,update_right,update_val);
+        SegmentTreeRangeUpdate(tree,lazy,2*tree_indx+1,mid+1,seg_right,update_left,update_right,update_val);
+        tree[tree_indx] = SegmentTreeMerge(tree[2*tree_indx],tree[2*tree_indx+1]);
     }
 
-    int Query(vector<int>&tree,vector<int>&lazy,int seg_left,int seg_right,int tree_indx,int query_left,int query_right){
+    int SegmentTreeQuery(vector<int>&tree,vector<int>&lazy,int seg_left,int seg_right,int tree_indx,int query_left,int query_right){
         if(lazy[tree_indx]>0){
             int update_val = lazy[tree_indx];
             tree[tree_indx]+=(seg_right-seg_left+1)*(update_val);
@@ -218,62 +271,78 @@ class SegmentTree{
         if(query_left>=seg_left and query_right<=seg_right) return tree[tree_indx]; // Full overlap
         if(query_left>seg_right or query_right<seg_left)  return 0; // Return Identity elment as zero overlap
         int mid = (seg_left+seg_right)>>1;
-        return merge(Query(tree,lazy,seg_left,mid,2*tree_indx,query_left,query_right),Query(tree,lazy,mid+1,seg_right,2*tree_indx+1,query_left,query_right));
+        return SegmentTreeMerge(SegmentTreeQuery(tree,lazy,seg_left,mid,2*tree_indx,query_left,query_right),SegmentTreeQuery(tree,lazy,mid+1,seg_right,2*tree_indx+1,query_left,query_right));
     }
 
 };
 
+class BinarySearchUtility{
+public:
+    int LowerIndx(ll a[],ll e,ll n){
+        if(a[n-1]<e) return -1;
+        if(a[0]>=e) return 0;
+        int low = 0;
+        int high = n-1;
+        while(high-low>1){
+            ll mid = ((low+high)>>1);
+            if(a[mid]>=e) high = mid;
+            else low = mid;
+        }
+        return (a[high]>=e?high:-1);
+    }
 
-int main(int argc, char const *argv[]){
-    FastIO;
-    
-    return 0;
-}
+    int HigherIndx(ll a[],ll e,ll n){
+        if(a[0]>e) return -1;
+        if(a[n-1]<=e) return n-1;
+        int low = 0;
+        int high = n-1;
+        while(high-low>1){
+            ll mid = ((low+high)>>1);
+            if(a[mid]<=e) low = mid;
+            else high = mid;
+        }
+        return (a[low]<=e?low:-1);
+    }
 
 
-  /*
+    pair<ll,ll> QuickLookUpInfo(ll a[],int n,ll x){
+        /*
+            This function returns (-1,-1)if element is not present, if the element is present in an sorted array, then it returns a pair of indices required element, if multiple copies exist of required element this function returns (lower_occurnace, higher_occuerance) index pairs, in case of single occurance it returns (x,x) that is same index.
+        */
+        ll l = 0;
+        ll r = n-1;
+        ll ret_val = -1;
+        while(r>l+1){
+            ll mid = ((l+r)>>1);
+            if(a[mid]==x) r = mid;
+            else if(a[mid]<x) l = mid;
+            else r = mid;
+        }
+        if(a[r]==x) ret_val = r;
+        if(a[l]==x) ret_val = l;
+        if(ret_val==-1) return {-1,-1};
+        ll low = ret_val;
+        ll high = n-1;
+        while(high>low+1){
+            ll mid = ((low+high)>>1);
+            if(a[mid]==x) low = mid;
+            else if(a[mid]>x) high = mid;
+            else low = mid;
+        }
+        ll upper = low;
+        if(a[high]==x) upper = high;
+        return {ret_val,upper};
+    }
 
-                                  Number Theory notes
 
-   1) Gcd(x,1) = 1;
-      Lcm(x,1)  = x
+};
 
-   2) Gcd(x,y) = g;
-      Lcm(x,y) = l;
-      -> l*g = x*y;
-    
-   3) Gcd(a,b,c) = Gcd(a,Gcd(b,c)) = Gcd(Gcd(a,b),c) it is associative but Lcm is not.
 
-   4) For any number N total number of factors is of the order O(n^(1/3)) cube root order
-   
-   5) For count of number of primes in range (1,N) it is of  the order O(N/ln(N)) -> ln(N) is log base e
-    
-   6) (a-b)%m = (a%m - b%m + m)%m careful with overflow and modulo with negetive nums
 
-   7) Any postitive int >=2 can be written as product of it's prime factors
-      N = (Pf1^x1)*(Pf2^x2)*..(Pfk^xk) -> Pfi is the ith prime factor of N and xi is it's freqency
+int main(){
+  FastIO;
+  
 
-   8) Perfect squares have exactly 3 divisors only (1,x,x^2) for x^2,
-      Perfect cube has exactly 4 divisors (1,x,x^2,x^3) for some x^3,
-      Genrerally for kth power of x it has exactly k+1 divisors (1,x,x^2,x^3 ... x^k) 
-      
-   9) Proprties of Primes 
-        * Total no of distinct prime factors are very less
-        * product of smallest 8 primes is larger than 1e6   
-        
-        * Ex x<=1e7 and (l,r) <=1e18 print total number of numbers in the
-          range (l,r) which are not co-prime to x, ie count of y's such that Gcd(x,y) not 1
-          say x = 6 and l,r = (13,23) = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23] 
-          the not co-primes to 6 are the numbers in this range that are multiples of 2 or 3
-          say count of multiples in this range of 2 denoted by m2 and of 3 by m3, then our answer is 
-          m2 + m3 - m6 ( Inclusion-exlclusion principle ) and getting mx in range [l,r] is easy ie, mx = floor(r/x) - floor((l-1)/x) 
-          now see for x = 30 Pfs(30) -> (2,3,5) then we count the expression m2 + m3 + m5 - m6 - m15 - m10 + m30
-          then you can generate subsets and add the odd len subsets ie (2,3,5, (2,3,5)) and subtract even len subsets 
-          such as ((2,3). (3,5), (2,5)) m value's
-          
-          Algorithm : Get prime factors of x say (p1,p2,p3..pk) and get all subsets of those and if len of subset is 
-          even then subtract it's m else add it's m value, this will work because for x=1e7 distinct Pf's will be utmost 8 
+  return 0;
+} 
 
-        
-
-  */
