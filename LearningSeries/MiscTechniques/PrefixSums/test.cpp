@@ -17,20 +17,6 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
-int Find(int parent[],int u){
-  if(parent[u]==u) return u;
-  return parent[u] = Find(parent,parent[u]);
-}
-
-void Union(int parent[],int u,int v,vector<int>&Size){
-  u = Find(parent,u);
-  v = Find(parent,v);
-  if(Size[v]>Size[u]) swap(u,v);
-  parent[v] = u;
-  Size[u]+=Size[v];
-}
-
-
 int main(){
   FastIO;
   int n;

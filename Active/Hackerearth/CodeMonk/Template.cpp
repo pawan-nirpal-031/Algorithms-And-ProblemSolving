@@ -1,3 +1,4 @@
+// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -17,43 +18,41 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
-int Find(int parent[],int u){
-  if(parent[u]==u) return u;
-  return parent[u] = Find(parent,parent[u]);
-}
+class Helper{
+  public:
+  void UnsignedBinaryRep(ll n){
+    
+  }
+};
 
-void Union(int parent[],int u,int v,vector<int>&Size){
-  u = Find(parent,u);
-  v = Find(parent,v);
-  if(Size[v]>Size[u]) swap(u,v);
-  parent[v] = u;
-  Size[u]+=Size[v];
-}
+/*
+Problem Statement : 
 
+
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
+
+
+
+void Solve(){
+
+}
 
 int main(){
   FastIO;
-  int n;
-  ll x;
-  cin>>n>>x;
-  ll a[n];
-  ll prefix[n];
-  for(int i=0;i<n;i++){
-    cin>>a[i];
-    prefix[i] = a[i];
-    if(i>0) prefix[i]+=prefix[i-1];
+  int t;
+  //cin>>t;
+  while(t--){
+    Solve();
   }
-  map<ll,ll>cache;
-  int cnt =0;
-  for(int i =0;i<n;i++){
-    cache[prefix[i]]+=1;
-    if(prefix[i]==x){
-      cnt+=1;
-      continue;
-    }
-    cnt+=cache[prefix[i]-x];
-  }
-  cout<<cnt;
-  
   return 0;
 } 
+// If Solved Mark (0/1) here => []

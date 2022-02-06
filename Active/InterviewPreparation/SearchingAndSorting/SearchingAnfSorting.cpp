@@ -17,43 +17,45 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
-int Find(int parent[],int u){
-  if(parent[u]==u) return u;
-  return parent[u] = Find(parent,parent[u]);
+void BuyAndSell(vector<int>&stocks){
+    int n = stocks.size();
+    int max_profit = -INT_MAX;
+    vector<int>suff(n,0);
+    suff[n-1] = stocks[n-1];
+    for(int i =n-2;i>=0;i--) suff[i] = max(stocks[i+1],suff[i+1]);
+    for(int i=0;i<n-1;i++){
+        max_profit = max(max_profit,suff[i+1]-stocks[i]);
+        cout<<max_profit<<' ';
+    }
 }
 
-void Union(int parent[],int u,int v,vector<int>&Size){
-  u = Find(parent,u);
-  v = Find(parent,v);
-  if(Size[v]>Size[u]) swap(u,v);
-  parent[v] = u;
-  Size[u]+=Size[v];
+
+void TwoSum(vector<int>& nums, int target){
+    
+}
+
+
+void ReversePairs(){
+
+}
+
+void GridUniquePaths(){
+
+}
+
+
+void Solve(){
+    int n;
+    cin>>n;
+    vector<int>v(n,0);
+    for(int i=0;i<n;i++) cin>>v[i];
+    BuyAndSell(v);
 }
 
 
 int main(){
   FastIO;
-  int n;
-  ll x;
-  cin>>n>>x;
-  ll a[n];
-  ll prefix[n];
-  for(int i=0;i<n;i++){
-    cin>>a[i];
-    prefix[i] = a[i];
-    if(i>0) prefix[i]+=prefix[i-1];
-  }
-  map<ll,ll>cache;
-  int cnt =0;
-  for(int i =0;i<n;i++){
-    cache[prefix[i]]+=1;
-    if(prefix[i]==x){
-      cnt+=1;
-      continue;
-    }
-    cnt+=cache[prefix[i]-x];
-  }
-  cout<<cnt;
-  
+  int t = 1;
+  Solve();
   return 0;
 } 

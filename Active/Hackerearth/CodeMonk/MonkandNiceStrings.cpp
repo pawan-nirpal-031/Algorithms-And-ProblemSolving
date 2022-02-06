@@ -1,3 +1,4 @@
+// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -16,44 +17,55 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
-
-int Find(int parent[],int u){
-  if(parent[u]==u) return u;
-  return parent[u] = Find(parent,parent[u]);
+ull Power(ull a,ll x){
+  if(x==1) return a;
+  ull half = Power(a,(x>>1));
+  ull val = half*half;
+  if(x&1) return val*a;
+  return val;
 }
 
-void Union(int parent[],int u,int v,vector<int>&Size){
-  u = Find(parent,u);
-  v = Find(parent,v);
-  if(Size[v]>Size[u]) swap(u,v);
-  parent[v] = u;
-  Size[u]+=Size[v];
-}
+/*
+Problem Statement : 
+
+
+
+*/
+
+
+/*
+Author's solution : 
+
+string a[n];
+  for(int i =0;i<n;i++) cin>>a[i];
+  for(int i=0;i<n;i++){
+      int c = 0;
+      int x = 0;
+      while(x<i){
+        c+=(a[i]>a[x]);
+        x++;
+      }
+      cout<<c<<'\n';
+  }
+
+*/
 
 
 int main(){
   FastIO;
   int n;
-  ll x;
-  cin>>n>>x;
-  ll a[n];
-  ll prefix[n];
+  cin>>n;
+  string a[n];
+  for(int i =0;i<n;i++) cin>>a[i];
   for(int i=0;i<n;i++){
-    cin>>a[i];
-    prefix[i] = a[i];
-    if(i>0) prefix[i]+=prefix[i-1];
+      int c = 0;
+      int x = 0;
+      while(x<i){
+        c+=(a[i]>a[x]);
+        x++;
+      }
+      cout<<c<<'\n';
   }
-  map<ll,ll>cache;
-  int cnt =0;
-  for(int i =0;i<n;i++){
-    cache[prefix[i]]+=1;
-    if(prefix[i]==x){
-      cnt+=1;
-      continue;
-    }
-    cnt+=cache[prefix[i]-x];
-  }
-  cout<<cnt;
-  
   return 0;
 } 
+// If Solved Mark (0/1) here => []

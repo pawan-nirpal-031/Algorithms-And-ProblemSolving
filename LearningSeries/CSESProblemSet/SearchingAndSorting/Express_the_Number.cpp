@@ -1,3 +1,4 @@
+// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -17,43 +18,47 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
-int Find(int parent[],int u){
-  if(parent[u]==u) return u;
-  return parent[u] = Find(parent,parent[u]);
-}
+/*
+Problem Statement : 
 
-void Union(int parent[],int u,int v,vector<int>&Size){
-  u = Find(parent,u);
-  v = Find(parent,v);
-  if(Size[v]>Size[u]) swap(u,v);
-  parent[v] = u;
-  Size[u]+=Size[v];
-}
 
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
+
+
+
+int largest(ll n){
+  ll curr = 2;
+  while(curr*4<=n){
+      curr = curr*4;
+  }
+  return (curr);
+}
 
 int main(){
   FastIO;
-  int n;
-  ll x;
-  cin>>n>>x;
-  ll a[n];
-  ll prefix[n];
-  for(int i=0;i<n;i++){
-    cin>>a[i];
-    prefix[i] = a[i];
-    if(i>0) prefix[i]+=prefix[i-1];
-  }
-  map<ll,ll>cache;
-  int cnt =0;
-  for(int i =0;i<n;i++){
-    cache[prefix[i]]+=1;
-    if(prefix[i]==x){
-      cnt+=1;
-      continue;
+  int t;
+  cin>>t;
+  while(t--){
+    ll n,x;
+    cin>>n>>x;
+    int c =0;
+    while(n>x){
+        n-=largest(n);
+        c+=1;
     }
-    cnt+=cache[prefix[i]-x];
+    if(n==-1) cout<<-1<<'\n';
+    else if(n==0) cout<<c<<"\n";
+    else cout<<c+1<<'\n';
   }
-  cout<<cnt;
-  
   return 0;
 } 
+// If Solved Mark (0/1) here => []

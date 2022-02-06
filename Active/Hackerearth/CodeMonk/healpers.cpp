@@ -16,48 +16,14 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
-
-void UnitTests(){
-    
-}
-
-
-bool cases =1;
-
-void RandomGenrator(){
-
-}
-
-void SolveCase(){
-    ll limit = 1e9;
-    ll n,k;
-    cin>>n>>k;
-    map<ll,ll>a;
-    for(int i =0;i<n;i++){
-        ll x;
-        cin>>x;
-        a[x]+=1;
+void binary(ll n){
+    if(n>0){
+        binary(n>>1);
+        cout<<n%2;
     }
-    if(k==0){
-        cout<<-1;
-        return;
-    }
-    int cnt = 0;
-    for(auto x : a){
-        cnt+=x.second;
-        if(cnt==k){
-            if(x.first<=limit){
-                cout<<x.first;
-                return;
-            }
-        }else if(cnt>k) break;
-    }
-    cout<<-1;
 }
 
 
 int main(){
-  FastIO;
-  SolveCase();
-  return 0;
-} 
+
+}

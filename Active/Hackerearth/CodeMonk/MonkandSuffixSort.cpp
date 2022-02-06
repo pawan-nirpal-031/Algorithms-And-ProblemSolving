@@ -1,3 +1,4 @@
+// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -17,43 +18,33 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
-int Find(int parent[],int u){
-  if(parent[u]==u) return u;
-  return parent[u] = Find(parent,parent[u]);
-}
+/*
+Problem Statement : 
 
-void Union(int parent[],int u,int v,vector<int>&Size){
-  u = Find(parent,u);
-  v = Find(parent,v);
-  if(Size[v]>Size[u]) swap(u,v);
-  parent[v] = u;
-  Size[u]+=Size[v];
-}
 
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
 
 int main(){
   FastIO;
-  int n;
-  ll x;
-  cin>>n>>x;
-  ll a[n];
-  ll prefix[n];
-  for(int i=0;i<n;i++){
-    cin>>a[i];
-    prefix[i] = a[i];
-    if(i>0) prefix[i]+=prefix[i-1];
+  string s;
+  int k;
+  cin>>s>>k;
+  vector<string>c;
+  int l = s.length();
+  for(int i = l-1;i>=0;i--){
+      c.push_back(s.substr(i));
   }
-  map<ll,ll>cache;
-  int cnt =0;
-  for(int i =0;i<n;i++){
-    cache[prefix[i]]+=1;
-    if(prefix[i]==x){
-      cnt+=1;
-      continue;
-    }
-    cnt+=cache[prefix[i]-x];
-  }
-  cout<<cnt;
-  
+  sort(c.begin(),c.end());
+  cout<<c[k-1];
   return 0;
 } 
+// If Solved Mark (0/1) here => []
