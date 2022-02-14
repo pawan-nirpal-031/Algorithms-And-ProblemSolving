@@ -44,10 +44,25 @@ class Math{
 };
 
 
+int solve(){
+   string s;
+   cin>>s;
+   int o =0;
+   int z =0;
+   for(char c : s){
+       if(c=='0') z++;
+       else o++;
+   }
+   if(z==o) return z-1;
+   else if(z>o) return o;
+   else return z;
+}
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--) cout<<solve()<<'\n';
   return 0;
 } 
 // If Solved Mark (0/1) here => []

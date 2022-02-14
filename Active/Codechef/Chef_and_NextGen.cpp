@@ -13,7 +13,7 @@ typedef long double ld;
 #define SetBits(x) __builtin_popcount(x);
 #define DebugCase(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
 #define FastIO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define Status(b) (cout<<(b?"YES\n":"NO\n"));
+#define Status(b) (cout<<(b?"Yes\n":"No\n"));
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
@@ -47,7 +47,13 @@ class Math{
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      ll a,b,c,d;
+      cin>>a>>b>>c>>d;
+      Status(c*d>=a*b);
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

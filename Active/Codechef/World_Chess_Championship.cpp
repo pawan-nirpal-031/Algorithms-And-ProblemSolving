@@ -47,7 +47,30 @@ class Math{
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      ll x;
+      cin>>x;
+      string s;
+      cin>>s;
+      int chef = 0;
+      int karl = 0;
+      for(char c : s){
+          if(c=='D'){
+              karl++;
+              chef++;
+          }else if(c=='C') karl+=2;
+          else chef+=2;
+      }
+      if(karl==chef){
+          cout<<55*x<<'\n';
+      }else if(karl>chef){
+          cout<<60*x<<'\n';
+      }else{
+          cout<<40*x<<'\n';
+      }
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

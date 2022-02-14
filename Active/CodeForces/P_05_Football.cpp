@@ -47,7 +47,23 @@ class Math{
 
 int main(){
   FastIO;
-  
+//   string s;
+//   cin>>s;
+//   int cons =1;
+//   bool d =0;
+//   for(int i=1;i<s.length();i++){
+//       if(s[i]==s[i-1]){
+//           cons++;
+//           if(cons>=7){
+//               d = 1;
+//               break;
+//           }
+//       }else{
+//           cons = 1;
+//       }
+//   }
+//   Status(d);
+  cout<<__gcd(0,0);
   return 0;
 } 
 // If Solved Mark (0/1) here => []

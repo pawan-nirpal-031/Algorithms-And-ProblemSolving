@@ -1,3 +1,4 @@
+// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -16,37 +17,40 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
-class node{
-    int data;
-    int vertical_no;
-    node *lft;
-    node *right;
+
+/*
+Problem Statement : 
+
+
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
+
+class Math{
+    public:
+    int Floor(int x,int y){
+        return floor(x*1.0/y);
+    }
+    int Ceil(int x,int y){
+        return ceil(x*1.0/y);
+    }
 };
 
-class Tree{
-    node *root;
-    Tree(){
-        root = NULL;
-    }
-    void Insert(){
 
-    }
-};
-
-void TopView(){
-    int n;
-    cin>>n;
-    int m = n-1;
-    while(m--){
-        int n1,n2;
-        char d;
-        cin>>n1>>d>>n2;
-        
-    }
-}
 
 int main(){
   FastIO;
-  TopView();
+  int a[5] = {0,0,0,0,5};
+  int g = __gcd(a[0],a[1]);
+  for(int i=1;i<5;i++) g = __gcd(g,a[i]);
+  cout<<g;
   return 0;
 } 
+// If Solved Mark (0/1) here => []

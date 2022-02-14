@@ -1,4 +1,3 @@
-// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -18,36 +17,19 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
-/*
-Problem Statement : 
-
-
-
-*/
-
-
-/*
-Author's solution : 
-
-
-
-*/
-
-class Math{
-    public:
-    int Floor(int x,int y){
-        return floor(x*1.0/y);
-    }
-    int Ceil(int x,int y){
-        return ceil(x*1.0/y);
-    }
-};
-
 
 
 int main(){
   FastIO;
-  
+  vector<int>x = {1,2,3,4,5,6,7,8};
+  vector<int>::iterator it;
+  int a[3] = {2,4,6};
+  int i = 0;
+  for(int v : x){
+      if(v==a[i]){
+          
+      }
+  }
+  for(int v : x) cout<<v<<' ';
   return 0;
 } 
-// If Solved Mark (0/1) here => []

@@ -43,11 +43,34 @@ class Math{
     }
 };
 
+bool IsVowel(char c){
+    char vows[] = {'A','E','I','O','U','Y'};
+    for(char x : vows) if(c==x) return 1;
+    return 0;
+}
 
+char Lower(char x){
+    return tolower(x);
+}
 
 int main(){
   FastIO;
-  
+  string s;
+  cin>>s;
+  string res;
+  bool was = 0;
+  for(char c : s){
+      if(IsVowel(c)){
+          was = 1;
+          continue;
+      }
+      if(was){
+          was =0;
+          res+='.';
+      }
+      res+=Lower(c);
+  }
+  cout<<res;
   return 0;
 } 
 // If Solved Mark (0/1) here => []

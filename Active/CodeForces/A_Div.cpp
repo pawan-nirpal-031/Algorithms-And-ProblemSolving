@@ -44,10 +44,23 @@ class Math{
 };
 
 
+int solve(){
+    int n;
+    cin>>n;
+    if(n%7==0) return n;
+    else{
+        for(int i =0;i<10;i++){
+            if((n-n%10+i)%7==0) return n-n%10+i;
+        }
+    }
+    return 0;
+}
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--) cout<<solve()<<'\n';
   return 0;
 } 
 // If Solved Mark (0/1) here => []

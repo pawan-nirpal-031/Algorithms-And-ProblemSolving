@@ -1,3 +1,4 @@
+// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -17,45 +18,51 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
-void BuyAndSell(vector<int>&stocks){
-    int n = stocks.size();
-    int max_profit = -INT_MAX;
-    vector<int>suff(n,0);
-    suff[n-1] = stocks[n-1];
-    for(int i =n-2;i>=0;i--) suff[i] = max(stocks[i+1],suff[i+1]);
-    for(int i=0;i<n-1;i++){
-        max_profit = max(max_profit,suff[i+1]-stocks[i]);
-        cout<<max_profit<<' ';
+/*
+Problem Statement : 
+
+
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
+
+class Math{
+    public:
+    int Floor(int x,int y){
+        return floor(x*1.0/y);
     }
-}
+    int Ceil(int x,int y){
+        return ceil(x*1.0/y);
+    }
+};
 
-
-void TwoSum(vector<int>& nums, int target){
-    
-}
-
-
-void ReversePairs(){
-
-}
-
-void GridUniquePaths(){
-
-}
-
-
-void Solve(){
+void solve(){
     int n;
     cin>>n;
-    vector<int>v(n,0);
-    for(int i=0;i<n;i++) cin>>v[i];
-    BuyAndSell(v);
+    string s;
+    cin>>s;
+    int ones =0;
+    int zeros =0;
+    for(char c : s){
+        if(c=='0') zeros+=1;
+        else ones+=1;
+    }
+    Status((n&1) or ((n%2==0 and ((ones==zeros) or (ones%2==0 and zeros%2==0)))));
 }
 
 
 int main(){
   FastIO;
-  int t = 1;
-  Solve();
+  int t;
+  cin>>t;
+  while(t--) solve();
   return 0;
 } 
+// If Solved Mark (0/1) here => []

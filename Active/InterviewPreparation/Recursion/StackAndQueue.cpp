@@ -1,4 +1,3 @@
-// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -18,36 +17,23 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
-/*
-Problem Statement : 
-
-
-
-*/
-
-
-/*
-Author's solution : 
-
-
-
-*/
-
-class Math{
-    public:
-    int Floor(int x,int y){
-        return floor(x*1.0/y);
-    }
-    int Ceil(int x,int y){
-        return ceil(x*1.0/y);
-    }
-};
-
+void BinaryWithStack(int n){
+  stack<int>bin;
+  while(n>0){
+    bin.push(n%2);
+    n>>=1;
+  }
+  bin.push(0);
+  while(not bin.empty()){
+    cout<<bin.top();
+    bin.pop();
+  }
+}
 
 
 int main(){
   FastIO;
   
+
   return 0;
 } 
-// If Solved Mark (0/1) here => []

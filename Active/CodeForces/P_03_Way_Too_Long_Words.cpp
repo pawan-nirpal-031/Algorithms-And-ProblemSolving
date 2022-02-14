@@ -47,7 +47,14 @@ class Math{
 
 int main(){
   FastIO;
-  
+  int n;
+  cin>>n;
+  while(n--){
+      string s;
+      cin>>s;
+      if(s.length()<=10) cout<<s<<"\n";
+      else cout<<s[0]<<s.length()-2<<s[s.length()-1]<<'\n';
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

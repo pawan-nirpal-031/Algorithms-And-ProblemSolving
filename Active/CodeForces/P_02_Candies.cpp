@@ -47,7 +47,14 @@ class Math{
 
 int main(){
   FastIO;
-  
+  int n;
+  cin>>n;
+  ll a[n];
+  for(int i=0;i<n;i++) cin>>a[i];
+  for(int i =1;i<n;i++) a[i]+=a[i-1];
+  int l,r;
+  cin>>l>>r;
+  cout<<a[r]-(l==0?0:a[l-1]);
   return 0;
 } 
 // If Solved Mark (0/1) here => []

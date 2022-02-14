@@ -1,0 +1,2 @@
+learn to optimize merge routine in O(1) space
+optimize majority element soln (freq > n/2) from nlogn to O(n) time and O(1) space using moore's voting algo

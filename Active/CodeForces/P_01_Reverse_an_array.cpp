@@ -47,7 +47,18 @@ class Math{
 
 int main(){
   FastIO;
-  
+  int n;
+  cin>>n;
+  stack<int>s;
+  while(n--){
+      int c;
+      cin>>c;
+      s.push(c);
+  }
+  while(not s.empty()){
+      cout<<s.top()<<" ";
+      s.pop();
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

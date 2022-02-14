@@ -44,10 +44,31 @@ class Math{
 };
 
 
+int solve(){
+    int n;
+    cin>>n;
+    vector<bool>state(n,0);
+    int height = 1;
+    for(int i =0;i<n;i++){
+        bool b;
+        cin>>b;
+        state[i] = b;
+        if(i==0) height+=b;
+        else{
+            if(state[i] and state[i-1]) height+=5;
+            else if(state[i]==0 and state[i-1]==0) return -1;
+            else height+=b;
+        }
+    }
+    return height;
+}
+
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--) cout<<solve()<<'\n';
   return 0;
 } 
 // If Solved Mark (0/1) here => []

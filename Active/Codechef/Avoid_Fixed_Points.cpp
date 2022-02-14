@@ -43,11 +43,25 @@ class Math{
     }
 };
 
-
+void solve(){
+    int n;
+    cin>>n;
+    int pr =0;
+    for(int i =1;i<=n;i++){
+        int x;
+        cin>>x;
+        if(pr+i-x==0) pr+=1;
+    }
+    cout<<pr<<'\n';
+}
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      solve();
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []
