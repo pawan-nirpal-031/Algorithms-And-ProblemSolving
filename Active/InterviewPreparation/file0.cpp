@@ -16,7 +16,6 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
- 
 
 class Math{
     public:
@@ -494,17 +493,79 @@ int maxDistance(vector<int>& colors) {
 
 
 
-vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+void combinationSumUtil(vector<int>& candidates,vector<vector<int>>&cache,vector<int>&local,int target,int i){
+    if(i==candidates.size()-1){
+        if(target==0) cache.push_back(local);
+        return;
+    }
+    if(candidates[i]<=target){
+        local.push_back(candidates[i]);
+        combinationSumUtil(candidates,cache,local,target-candidates[i],i);
+        local.pop_back();
+    }
+    combinationSumUtil(candidates,cache,local,target,i+1);
+}
+
+vector<vector<int>> combinationSum(vector<int>&candidates, int target) {
+    vector<vector<int>>cache;
+    vector<int>local;
+    combinationSumUtil(candidates,cache,local,target,0);
+    return cache;
+}
+
+
+
+void combinationSum2Util(vector<int>&candidates, int target,vector<vector<int>>&cache,vector<int>&local,int i){
+   if(target==0){
+       cache.push_back(local);
+       return;
+   }
+   for(int x =i;x<candidates.size();x++){
+       if(x>i and candidates[x]==candidates[x-1]) continue;
+       if(candidates[x]>target) break;
+       local.push_back(candidates[x]);
+       combinationSum2Util(candidates,target-candidates[x],cache,local,x+1);
+       local.pop_back();
+   }
+}
+
+vector<vector<int>> combinationSum2(vector<int>&candidates, int target) {
+    vector<vector<int>>cache;
+    vector<int>local;
+    sort(candidates.begin(),candidates.end());
+    combinationSum2Util(candidates,target,cache,local,0);
+    return cache;
+}
+
+void subsetSumsUtil(vector<int>a,int n,int i,vector<int>&res,int curr_sum){
+    if(i>=n){
+        res.push_back(curr_sum);
+        return;
+    }
+    curr_sum+=a[i];
+    subsetSumsUtil(a,n,i+1,res,curr_sum);
+    curr_sum-=a[i];
+    subsetSumsUtil(a,n,i+1,res,curr_sum);
+}
+
+vector<int> subsetSums(vector<int> arr, int N){
+    vector<int>res;
+    subsetSumsUtil(arr,arr.size(),0,res,0);
+    return res;
+}
+
+void subsetsWithDupUtil(){
     
 }
 
+vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+    
+}
+
+
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m;
-  vector<vector<int>> a = Utilty().Get2dMatrix(n,m);
-  vector<vector<int>>ans = merge(a);
-  for(int i =0;i<ans.size();i++) cout<<ans[i][0]<<' '<<ans[i][1]<<'\n';
+  
   return 0;
 } 
  // https://leetcode.com/problems/two-furthest-houses-with-different-colors/
