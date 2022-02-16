@@ -554,14 +554,74 @@ vector<int> subsetSums(vector<int> arr, int N){
     return res;
 }
 
-void subsetsWithDupUtil(){
-    
+void subsetsWithDupUtil(vector<int>& nums,int indx,vector<vector<int>>&ans,vector<int>&local){
+    ans.push_back(local);
+    for(int i =indx;i<nums.size();i++){
+        if(i>indx and nums[i]==nums[i-1]) continue;
+        local.push_back(nums[i]);
+        subsetsWithDupUtil(nums,i+1,ans,local);
+        local.pop_back();
+    }
 }
 
 vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-    
+    vector<vector<int>>ans;
+    vector<int>local;
+    sort(nums.begin(),nums.end());
+    subsetsWithDupUtil(nums,0,ans,local);
+    return ans;
 }
 
+void PrintAllPermutationsUtil(vector<int>&a,vector<vector<int>>&ans,int indx){
+    if(indx==a.size()){
+        ans.push_back(a);
+        return;
+    }
+    for(int i =indx;i<a.size();i++){
+        swap(a[indx],a[i]);
+        PrintAllPermutationsUtil(a,ans,indx+1);
+        swap(a[indx],a[i]);
+    }
+}
+
+vector<vector<int>> permute(vector<int>& a) {
+    vector<vector<int>>ans;
+    PrintAllPermutationsUtil(a,ans,0);
+    return ans;
+}
+
+bool IsValid(vector<pair<int,int>>&local,int r,int c){
+    for(auto p : local) if(p.second==c or (abs(p.first-r)==abs(p.second-c))) return 0;
+    return 1;
+}
+
+void solveNQueensUtil(int n,int row,vector<vector<string>>&board,vector<pair<int,int>>&local){
+    if(row==n){
+        vector<string>soln(n,string(n,'.'));
+        for(auto c : local) soln[c.first][c.second] = 'Q';
+        board.push_back(soln);
+        return;
+    }
+    for(int col =0;col<n;col++){
+        if(IsValid(local,row,col)){
+            local.push_back({row,col});
+            solveNQueensUtil(n,row+1,board,local);
+            local.pop_back();
+        }
+    }
+}   
+
+vector<vector<string>> solveNQueens(int n){
+    vector<vector<string>>board;
+    vector<pair<int,int>>local;
+    solveNQueensUtil(n,0,board,local);
+    return board;
+}
+
+
+void solveSudoku(vector<vector<char>>& board) {
+    
+}
 
 int main(){
   FastIO;

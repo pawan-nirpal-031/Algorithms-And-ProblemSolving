@@ -36,8 +36,7 @@ void PowerSet(string s,int n){
 
 int main(){
   FastIO;
-  string s;
-  cin>>s;
-  PowerSet(s,s.length());
+  string s(10,'.');
+  cout<<s;
   return 0;
 } 

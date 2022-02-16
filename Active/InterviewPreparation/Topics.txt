@@ -1,0 +1,16 @@
+# Brute Force, Recursion, Functional Recursion, Exaustive Search, Branch & Bound and Backtracking.
+
+# Ad hoc, Greedy, Bit manipulation, Sliding window, Binary Search and Monotonic Optimization, Two pointer Co-ordinate compression.
+
+# Combinatorical Counting, Dynamic Programming, other Optimization techniques.
+
+# Graph algortihms, bi-connectivity, Topological sort, Shortest paths, flow problems and Trees (Binary trees, Binary Search trees, AVL Trees, Red Black Trees, Generic Trees) kth ancestor, binary lifting. 
+
+# Data structures like Disjoint set, Sparse table, Tries, suffix arrays.
+
+# Range Query problems using Segment trees, Binary Indexd trees, other Range Query Data structures
+
+# Stacks and Queues, Linked lists problems
+
+
+
