@@ -16,26 +16,9 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
-void GenerateAllSubsets(string s,int i,int n,string temp){
-    if(i<n){
-        temp+=s[i];
-        GenerateAllSubsets(s,i+1,n,temp);
-        temp.pop_back();
-        GenerateAllSubsets(s,i+1,n,temp);
-    }else cout<<temp<<'\n';
-}
-
-void PowerSet(string s,int n){
-    for(int i =0;i<(1<<n);i++){
-        for(int j =0;j<n;j++){
-            if((i&(1<<j))) cout<<s[j];
-        }
-        cout<<'\n';
-    }
-}
-
 int main(){
   FastIO;
-  cout<<(4/3)*3<<' '<<(7/3)*3;
+  
+  
   return 0;
 } 

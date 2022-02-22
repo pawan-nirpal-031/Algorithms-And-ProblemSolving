@@ -618,14 +618,230 @@ vector<vector<string>> solveNQueens(int n){
     return board;
 }
 
+bool IsPossible(vector<vector<char>>&board,char d,int r,int c){
+    for(int i =0;i<9;i++) if(board[r][i]==d) return 0;
+    for(int i =0;i<9;i++) if(board[i][c]==d) return 0;
+    int bx = (r/3)*3;
+    int by = (c/3)*3;
+    for(int i =0;i<3;i++){
+        for(int j = 0;j<3;j++){
+            int x = i+bx;
+            int y = j+by;
+            if(board[x][y]==d) return 0;
+        }
+    }
+    return 1;
+}
 
-void solveSudoku(vector<vector<char>>& board) {
-    
+
+
+bool solveSudokuUtil(vector<vector<char>>& board){
+    int fininshed =0;
+    for(int i =0;i<9;i++){
+        for(int j =0;j<9;j++){
+            if(board[i][j]=='.'){
+                fininshed++;
+                for(int d = 1;d<=9;d++){
+                    if(IsPossible(board,'0'+d,i,j)){
+                        board[i][j] = '0'+d;
+                        if(solveSudokuUtil(board)) return 1;
+                        else board[i][j] = '.';
+                    }
+                }
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+
+void solveSudoku(vector<vector<char>>& board){
+ solveSudokuUtil(board);
+}
+
+
+
+bool ValidParenthesis(string s){
+    stack<char>stk;
+    for(char c : s){
+        if(c=='(' or c=='{' or c=='[') stk.push(c);
+        else{
+            if((not stk.empty()) and ((c==')' and stk.top()=='(') or (c=='}' and stk.top()=='{') or (c==']' and stk.top()=='['))) stk.pop();
+            else return 0;
+        }
+    }
+    return stk.empty();
+}
+
+bool ALetter(char c){
+  return (( c>='a' and c <='z') or (c>='A' and c<='Z'));
+}
+
+string simplifyPath(string path) {
+    stack<string>sys;
+    int n = path.length();
+    sys.push("/");
+    for(int i =0;i<n;i++){
+        if(i+1<n){
+            if(path[i]=='.' and path[i+1]=='.' and (i+2<n and path[i+2]!='.') and (not sys.empty())) sys.pop();
+            if(path[i]=='/' and (sys.top()!="/") and path[i+1]!='/') sys.push("/");
+            if(not ALetter(path[i++])) continue;
+            string dir;
+            while(ALetter(path[i]) and i<n){
+                dir+=path[i++];
+            }
+            sys.push(dir);
+        }else if(path[i]!='/'){
+            string v(1,path[i]);
+            sys.push(v);
+        }
+    }
+    string ans;
+    while (not sys.empty()){
+        ans+=sys.top();
+        sys.pop();
+    }
+    reverse(ans.begin(),ans.end());
+    return ans;
+}
+
+
+
+bool CanColour(vector<int>g[],vector<int>&colour,int node,int col){
+    for(int v : g[node]) if(colour[v]==col) return 0;
+    return 1;
+}
+
+bool KColouringUtil(vector<int>g[],vector<int>&colour,int node,int k){
+    if(node==colour.size()) return 1;
+    for(int c = 1;c<=k;c++){
+        if(CanColour(g,colour,node,c)){
+            colour[node] = c;
+            if(KColouringUtil(g,colour,node+1,k)){
+                return 1;
+            }
+            colour[node] = 0;
+        }
+    }
+    return 0;
+}
+
+void KColouring(){
+    int n,m,k;
+    cin>>n>>m>>k;
+    vector<int>g[n];
+    for(int i =0;i<m;i++){
+        int x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    vector<int>colour(n,0);
+    vector<bool>vis(n,0);
+    Status(KColouringUtil(g,colour,0,k));
+}
+
+struct node{
+    int time;
+    int x,y;
+};
+
+
+int orangesRotting(vector<vector<int>>& grid) {
+    queue<node>basket;
+    int n = grid.size();
+    int m = grid[0].size();
+    int fresh =0;
+    int rotten =0;
+    for(int i =0;i<n;i++){
+        for(int j =0;j<m;j++){
+            if(grid[i][j]==2){
+                node n;
+                rotten+=1;
+                n.time =0;
+                n.x = i;
+                n.y = j;
+                basket.push(n);
+            }else if(grid[i][j]==1) fresh+=1;
+        }
+    }
+    if(fresh==0) return 0;
+    if(fresh and rotten==0) return -1;
+    int time_taken = -1;
+    while(not basket.empty()){
+        node curr = basket.front();
+        basket.pop();
+        time_taken = max(time_taken,curr.time);
+        for(int i =0;i<4;i++){
+            int tx = curr.x+dx[i];
+            int ty = curr.y+dy[i];
+            if(tx>=0 and tx<n and ty>=0 and ty<m){
+                if(grid[tx][ty]==1){
+                    node nxt;
+                    grid[tx][ty] = 2;
+                    nxt.time = curr.time+1;
+                    nxt.x = tx;
+                    nxt.y = ty;
+                    basket.push(nxt);
+                }
+            }
+        }
+    }
+    for(int i =0;i<n;i++){
+        for(int j =0;j<m;j++){
+            if(grid[i][j]==1) return -1;
+        }
+    }
+    return time_taken;       
+}
+
+int firstUniqChar(string s) {
+    vector<pair<int,int>>freq(26,{0,-1});
+    for(int i=0;i<s.length();i++){
+        if(freq[s[i]-'a'].second==-1) freq[s[i]-'a'].second = i;
+        freq[s[i]-'a'].first++;
+    }
+    int ans = INT_MAX;
+    for(int i =0;i<26;i++){
+        if(freq[i].second==-1 or freq[i].first>1) continue;
+        ans = min(ans,freq[i].second);
+    }
+    return (ans!=INT_MAX?ans:-1);
+}
+
+string FirstNonRepeating(string A){
+    vector<int>freq(26,0);
+    queue<char>que;
+    string ans;
+    for(char c : A){
+        freq[c-'a']+=1;
+        que.push(c);
+        while(not que.empty() and freq[que.front()-'a']>1) que.pop();
+        if(que.empty()) ans+='#';
+        else ans+=que.front();
+    }
+    return ans;
+}
+
+void MaximumOFAllSubarraysOfSizek(vector<int>&arr,int k){
+    int n = arr.size();
+    deque<int>list;
+    for(int i =0;i<n;i++){
+        if(not list.empty() and list.front()==i-k) list.pop_front(); // remove out of bounds of window if any
+        while(not list.empty() and (arr[list.back()]<arr[i])) list.pop_back(); // maintain decreasing order
+        list.push_back(i); // insert current element of window
+        if(i>=k-1) cout<<arr[list.front()]<<" ";// print maximum of subarray;
+    }
 }
 
 int main(){
   FastIO;
-  
+  int n,k;
+  cin>>n>>k;
+  vector<int>a(n,0);
+  for(int i =0;i<n;i++) cin>>a[i];
+  MaximumOFAllSubarraysOfSizek(a,k);
   return 0;
 } 
- // https://leetcode.com/problems/two-furthest-houses-with-different-colors/
+
+

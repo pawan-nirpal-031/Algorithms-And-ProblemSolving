@@ -1,3 +1,4 @@
+https://leetcode.com/problems/two-furthest-houses-with-different-colors/
 https://leetcode.com/problems/surrounded-regions/
 https://leetcode.com/problems/detonate-the-maximum-bombs/
 https://leetcode.com/problems/longest-substring-without-repeating-characters/
@@ -5,3 +6,5 @@ https://leetcode.com/problems/find-all-groups-of-farmland/
 https://leetcode.com/problems/k-closest-points-to-origin/
 https://leetcode.com/problems/grid-illumination/
 https://leetcode.com/problems/n-queens-ii/
+https://leetcode.com/problems/simplify-path/
+https://leetcode.com/problems/flower-planting-with-no-adjacent/

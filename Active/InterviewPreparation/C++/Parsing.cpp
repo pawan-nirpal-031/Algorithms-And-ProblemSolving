@@ -39,9 +39,5 @@ string decryptPassword(string s) {
 
 int main() {
     
-    string s;
-    cin>>s;
-    cout<<decryptPassword(s);
-   
     return 0;
 }
