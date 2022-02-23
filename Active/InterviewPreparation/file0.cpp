@@ -834,6 +834,64 @@ void MaximumOFAllSubarraysOfSizek(vector<int>&arr,int k){
     }
 }
 
+
+
+void SmallestToPrefix(vector<int>&smallestTOPrefix,vector<int>a,int n){
+  stack<int>stk;
+  for(int i =0;i<n;i++){
+    if(stk.empty()) stk.push(i);
+    else{
+      while(not stk.empty() and a[i]<=a[stk.top()]) stk.pop();
+      if(not stk.empty()) smallestTOPrefix[i] = stk.top()+1;
+      stk.push(i);
+    }
+  }
+}
+
+
+void SmallestToSuffix(vector<int>&smallestToSuffix,vector<int>a,int n){
+  stack<int>stk;
+  for(int i =n-1;i>=0;i--){
+    if(stk.empty()) stk.push(i);
+    else{
+      while(not stk.empty() and a[stk.top()]>=a[i]) stk.pop();
+      if(not stk.empty()) smallestToSuffix[i] = stk.top()-1;
+      stk.push(i);
+    }
+  }
+}
+
+
+
+int MaximumAreaOfHistogram(vector<int>a,int n){
+  vector<int>smallestTOPrefix(n,0),smallestToSuffix(n,n-1);
+  SmallestToPrefix(smallestTOPrefix,a,n);
+  SmallestToSuffix(smallestToSuffix,a,n);
+  vector<int>areas(n,0);
+  int max_area = 0;
+  for(int i =0;i<n;i++) max_area = max(max_area,a[i]*(smallestToSuffix[i]-smallestTOPrefix[i]+1));
+  return max_area;
+}
+
+int MaximumRectangleAreaOf1s(vector<vector<int>>grid,int n,int m){
+    for(int i =0;i<n;i++) for(int j =0;j<m;j++) cin>>grid[i][j];
+    int max_area = 0;
+    vector<int>cache(m,0);
+    for(int i=0;i<n;i++){
+        if(i==0){
+            max_area = max(max_area,MaximumAreaOfHistogram(grid[i],m));
+        }else{
+            for(int j=0;j<m;j++){
+                if(grid[i][j]) cache[j]+=1;
+                else cache[j] =0;
+            }
+            max_area = max(max_area,MaximumAreaOfHistogram(cache,m));
+        }
+    }
+    return max_area;
+}
+
+
 int main(){
   FastIO;
   int n,k;
