@@ -17,16 +17,6 @@ typedef long double ld;
 #define Input(x) cin>>x
 
 
-class Math{
-    public:
-    int Floor(int x,int y){
-        return floor(x*1.0/y);
-    }
-    int Ceil(int x,int y){
-        return ceil(x*1.0/y);
-    }
-};
-
 
 class Utilty{
     public:
@@ -35,6 +25,9 @@ class Utilty{
         vector<vector<int>>a(n,vector<int>(m,0));
         for(int i =0;i<n;i++) for(int j =0;j<m;j++) cin>>a[i][j];
         return a;
+    }
+    vector<int> GetVector(int n){
+        return vector<int>(n,0);
     }
 };
 
@@ -892,14 +885,229 @@ int MaximumRectangleAreaOf1s(vector<vector<int>>grid,int n,int m){
 }
 
 
+void FindMissingAndDuplicate(vector<int>&a,int n){
+    for(int i =0;i<n;i++){
+        if(a[i]==a[a[i]-1] or i==a[i]-1) continue; 
+        swap(a[i],a[a[i]-1]);
+    }
+    int dup =0;
+    int miss =0;
+    for(int i=0;i<n;i++){
+        if(a[i]==i+1) continue;
+        dup = a[i];
+        miss = i+1;
+        break;
+    }
+    cout<<dup<<' '<<miss;
+}
+
+
+
+int First(int a[],int n,int k){
+    int l =0;
+    int h = n-1;// points to first occurance of k
+    while(l+1<h){
+        int m = l + (h-l)/2;
+        if(k<=a[m]) h = m;
+        else l = m;
+    }
+    if(a[l]==k) return l;
+    else if(a[h]==k) return h;
+    return -1;
+}
+
+int Last(int a[],int n,int k){
+    int l = 0; // points to last occurance 
+    int h = n-1;
+    while(l+1<h){
+        int m = l + (h-l)/2;
+        if(a[m]<=k) l= m;
+        else h = m;
+    }
+    if(a[h]==k) return h;
+    else if(a[l]==k) return l;
+    return -1;
+}
+
+int CountOfElementInSorted(int a[],int n,int k){
+    int first = First(a,n,k);
+    if(first==-1) return 0;
+    int last = Last(a,n,k);
+    return last-first+1;
+}
+
+
+int NumberOfTimesRotated(int a[],int n){
+    int l =0;
+    int h = n-1;
+    int smallest_indx = -1;
+    while(l+1<h){
+        int m = l + (h-l)/2;
+        int prev = (m+n-1)%n;
+        int nxt = (m+1)%n;
+        if(a[m]<a[nxt] and a[m]<a[prev]) return m;
+        else if(a[m]<=a[h]) h = m;
+        else l = m;
+    }
+    return (a[l]<a[h]?l:h);
+} 
+
+int SearchINNearlySortedArray(int a[],int n,int k){
+    int l = 0;
+    int h = n-1;
+    while(l+1<h){
+        int m = (l + (h-l)/2);
+        if(a[m]==k) return m;
+        else if(m-1>=l and a[m-1]==k) return m-1;
+        else if(m+1<=h and a[m+1]==k) return m+1;
+        else{
+            if(m-2>=l and k<=a[m-2]) h = m-2;
+            else if(m+2<=h and k>=a[m+2]) l = m+2;
+        }
+    }
+    if(a[l]==k) return l;
+    else if(a[h]==k) return h;
+    return -1;
+}
+
+int GreatestElementLessThanK(int a[],int n,int k){
+    int l =-1; // greatest el less thank k 
+    int h = n; // smallest element greater than k
+    while(l+1<h){
+        int m = (l+h)/2;
+        if(k>=a[m]) l = m;
+        else h = m;
+    }
+    if(a[h]<=k) return h;
+    return l;
+}
+
+int SmallestElementGreaterThanK(int a[],int n,int k){
+    int l =-1;
+    int h = n;
+    while(l+1<h){
+        int m = (l+h)/2;
+        if(k>=a[m]) l = m;
+        else h = m;
+    }
+    if(a[l]==k) return l;
+    return h;
+}
+
+void KClosestToGivenNumber(){
+  priority_queue<pair<int,int>>max_heap;
+  int n,k,x;
+  cin>>n>>k>>x;
+  for(int i =0;i<n;i++){
+      int v;
+      cin>>v;
+      max_heap.push({abs(x-v),v});
+      if(max_heap.size()>k){
+          max_heap.pop();
+      }
+  }
+  stack<pair<int,int>>cache;
+  while(not max_heap.empty()){
+     cache.push(max_heap.top());
+     max_heap.pop();
+  }
+  while(not cache.empty()){
+      auto p = cache.top();
+      cout<<p.second<<'\n';
+      cache.pop();
+  }
+}
+
+
+void TopKFrequentNumbers(){
+   int n,k;
+   cin>>n>>k;
+   unordered_map<int,int>cache;
+   for(int i =0;i<n;i++){
+       int v;
+       cin>>v;
+       cache[v]+=1;
+   }
+   priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>heap;
+   for(auto p : cache){
+       heap.push({p.second,p.first});
+       if(heap.size()>k) heap.pop();
+   }
+   while(not heap.empty()){
+       cout<<heap.top().second<<' ';
+       heap.pop();
+   }
+}
+
+void FrequencySort(){// counting sort wont be useful numbers could be large
+    int n;
+    cin>>n;
+    unordered_map<int,int>cache;
+    priority_queue<pair<int,int>>heap;
+    for(int i =0;i<n;i++){
+        int x;
+        cin>>x;
+        cache[x]+=1;
+    }
+    for(auto p : cache) heap.push({p.second,p.first});
+    vector<int>ans;
+    while(not heap.empty()){
+        auto p = heap.top();
+        int f = p.first;
+        int x = p.second;
+        while(f--) ans.push_back(x);
+        heap.pop();
+    }
+    for(int v : ans) cout<<v<<" ";
+}
+
+void KClosestPointsToOrigin(){ 
+    typedef pair<int,pair<int,int>> PointData;
+    // a space opti,ization could be done in terms of storage on heap in form of (distance,indxInArray)
+    int n,k;
+    cin>>n>>k;
+    priority_queue<PointData>Kclosest;
+    for(int i=0;i<n;i++){
+        int x,y;
+        cin>>x>>y;
+        PointData d;
+        d.first = sqrt(x*x+y*y);
+        d.second.first = x;
+        d.second.second = y;
+        Kclosest.push(d);
+        if(Kclosest.size()>k) Kclosest.pop();
+    }
+    while(not Kclosest.empty()){
+        PointData d = Kclosest.top();
+        cout<<d.second.first<<' '<<d.second.second<<'\n';
+        Kclosest.pop();
+    }
+}
+
+void ConnectRopesToMuinimizeCost(){ 
+    // given an array find the minimum cost of adding all values to form minimum ie. implement optimal merge pattern ex 1 2 3 4 5, (1,2) = 3, ((1,2),3) = 6, (4,5) = 9, (((1,2),3),(4,5)) = 15 ie pick two smallest at any time
+    int n;
+    cin>>n;
+    priority_queue<int,vector<int>,greater<int>>heap;
+    for(int i=0;i<n;i++){
+        int x;
+        cin>>x;
+        heap.push(x);
+    }
+    int x =0;
+    while(not heap.empty()){
+        x+=heap.top();
+        heap.pop();
+    }
+    cout<<x;
+}
+
+
 int main(){
   FastIO;
-  int n,k;
-  cin>>n>>k;
-  vector<int>a(n,0);
-  for(int i =0;i<n;i++) cin>>a[i];
-  MaximumOFAllSubarraysOfSizek(a,k);
+    
   return 0;
+  
 } 
 
 
