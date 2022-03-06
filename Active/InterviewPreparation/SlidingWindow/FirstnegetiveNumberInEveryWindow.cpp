@@ -3,7 +3,6 @@ using namespace std;
 typedef unsigned long long int ull;
 typedef long long int ll;
 typedef long double ld;
-typedef pair<int,pair<int,int>> Tuple;
 #define Mod 1000000007
 #define Infinity (ll)1e18
 #define Append(a) push_back(a)
@@ -18,25 +17,28 @@ typedef pair<int,pair<int,int>> Tuple;
 #define Input(x) cin>>x
 
 
-
-// Simple as you read the array maintain a max heap of size k because we remove all the unnecessary elements that would appear in sorted sequence which are not useful and are redundant we need not sort them so complexity reduces from nlogn to nlogk because we always maintain a k size heap and pop whenever size exceeds k  
-
-// priority_queue<int,vector<int>,greater<int>>min_heap; // min heap decln
-
-
-
-
-
 int main(){
-  priority_queue<int>heap; // max heap decln 
+  FastIO;
   int n,k;
   cin>>n>>k;
-  for(int i =0;i<n;i++){
-      int x;
-      cin>>x;
-      heap.push(x);
-      if(heap.size()>k) heap.pop();
+  int a[n];
+  for(int &x : a) cin>>x;
+  int l =0,r =0;
+  queue<int>list;
+  vector<int>ans;
+  while(r<n-k+1 and l<=r){
+      if(r<k){
+          if(a[r]<0) list.push(a[r]);
+          r++;
+      }else{
+          if(list.size()) ans.push_back(list.front());
+          if(list.size() and list.front()==a[l]) list.pop();
+          if(a[r+1]<0) list.push(a[r+1]);
+          l+=1;
+          r+=1; 
+      }
   }
-  cout<<heap.top();
+  if(r!=n-k+1) ans.push_back((list.size()?list.front():0));
+  for(int x : ans) cout<<x<<' ';
   return 0;
 } 

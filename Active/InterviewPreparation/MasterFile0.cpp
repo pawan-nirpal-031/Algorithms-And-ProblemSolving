@@ -885,7 +885,7 @@ int MaximumRectangleAreaOf1s(vector<vector<int>>grid,int n,int m){
 }
 
 
-void FindMissingAndDuplicate(vector<int>&a,int n){
+void FindSingleMissingAndDuplicate(vector<int>&a,int n){
     for(int i =0;i<n;i++){
         if(a[i]==a[a[i]-1] or i==a[i]-1) continue; 
         swap(a[i],a[a[i]-1]);
@@ -900,6 +900,8 @@ void FindMissingAndDuplicate(vector<int>&a,int n){
     }
     cout<<dup<<' '<<miss;
 }
+
+
 
 
 
@@ -1103,9 +1105,78 @@ void ConnectRopesToMuinimizeCost(){
 }
 
 
+int MajorityElement(vector<int>a){
+    int majority = a[0];
+    int freq =1;
+    for(int i =1;i<a.size();i++){
+        if(freq==0){
+            majority = a[i];
+            freq+=1;
+            continue;
+        }
+        if(a[i]==majority) freq+=1;
+        else freq-=1;
+    }
+    return majority;
+}
+
+
+set<int> FindAllMissingAndDuplicate(vector<int>&a,int n){
+    for(int i =0;i<n;i++){
+        if(a[i]-1==i or a[i]==a[a[i]-1]) continue;
+        swap(a[i],a[a[i]-1]);
+    }
+    set<int>ans;
+    for(int i =0;i<n;i++){
+        if(a[i]-1!=i){
+            ans.insert(i+1);
+            ans.insert(a[i]);
+        } 
+    }
+    return ans;
+}
+
+
+void UnmatchedSubsequnce(string s,string t){
+  int tp =0;
+  vector<int>matches;
+  for(int i =0;i<s.size() and tp<t.size();i++){
+    if(s[i]==' '){
+      if(t[tp]==' '){
+        tp++;
+        continue;
+      }
+    }
+    if(s[i]==t[tp]){
+       matches.push_back(i);
+       tp++;
+    }
+  }
+  vector<string>ans;
+  int j =0;
+  for(int i =0;i<s.size();i++){
+    if(i==matches[j]){
+      j++;
+      continue;
+    }
+    string local;
+    while(s[i]!=' ' and i<s.size()){
+      local+=s[i];
+      i++;
+    }
+    if(local.size()) ans.push_back(local);
+  }
+  for(string c : ans) cout<<c<<'\n';
+}
+
+
+
 int main(){
   FastIO;
-    
+  int n;
+  cin>>n;
+  vector<int>a(n,0);
+ 
   return 0;
   
 } 

@@ -1,0 +1,19 @@
+The SQL CASE Statement
+The CASE statement goes through conditions and returns a value when the first condition is met (like an if-then-else statement). So, once a condition is true, it will stop reading and return the result. If no conditions are true, it returns the value in the ELSE clause.
+
+If there is no ELSE part and no conditions are true, it returns NULL.
+
+CASE Syntax
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    WHEN conditionN THEN resultN
+    ELSE result
+END;
+
+
+The SUBSTR() function extracts a substring from a string (starting at any position).
+Note: The SUBSTR() and MID() functions equals to the SUBSTRING() function.
+Extract a substring from a string (start at position 5, extract 3 characters):
+
+SELECT SUBSTR("SQL Tutorial", 5, 3) AS ExtractString;
