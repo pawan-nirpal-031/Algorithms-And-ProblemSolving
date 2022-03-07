@@ -232,18 +232,59 @@ void GetStairPath(vector<int>ways,int stair,vector<vector<int>>&paths,vector<int
 
 
 
-int NumberOfWays(int n,int m,int i,int j){
+int NumberOfWaysInMaze(int n,int m,int i,int j){
   if(i==n-1 and j==m-1) return 0;
   if(i==n-1) return 1;
   if(j==m-1) return 1;
   if(i>=0 and i<=n-1 and j>=0 and j<=m-1){
-    return NumberOfWays(n,m,i+1,j) + NumberOfWays(n,m,i,j+1);
+    return NumberOfWaysInMaze(n,m,i+1,j) + NumberOfWaysInMaze(n,m,i,j+1);
   }
   return 0;
 }
 
+
+int GetMazePathsWithJumps(int i,int j,int n,int m){
+  if(i<0 or j<0 or i>=n or j>=m) return 0;
+  if(i==n-1 and j==m-1) return 0;
+  if(i==n-1 and (j==m-2 or j==m-3 or j==m-4)) return 1;
+  if(j==m-1 and (i==n-2 or i==n-3 or i==n-4)) return 1;
+  ll number_of_ways =0;
+  for(int x = 1;x<=3;x++) number_of_ways+=GetMazePathsWithJumps(i,j+x,n,m);
+  for(int x = 1;x<=3;x++) number_of_ways+=GetMazePathsWithJumps(i+x,j,n,m);
+  return number_of_ways;
+}
+
+bool IsValid(int i,int j,int n){
+    return (i>=0 and i<n and j>=0 and j<n);
+}
+
+int nuf =0;
+int kinghtmovesx[8] = {-2,-1,1,2,2,1,-1,-2};
+int kinghtmovesy[8] = {1, 2, 2,1,-1,-2,-2,-1};
+void KnightTour(int i,int j,int n,int count,vector<vector<int>>&grid){
+  if(count==n*n){
+    grid[i][j] = count;
+    for(int p =0;p<n;p++){
+      for(int q =0;q<n;q++) cout<<grid[p][q]<<' ';
+      cout<<endl;
+    }
+    grid[i][j] =0;
+    cout<<"\n";
+    return;
+  }
+  grid[i][j] = count;
+  for(int d =0;d<8;d++){
+    int x = i+kinghtmovesx[d];
+    int y = j+kinghtmovesy[d];
+    if(IsValid(x,y,n) and grid[x][y]==0){
+      KnightTour(x,y,n,count+1,grid);
+    } 
+  }
+  grid[i][j] =0;
+}
+
 int main(){
   FastIO;
-  cout<<NumberOfWays(3,3,0,0);
+  
   return 0;
 } 
