@@ -16,28 +16,29 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
-void GenerateAllSubsets(string s,int i,int n,string temp){
-    if(i<n){
-        temp+=s[i];
-        GenerateAllSubsets(s,i+1,n,temp);
-        temp.pop_back();
-        GenerateAllSubsets(s,i+1,n,temp);
-    }else cout<<temp<<'\n';
+void SetBit(int &x,int bit_no){
+    x |=(1<<bit_no);
 }
 
-void PowerSet(string s,int n){
-    for(int i =0;i<(1<<n);i++){
-        for(int j =0;j<n;j++){
-            if((i&(1<<j))) cout<<s[j];
-        }
-        cout<<'\n';
-    }
+void ClearBit(int &x,int bit_no){
+    x &=~(1<<bit_no); 
 }
+
+void ToggleBit(int &x,int bit_no){
+    x^=(1<<bit_no);
+}
+
+
+bool IsThisBitSet(int x,int bit_no){
+    return (x&(1<<bit_no));
+}
+
+
 
 int main(){
   FastIO;
-  int x = 100;
-  string v = "verdi"+to_string(x);
-  cout<<v<<endl;
+  int x, b;
+  cin>>x>>b;
+  
   return 0;
 } 

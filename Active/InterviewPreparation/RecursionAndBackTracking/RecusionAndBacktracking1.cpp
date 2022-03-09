@@ -98,14 +98,27 @@ void KnightTour(int i,int j,int n,int count,vector<vector<int>>&grid){
 }
 
 
-void PrintAbbrevations(){
-    
+void PrintAbbrevations(string s,int curr_indx,string form,int backlog){
+    if(curr_indx==s.length()){
+      if(backlog==0){
+        cout<<form<<endl;
+      }else{
+        cout<<form+to_string(backlog)<<endl;
+      }
+      return;
+    }
+    if(backlog==0){
+      PrintAbbrevations(s,curr_indx+1,form+s[curr_indx],backlog);
+      PrintAbbrevations(s,curr_indx+1,form,backlog+1);
+    }else{
+      PrintAbbrevations(s,curr_indx+1,form+to_string(backlog)+s[curr_indx],0);
+      PrintAbbrevations(s,curr_indx+1,form,backlog+1);
+    }
 }
 
 int main(){
   FastIO;
-
-
-
+  
+  
   return 0;
 } 

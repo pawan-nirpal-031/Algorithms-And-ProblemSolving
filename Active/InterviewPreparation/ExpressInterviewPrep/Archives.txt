@@ -1,0 +1,120 @@
+
+
+
+void Archive(){
+  SinglyLinkedList l1,l2;
+  l1.head = new node(1);
+  l2.head = new node(2);
+  l1.head->nxt = new node(2);
+  l2.head->nxt = new node(8);
+  l2.head->nxt->nxt = new node(1);
+  l2.head->nxt->nxt->nxt = new node(3);
+  node *ins = new node(8);
+  l2.head->nxt->nxt->nxt->nxt = ins;
+  ins->nxt = new node(9);
+  ins->nxt->nxt = new node(19);
+  ins->nxt->nxt->nxt = NULL;
+}
+
+
+int capacity; 
+    int size;
+    DoublyLinkedList cache;
+    unordered_map<int,node*>access;
+    LRUCache(int capacity){
+        this->capacity = capacity;
+        size =0;
+    }
+    
+    void UpdateCache(node* curr){
+        if(curr==cache.most_recently_used) return;
+        if(curr==cache.least_recently_used){
+            curr->nxt->prev = NULL;
+            curr->nxt = NULL;
+            cache.most_recently_used->nxt = curr;
+            curr->prev = cache.most_recently_used;
+            cache.most_recently_used = curr;
+        }else{
+            node *pnode = curr->prev;
+            node *nnode = curr->nxt;
+            nnode->prev = pnode;
+            pnode->nxt = nnode;
+            curr->nxt = curr->prev = NULL;
+            cache.most_recently_used->nxt = curr;
+            curr->prev = cache.most_recently_used;
+            cache.most_recently_used = curr;
+        }
+    }
+
+    int get(int key){
+        auto it = access.find(key);
+        if(it==access.end()) return -1;
+        int val =  it->second->val;
+        UpdateCache(it->second);
+        return val;
+    }
+    
+    void put(int key, int value){
+        auto it = access.find(key);
+        if(it==access.end()){
+           node*newadd = cache.FreshAdd(key,value);
+           access.insert({key,newadd});
+           size+=1;
+           if(size>capacity){
+              int k =  cache.Remove();
+              access.erase(k);
+              size-=1;
+           }
+        }else{
+            it->second->val = value;
+            node*existing_node =  it->second;
+            UpdateCache(existing_node);
+        }
+    }
+
+
+    
+class node{
+    public:
+        int key;
+        int val;
+        node *nxt;
+        node *prev;
+    node(int key,int val){
+        this->key = key;
+        this->val = val;
+        nxt = prev = NULL;
+    }
+};
+
+
+class DoublyLinkedList{
+    public:
+    node *least_recently_used;
+    node *most_recently_used;
+    DoublyLinkedList(){
+        least_recently_used = most_recently_used = nullptr;
+    }
+    int Remove(){
+        node *successor = least_recently_used->nxt;
+        int key = least_recently_used->key;
+        least_recently_used->nxt = NULL;
+        successor->prev = NULL;
+        delete(least_recently_used);
+        least_recently_used = successor;
+        return key;
+    }
+
+    node* FreshAdd(int key,int val){
+        node *newnode = new node(key,val);
+        if(most_recently_used==NULL){
+             most_recently_used = newnode;
+             return most_recently_used;
+        }
+        most_recently_used->nxt = newnode;
+        newnode->prev = most_recently_used;
+        most_recently_used = newnode;
+        return most_recently_used;
+    }
+
+};  
