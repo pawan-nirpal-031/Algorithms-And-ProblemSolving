@@ -33,12 +33,40 @@ bool IsThisBitSet(int x,int bit_no){
     return (x&(1<<bit_no));
 }
 
+int RightMostSetBitMask(int x){ // -x is the 2's comp of x or ~x+1 also works as ~x is 1's comp and adding 1 to it is 2's complement 
+    return (x & (-x)); // verify by an example ie (x & (2's complement of x))
+}
 
+int KernighenSAlgorithmForCountingNumberOfSetbits(int x){ // uses RightMostSetBitMask to count
+/*
+    just keep subtracting rightmost set bit mask from given number this algortihm skips all zeros and does not count them it only counts number of 1's unlike brute force so number of subtractions is equal to number of set bits only 
+
+    ex : x = 1100110010000
+      rsbm = 0000000010000
+      when you do x = x-rsbm 
+      x becomes : 110011 and keep doing until x>0 
+      in next step 
+        x = 110011
+     rsbm = 000001
+     x = x-rsbm gives = 11001  
+*/
+    int count =0;
+    while(x){
+        count++;
+        x -=(x&-x);
+    }
+    return count;
+}
+
+
+int JosephousProblemUsingBitManip(int n){
+    
+}
 
 int main(){
   FastIO;
-  int x, b;
-  cin>>x>>b;
-  
+  int x;
+  cin>>x;
+  cout<<KernighenSAlgorithmForCountingNumberOfSetbits(x);
   return 0;
 } 
