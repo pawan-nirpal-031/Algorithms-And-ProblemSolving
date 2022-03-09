@@ -1,0 +1,6 @@
+if(tmp==NULL or tmp==node1 or tmp==node2) return tmp;
+        node *lft = LeastCommonAncestor(tmp->left,node1,node2);
+        node *rght = LeastCommonAncestor(tmp->right,node1,node2);
+        if(lft==NULL) return rght;
+        if(rght==NULL) return lft;
+        return tmp;

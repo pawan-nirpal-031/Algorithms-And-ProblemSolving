@@ -175,48 +175,63 @@ class CommonUtility{
 
     vector<vector<int>> VerticalOrderTraversal(node *root){
         if(root==NULL) return {{}};
+        queue<pair<node*,pair<int,int>>>process;
         map<int,map<int,multiset<int>>>cache;
-        queue<pair<node*,pair<int,int>>>level;
-        level.push({root,{0,0}});
-        while(not level.empty()){
-            auto tuple = level.front();
-            level.pop();
-            node *curr = tuple.first;
-            int x = tuple.second.first;
-            int y = tuple.second.second;
-            cache[x][y].insert(curr->val);
-            if(curr->left) level.push({curr->left,{x-1,y+1}});
-            if(curr->right) level.push({curr->right,{x+1,y+1}});
+        process.push({root,{0,0}});
+        while(not process.empty()){
+            auto item = process.front();
+            process.pop();
+            node*curr = item.first;
+            auto coordinates = item.second;
+            cache[coordinates.first][coordinates.second].insert(curr->val);
+            if(curr->left) process.push({curr->left,{coordinates.first-1,coordinates.second+1}});
+            if(curr->right) process.push({curr->right,{coordinates.first+1,coordinates.second+1}});
         }
-        vector<vector<int>>ans;
+        vector<vector<int>>order;
         for(auto tuple : cache){
-            vector<int>soln;
-            for(auto mp : tuple.second){
-                for(int v : mp.second) soln.push_back(v);
+            vector<int>vertical;
+            for(auto ver : tuple.second){
+                for(int x : ver.second) vertical.push_back(x);
             }
-            ans.push_back(soln);
+            order.push_back(vertical);
         }
+        return order;
+    }
+
+    vector<int> TopView(node *root){
+        queue<pair<node*,pair<int,int>>>process;
+        map<int,node*>cache;
+        process.push({root,{0,0}});
+        while(not process.empty()){
+            auto tuple = process.front();
+            process.pop();
+            node *curr = tuple.first;
+            auto cordinates = tuple.second;
+            if(cache.find(cordinates.first)==cache.end()) cache[cordinates.first] = curr;
+            if(curr->left) process.push({curr->left,{cordinates.first-1,cordinates.second+1}});
+            if(curr->right) process.push({curr->right,{cordinates.first+1,cordinates.second+1}});
+        }
+        vector<int>ans;
+        for(auto p : cache) ans.push_back(p.second->val);
         return ans;
     }
 
-    vector<int>BottomView(node *tmp){
-        if(tmp==NULL) return {};
-        queue<pair<node*,int>>level;
-        map<int,int>bottom;
-        level.push({tmp,0});
-        while(not level.empty()){
-            auto curr = level.front();
-            level.pop();
-            auto it = bottom.find(curr.second);
-            if(it!=bottom.end()) it->second = curr.first->val;
-            else bottom.insert({curr.second,curr.first->val});
-            if(curr.first->left) level.push({curr.first->left,curr.second-1});
-            if(curr.first->right) level.push({curr.first->right,curr.second+1});
+    vector<int> BottomView(node *root){
+        if(root==NULL) return {};
+        queue<pair<node*,pair<int,int>>>process;
+        map<int,int>cache;
+        process.push({root,{0,0}});
+        while(not process.empty()){
+            auto tuple = process.front();
+            process.pop();
+            node *curr = tuple.first;
+            auto cordinates = tuple.second;
+            cache[cordinates.first] = curr->val;
+            if(curr->left) process.push({curr->left,{cordinates.first-1,cordinates.second+1}});
+            if(curr->right) process.push({curr->right,{cordinates.first+1,cordinates.second+1}});
         }
         vector<int>ans;
-        for(auto p : bottom){
-            ans.push_back(p.second);
-        }
+        for(auto x : cache) ans.push_back(x.second);
         return ans;
     }
 
@@ -264,11 +279,12 @@ class CommonUtility{
 
     node* LeastCommonAncestor(node *tmp,node* node1,node* node2){
         if(tmp==NULL or tmp==node1 or tmp==node2) return tmp;
-        node *lft = LeastCommonAncestor(tmp->left,node1,node2);
-        node *rght = LeastCommonAncestor(tmp->right,node1,node2);
-        if(lft==NULL) return rght;
-        if(rght==NULL) return lft;
-        return tmp;
+        node *left = LeastCommonAncestor(tmp->left,node1,node2);
+        node *right = LeastCommonAncestor(tmp->right,node1,node2);
+        if(left and right==NULL) return left;
+        else if(right and left==NULL) return right;
+        else if(right and left) return tmp;
+        return NULL;
     }
 
     string Serialize(node *root){
@@ -392,6 +408,19 @@ class BinaryTree : public CommonUtility{
             max_path_sum =0;
         }
 
+        vector<node*> GetExampleTree4(){
+            root = new node(1);
+            root->left = new node(2);
+            root->right = new node(3);
+            root->left->left = new node(4);
+            root->left->right = new node(10);
+            root->left->left->right = new node(5);
+            root->left->left->right->right = new node(6);
+            root->right->left = new node(9);
+            root->right->right = new node(10);
+            return {root,root->left->left->right->right,root};
+        }
+
         node *GetExampleTree(){
             root = new node(1);
             root->left = new node(2);
@@ -437,11 +466,8 @@ class BinaryTree : public CommonUtility{
 
 
 int main(){
-  FastIO;
-  int n;
-  cin>>n;
+   FastIO;
    BinaryTree b;
-   b.root = BinaryTree().GetExampleTree2();
-   cout<<CommonUtility().MinimumTimeToBurnTheTree(b.root,n);
+   
    return 0;
 } 

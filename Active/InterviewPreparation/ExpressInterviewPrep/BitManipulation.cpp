@@ -81,21 +81,26 @@ int UniqueNumberOccuringOnlyOnceAllOtherTwice(int a[],int n){
     return ans;
 }
 
-void AllNumbersOccuringTwiceTwoNumbersOccuringOnce(int a[],int n){
+pair<int,int> AllNumbersOccuringTwiceTwoNumbersOccuringOnce(int a[],int n){
     int array_xor = 0;
     for(int i=0;i<n;i++) array_xor = a[i] xor array_xor;
     int rightmost_set_mask = (array_xor & (-array_xor));
     int one_of_the_numbers =0;
     for(int i=0;i<n;i++) if(rightmost_set_mask&a[i]) one_of_the_numbers = one_of_the_numbers xor a[i];
-    cout<<one_of_the_numbers<<' '<<(array_xor xor one_of_the_numbers)<<endl;
+    return {one_of_the_numbers,(one_of_the_numbers xor array_xor)};
+}
+
+
+int MinNumberOfOpreationstoReduceToOne(int n){
+    if(n==1) return 0;
+    if(n&1) return 1+min(MinNumberOfOpreationstoReduceToOne(n-1),MinNumberOfOpreationstoReduceToOne(n+1));
+    return 1+MinNumberOfOpreationstoReduceToOne((n>>1));
 }
 
 int main(){
   FastIO;
   int n;
   cin>>n;
-  int a[n];
-  for(int &x : a) cin>>x;
-  AllNumbersOccuringTwiceTwoNumbersOccuringOnce(a,n);
+  cout<<MinNumberOfOpreationstoReduceToOne(n);
   return 0;
 } 
