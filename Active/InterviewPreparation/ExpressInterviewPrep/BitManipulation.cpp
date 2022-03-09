@@ -58,15 +58,44 @@ int KernighenSAlgorithmForCountingNumberOfSetbits(int x){ // uses RightMostSetBi
     return count;
 }
 
+vector<int>min_devs;
+void MinimumNumberOfSoftwareDevelopers(int i,const vector<int>&skills,vector<int>&carry,int skill_map){
+    if(i==skills.size()){
+        if(skill_map==(1<<i)-1){
+            if(min_devs.size()==0 or (carry.size()<min_devs.size())){
+                min_devs = carry;
+            }
+        }
+        return;
+    }
+    carry.push_back(i);
+    MinimumNumberOfSoftwareDevelopers(i+1,skills,carry,(skill_map|skills[i]));
+    carry.pop_back();
+    MinimumNumberOfSoftwareDevelopers(i+1,skills,carry,skill_map);
+}
 
-int JosephousProblemUsingBitManip(int n){
-    
+
+int UniqueNumberOccuringOnlyOnceAllOtherTwice(int a[],int n){
+    int ans =0;
+    for(int i=0;i<n;i++) ans = ans xor a[i];
+    return ans;
+}
+
+void AllNumbersOccuringTwiceTwoNumbersOccuringOnce(int a[],int n){
+    int array_xor = 0;
+    for(int i=0;i<n;i++) array_xor = a[i] xor array_xor;
+    int rightmost_set_mask = (array_xor & (-array_xor));
+    int one_of_the_numbers =0;
+    for(int i=0;i<n;i++) if(rightmost_set_mask&a[i]) one_of_the_numbers = one_of_the_numbers xor a[i];
+    cout<<one_of_the_numbers<<' '<<(array_xor xor one_of_the_numbers)<<endl;
 }
 
 int main(){
   FastIO;
-  int x;
-  cin>>x;
-  cout<<KernighenSAlgorithmForCountingNumberOfSetbits(x);
+  int n;
+  cin>>n;
+  int a[n];
+  for(int &x : a) cin>>x;
+  AllNumbersOccuringTwiceTwoNumbersOccuringOnce(a,n);
   return 0;
 } 
