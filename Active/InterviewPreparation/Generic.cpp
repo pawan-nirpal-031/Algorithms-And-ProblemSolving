@@ -36,8 +36,8 @@ void PowerSet(string s,int n){
 
 int main(){
   FastIO;
-  int x = 100;
-  string v = "verdi"+to_string(x);
-  cout<<v<<endl;
+  for(int i =1;i<=3;i++){
+      cout<<i*i<<endl;
+  }
   return 0;
 } 

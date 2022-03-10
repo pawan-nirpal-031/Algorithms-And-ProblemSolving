@@ -90,12 +90,46 @@ vector<int> TopKFrequentNumbers(int a[],int n,int k){
     return ans;
 }
 
+void FrequencySort(int a[],int n){
+    priority_queue<pair<int,int>>process;
+    unordered_map<int,int>cache;
+    for(int i=0;i<n;i++) cache[a[i]]++;
+    for(auto tuple : cache) process.push({tuple.second,tuple.first});
+    int i =0;
+    while(not process.empty()){
+        auto tuple = process.top();
+        process.pop();
+        while(tuple.first--) a[i++] = tuple.second;
+    }
+    for(int i =0;i<n;i++) cout<<a[i]<<" ";
+}
+
+
+
+void KClosestPointsToGivenPoint(pair<int,int>a[],int n,pair<int,int>point,int k){
+    priority_queue<pair<int,pair<int,int>>>process;
+    for(int i=0;i<n;i++){
+        process.push({abs(a[i].first-point.first)+abs(a[i].second-point.second),a[i]});
+        if(process.size()>k) process.pop();
+    }
+    vector<pair<int,int>>kclosest;
+    while(not process.empty()){
+        kclosest.push_back({process.top().second.first,process.top().second.second});
+        process.pop();
+    }
+    for(auto p : kclosest) cout<<p.first<<' '<<p.second<<endl;
+}
+
 int main(){
   FastIO;
   int n,k;
   cin>>n>>k;
-  int a[n];
-  for(int &x : a) cin>>x;  
-
+  pair<int,int>a[n];
+  for(int i =0;i<n;i++){
+      cin>>a[i].first>>a[i].second;
+  }
+  int x,y;
+  cin>>x>>y;
+  KClosestPointsToGivenPoint(a,n,{x,y},k);
   return 0;
 } 
