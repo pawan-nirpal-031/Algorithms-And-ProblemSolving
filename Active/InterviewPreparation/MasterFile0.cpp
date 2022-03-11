@@ -370,10 +370,6 @@ bool searchMatrix(vector<vector<int>>& matrix, int target) {
 }
 
 
-// vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-        
-// }
-
 
 
 

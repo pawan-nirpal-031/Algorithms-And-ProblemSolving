@@ -11,7 +11,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/a.exe",
+            "program": "C:\\Users\\jayspc\\Documents\\GitHub\\AlgorithmsAndProblemSolving\\Active\\InterviewPreparation\\ExpressInterviewPrep\\a.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
