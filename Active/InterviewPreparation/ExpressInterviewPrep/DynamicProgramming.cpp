@@ -86,7 +86,8 @@ int MaximumRunsScored(pair<int,int>player_data[],int n,int balls){
 }
 
 
-int UnBoundedKnapSack(pair<int,int> costs[],int n,int max_weight){
+int UnBoundedKnapSack(pair<int,int> costs[],int n,int max_weight){ 
+  // MaximumCost[i] deontes what is maximum cost be generated with weight as i, we can use diffrent ways of getting to i weight and those costs can be used again so since we can use a same weight again this problem is similar to Coincombinations.
   vector<int>MaximumCost(max_weight+1,0);
   MaximumCost[0] = 0;
   for(int curr_weight = 1;curr_weight<=max_weight;curr_weight++){
@@ -98,20 +99,44 @@ int UnBoundedKnapSack(pair<int,int> costs[],int n,int max_weight){
   return MaximumCost[max_weight];
 }
 
-int NumberOfBinaryStringsWithNoConsecutiveZeros(int n){
+int NumberOfBinaryStringsWithNoConsecutiveZeros(int n){ // do space optimization we don't need ValidCount array do it in O(1);
   vector<pair<int,int>>ValidCount(n+1,{0,0});
   ValidCount[1].first = ValidCount[1].second = 1;
   for(int i=2;i<=n;i++){
      ValidCount[i].first = ValidCount[i-1].second;
      ValidCount[i].second = ValidCount[i-1].first+ValidCount[i-1].second;
   }
-  for(int i =0;i<=n;i++) cout<<ValidCount[i].first<<" "<<ValidCount[i].second<<endl;
+  return ValidCount[n].first+ValidCount[n].second;
 }
+
+int DecodeWays(string s){
+  int n = s.length();
+  vector<int>NumberOfWaysToDecode(n,0);
+  NumberOfWaysToDecode[0] = (s[0]=='0'?0:1);
+  for(int i =1;i<n;i++){
+    if(s[i-1]=='0' and s[i]=='0'){
+      NumberOfWaysToDecode[i] =0;
+    }else if(s[i-1]!='0' and s[i]=='0'){
+      if(s[i-1]=='1' or s[i-1]=='2'){ 
+        NumberOfWaysToDecode[i] = (i>=2?NumberOfWaysToDecode[i-2]:1);
+      }else NumberOfWaysToDecode[i] =0;
+    }else if(s[i-1]=='0' and s[i]!='0'){
+      NumberOfWaysToDecode[i] = NumberOfWaysToDecode[i-1];
+    }else{
+      NumberOfWaysToDecode[i] = NumberOfWaysToDecode[i-1];
+      if(stoi(s.substr(i-1,2))<=26){
+        NumberOfWaysToDecode[i] += (i>=2?NumberOfWaysToDecode[i-2]:1);
+      }
+    }
+  }
+  return NumberOfWaysToDecode[n-1];
+}
+
 
 int main(){
   FastIO;
-  int n;
-  cin>>n;
-  NumberOfBinaryStringsWithNoConsecutiveZeros(n);
+  string s;
+  cin>>s;
+  cout<<DecodeWays(s);
   return 0;
 } 
