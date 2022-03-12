@@ -466,7 +466,47 @@ class CommonUtility{
         return CheckIfGivenTreeIsBSTUtil(root,{LLONG_MIN,LLONG_MAX});
     }
 
+    node* LCAOfBinarySearchTree(node *root,int x,int y){
+        if(root==NULL) return NULL;
+        if((x<root->val and y>root->val) or (x>root->val and y<root->val)) return root;
+        if(max(x,y)<root->val) return LCAOfBinarySearchTree(root->left,x,y);
+        if(min(x,y)>root->val) return LCAOfBinarySearchTree(root->right,x,y);
+        return root;
+    }
+
+    
+
+
 };
+
+class BSTItearator{
+    stack<node*>process;
+
+    public:
+    bool HasNext(){
+        return (not process.empty());
+    }
+    
+    int Next(){
+        if(HasNext()){
+            node *curr = process.top();
+            process.pop();
+            if(curr->right) PushAll(curr->right);
+            return curr->val;
+        }
+        return -1;
+    }
+    
+    void PushAll(node *root){
+        while(root!=NULL){
+            process.push(root);
+            root = root->left;
+        }
+    }
+    
+
+};
+
 
 
 
@@ -555,14 +595,16 @@ class BinaryTree : public CommonUtility{
             root->left->right->right = new node(9);
             root->left->left = new node(3);
             root->left->left->right = new node(4);
-            root->left->left->left = new node(20000);
+            root->left->left->left = new node(2);
             return root;
         }
 };
 
+
+
 int main(){
   FastIO;
   BinaryTree b;
-  Status(CommonUtility().CheckIfGivenTreeIsBST(b.GetBST1()));
+  cout<<CommonUtility().LCAOfBinarySearchTree(b.GetBST1(),4,6)->val;
   return 0;
 } 
