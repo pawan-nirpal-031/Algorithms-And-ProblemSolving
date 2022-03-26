@@ -99,6 +99,49 @@ int UnBoundedKnapSack(pair<int,int> costs[],int n,int max_weight){
   return MaximumCost[max_weight];
 }
 
+int BuyAndSellStockSingleTransaction(int stocks[],int n){
+  // what will be the max_profit if I sell today so I must buy minimum somewhere early.
+  int max_profit =INT_MIN;
+  int min_prefix = stocks[0];
+  for(int i=0;i<n;i++){
+    max_profit = max(max_profit,(stocks[i]-min_prefix));
+    min_prefix = min(min_prefix,stocks[i]);
+  }
+  return max_profit;
+}
+
+int BuyAndSellStockInfinteTransactions(int stocks[],int n){
+  int max_profit = 0;
+  int buy_date = 0;
+  int sell_date =0;
+  for(int i =1;i<n;i++){
+    if(stocks[i]>=stocks[i-1]) sell_date++;
+    else{
+      max_profit+=(stocks[sell_date]-stocks[buy_date]);
+      buy_date = sell_date = i;
+    }
+  }
+  max_profit+=(stocks[sell_date]-stocks[buy_date]);
+  return max_profit;
+}
+
+
+int BuyAndSellStockInfinteTransactionsWithFees(int stocks[],int n,int fees){
+  int BuySellStates[n][2];
+  BuySellStates[0][0] = stocks[0];
+  BuySellStates[0][1] = 0;
+  for(int i=1;i<n;i++){
+    BuySellStates[i][0] = max(BuySellStates[i-1][0],BuySellStates[i-1][1]-stocks[i]);
+    BuySellStates[i][1] = max(BuySellStates[i-1][1],stocks[i]+BuySellStates[i-1][0]-fees);
+  }
+  for(int i=0;i<n;i++){
+    cout<<BuySellStates[i][0]<<' '<<BuySellStates[i][1]<<endl;
+  }
+  return BuySellStates[n-1][1];
+}
+
+
+
 int NumberOfBinaryStringsWithNoConsecutiveZeros(int n){ // do space optimization we don't need ValidCount array do it in O(1);
   vector<pair<int,int>>ValidCount(n+1,{0,0});
   ValidCount[1].first = ValidCount[1].second = 1;
@@ -108,6 +151,8 @@ int NumberOfBinaryStringsWithNoConsecutiveZeros(int n){ // do space optimization
   }
   return ValidCount[n].first+ValidCount[n].second;
 }
+
+
 
 int DecodeWays(string s){
   int n = s.length();
@@ -133,10 +178,80 @@ int DecodeWays(string s){
 }
 
 
+int MaximumSizeOfZerosSquare(vector<vector<int>>&g){
+  int n = g.size();
+  int m = g[0].size();
+  vector<vector<int>>MaximumSquareStartingAt(n,vector<int>(m,0));
+  bool allzeros =0;
+  for(int i =0;i<n;i++){
+    for(int j =0;j<m;j++){
+      if(g[i][j]==0) continue;
+      if(i==n-1 or j ==m-1) g[i][j] = 1;
+      allzeros =1;
+    }
+  }
+  if(allzeros==0) return 0;
+  int ans =1;
+  for(int i =0;i<m;i++) MaximumSquareStartingAt[n-1][i] = g[n-1][i];
+  for(int i =0;i<n;i++) MaximumSquareStartingAt[i][m-1] = g[i][m-1];
+  for(int i =n-2;i>=0;i--){
+    for(int j =m-2;j>=0;j--){
+      if(g[i][j]==0) continue;
+      MaximumSquareStartingAt[i][j] = min(MaximumSquareStartingAt[i+1][j],min(MaximumSquareStartingAt[i+1][j+1],MaximumSquareStartingAt[i][j+1]))+1;
+      ans = max(ans,MaximumSquareStartingAt[i][j]);
+    }
+  }
+  return ans;
+}
+
+int LongestCommonSubsequnece(string s1,string s2){
+  int n = s1.length();
+  int m = s2.length();
+  int dp[n+1][m+1];
+  for(int i=0;i<=n;i++){
+    for(int j =0;j<=m;j++) dp[i][j] =0;
+  }
+
+  for(int i = n-1;i>=0;i--){
+    for(int j = m-1;j>=0;j--){
+      char c1 = s1[i];
+      char c2 = s2[j];
+      if(c1==c2) dp[i][j] = 1 + dp[i+1][j+1];
+      else{
+        dp[i][j] = max(dp[i][j+1],dp[i+1][j]);
+      }
+    }
+  }
+  return dp[0][0];
+}
+
+
+int MinCostHousePaint(vector<vector<int>>&cost){
+  int n = cost.size();
+  if(n==0) return 0;
+  vector<vector<int>>MinCostToPaintThisHouse(n,vector<int>(3,0));
+  MinCostToPaintThisHouse[0][0] = cost[0][0];
+  MinCostToPaintThisHouse[0][1] = cost[0][1];
+  MinCostToPaintThisHouse[0][2] = cost[0][2];
+  for(int i=1;i<n;i++){
+    MinCostToPaintThisHouse[i][0] =cost[i][0]+min(MinCostToPaintThisHouse[i-1][1],MinCostToPaintThisHouse[i-1][2]);
+    MinCostToPaintThisHouse[i][1] =cost[i][1]+min(MinCostToPaintThisHouse[i-1][0],MinCostToPaintThisHouse[i-1][2]);
+    MinCostToPaintThisHouse[i][2] =cost[i][2]+min(MinCostToPaintThisHouse[i-1][0],MinCostToPaintThisHouse[i-1][1]);
+  }
+  return min(MinCostToPaintThisHouse[n-1][0],min(MinCostToPaintThisHouse[n-1][1],MinCostToPaintThisHouse[n-1][2]));
+}
+
+
+int FriendsPairing(int n){
+  
+}
+
 int main(){
   FastIO;
-  string s;
-  cin>>s;
-  cout<<DecodeWays(s);
+  int n;
+  cin>>n;
+  vector<vector<int>>inp(n,vector<int>(3,0));
+  for(int i =0;i<n;i++) cin>>inp[i][0]>>inp[i][1]>>inp[i][2];
+  cout<<MinCostHousePaint(inp);
   return 0;
 } 

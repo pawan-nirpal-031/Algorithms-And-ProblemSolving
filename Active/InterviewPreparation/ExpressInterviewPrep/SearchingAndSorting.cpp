@@ -55,12 +55,31 @@ int LongestSubstringWithNonRepeatingChars(string s){
   return ans;
 }
 
+int Partion(int a[],int n,int start,int end){
+  int pivot = a[end];
+  int pindx = start;
+  for(int i = start;i<end;i++){
+    if(a[i]<=pivot){
+      swap(a[i],a[pindx]);
+      pindx+=1;
+    }
+  }
+  swap(a[pindx],a[end]);
+  return pindx;
+}
+
+void QuickSort(int a[],int n,int strt,int end){
+  if(strt<end){
+    int pindx = Partion(a,n,strt,end);
+    QuickSort(a,n,strt,pindx-1);
+    QuickSort(a,n,pindx+1,end);
+  }
+}
+
 
 
 int main(){
   FastIO;
-  string s;
-  cin>>s;
-  cout<<LongestSubstringWithNonRepeatingChars(s);
+  
   return 0;
 } 

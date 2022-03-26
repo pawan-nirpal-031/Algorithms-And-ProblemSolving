@@ -475,7 +475,24 @@ class CommonUtility{
     }
 
     
-
+    void InorderIterative(node *root){
+        vector<int>res;
+        stack<node*>h;
+        node *curr = root;
+        while(curr!=NULL or (not h.empty())){
+            while(curr!=NULL){
+                h.push(curr);
+                curr = curr->left;
+            }
+            if(h.size()){
+                res.push_back(h.top()->val);
+                curr = h.top();
+                h.pop();
+            }
+            curr = curr->right;
+        }
+        for(int x : res) cout<<x<<" ";
+    }
 
 };
 
@@ -605,6 +622,6 @@ class BinaryTree : public CommonUtility{
 int main(){
   FastIO;
   BinaryTree b;
-  cout<<CommonUtility().LCAOfBinarySearchTree(b.GetBST1(),4,6)->val;
+  b.InorderIterative(b.GetExampleTree4());
   return 0;
 } 

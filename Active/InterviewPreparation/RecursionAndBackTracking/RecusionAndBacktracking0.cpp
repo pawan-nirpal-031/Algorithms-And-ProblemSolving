@@ -283,6 +283,27 @@ void KnightTour(int i,int j,int n,int count,vector<vector<int>>&grid){
   grid[i][j] =0;
 }
 
+int MaximumScoreOfWordsProblem(vector<string>words,int idx,vector<int>frq,vector<int>score){
+  if(idx==words.size()){
+    return 0;
+  }
+  int not_inculded = 0+MaximumScoreOfWordsProblem(words,idx+1,frq,score);
+  int word_score =0;
+  string word = words[idx];
+  bool cancall =1;
+  for(int i =0;i<word.length();i++){
+    if(frq[word[i]-'a']==0) cancall =0;
+    frq[word[i]-'a']--;
+    word_score+=score[word[i]-'a'];
+  }
+  int include_score =0;
+  if(cancall) include_score = word_score+MaximumScoreOfWordsProblem(words,idx+1,frq,score);
+  for(int i =0;i<word.length();i++) frq[word[i]-'a']+=1;
+  return max(not_inculded,include_score);
+}
+
+
+
 int main(){
   FastIO;
   

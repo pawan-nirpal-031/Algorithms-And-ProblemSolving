@@ -45,7 +45,16 @@ class LRUCache {
         }
 
         void Remove(node *curr){
+            node *nxtnode = curr->next;
+            node *prevnode = curr->prev;
+            prevnode->next = nxtnode;
+            nxtnode->prev = prevnode; 
+            curr->next = curr->prev = NULL;
+            delete(curr);
+        }
 
+        void Update(node *curr){
+            
         }
 
         void Add(node *curr){
@@ -53,18 +62,31 @@ class LRUCache {
         }
 
         int get(int key){
-            if(access.find(key)!=access.end()){
-                node *required = access[key];
-                int res = required->val;
-                access.erase(key);
-                Remove(required);
-                Add(required);
-                
-                return res;
-            }
-            return -1;
+           auto it = access.find(key);
+           if(it==access.end()) return -1;
+           node *curr = it->second;
+           int val = curr->val;
+           Remove(curr);
+           Add(curr);
+           return val;
+        }
+
+        int put(int key,int val){
+
         }
 };
+
+void TwoSum(int a[],int n,int target){
+    unordered_map<int,int>lookup;
+    for(int i =0;i<n;i++){
+        auto it = lookup.find(target-a[i]);
+        if(it!=lookup.end()){
+            cout<<it->second<<' '<<i;
+            break;
+        }
+        lookup[a[i]] = i;
+    }
+}
 
 int main(){
   FastIO;

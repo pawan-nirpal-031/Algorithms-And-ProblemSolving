@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 void FoolingAround(){
@@ -101,9 +102,23 @@ void PassByDiffrentWays(){
     cout<<"val after PassByPtr fun : "<<val<<endl;
 }
 
+void WorkingWithStringStreamAndMemoryOptimizationUsigRefence(){
+    string src;
+  getline(cin,src);
+  stringstream stream(src);
+  string tmp;
+  vector<string>extr;
+  while(stream>>tmp) extr.push_back(tmp);
+  for(const string& v : extr) cout<<v<<" ";
+}
 
+
+template <typename T> T MyMax(T a,T b){
+    return (a>b?a:b);
+}
 
 int main(){
-    
+    cout<<MyMax(1,4)<<endl;
+    cout<<MyMax<float>(2.4,6.7)<<endl;
     return 0;
 }
