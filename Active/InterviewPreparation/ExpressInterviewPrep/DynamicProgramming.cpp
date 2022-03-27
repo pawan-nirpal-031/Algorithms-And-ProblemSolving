@@ -242,7 +242,107 @@ int MinCostHousePaint(vector<vector<int>>&cost){
 }
 
 
-int FriendsPairing(int n){
+
+int MinJumps(vector<int>&cost,int n){
+  vector<pair<int,int>>min_jumps_to_dest(n,{2*n,n+1});
+  min_jumps_to_dest[n-1].first=0;
+  min_jumps_to_dest[n-1].second = -1;
+  for(int i = n-2;i>=0;i--){
+    if(cost[i]==0) continue;
+    int min_jump = 2*n;
+    int indx = -1;
+    for(int j =1;j<=cost[i];j++){
+      if(i+j>=n) continue;
+      if(min_jumps_to_dest[i+j].first<min_jump){
+        min_jump = min_jumps_to_dest[i+j].first;
+        indx = i+j;
+      }
+      if(indx>0){
+        min_jumps_to_dest[i].first = min_jump+1;
+        min_jumps_to_dest[i].second = indx;
+      }
+    }
+  }
+  int curr = 0;
+  vector<int>path;
+  while(min_jumps_to_dest[curr].first!=0){
+    if(min_jumps_to_dest[curr].first==2*n) break;
+    path.push_back(curr);
+    curr = min_jumps_to_dest[curr].second;
+  }
+  for(int v : path) cout<<v<<' ';
+  return min_jumps_to_dest[0].first;
+}
+
+
+void PrintAllMinimumCostPaths(const vector<vector<int>>&cost,int n){
+   vector<vector<int>>MinCostToDest(n,vector<int>(n,0)); 
+   // MinCostToDest[i][j] denotes min cost to reach dest from (i,j)
+   MinCostToDest[n-1][n-1] = cost[n-1][n-1];
+   for(int i = n-2;i>=0;i--) MinCostToDest[n-1][i] = cost[n-1][i]+MinCostToDest[n-1][i+1];
+   for(int i = n-2;i>=0;i--) MinCostToDest[i][n-1] = cost[i][n-1]+MinCostToDest[i+1][n-1];
+    for(int i = n-2;i>=0;i--){
+      for(int j =n-2;j>=0;j--) MinCostToDest[i][j] = cost[i][j]+min(MinCostToDest[i+1][j],MinCostToDest[i][j+1]);
+    }
+    queue<pair<string,pair<int,int>>>process;
+    process.push({"",{0,0}});
+    while(not process.empty()){
+      auto tuple = process.front();
+      int i = tuple.second.first;
+      int j = tuple.second.second;
+      string sofar = tuple.first;
+      process.pop();
+      if(i==n-1 and j==n-1){
+        cout<<sofar<<endl;
+      }else if(i==n-1 and  j<n-1){
+        process.push({sofar+'R',{i,j+1}});
+      }else if(i<n-1 and j==n-1){
+        process.push({sofar+'D',{i+1,j}});
+      }else{
+        if(MinCostToDest[i+1][j]<MinCostToDest[i][j+1]) process.push({sofar+'D',{i+1,j}});
+        else if(MinCostToDest[i][j+1]<MinCostToDest[i+1][j]) process.push({sofar+'R',{i,j+1}});
+        else{
+          process.push({sofar+'D',{i+1,j}});
+          process.push({sofar+'R',{i,j+1}});
+        }
+      }
+    }
+}
+
+
+void PrintAllMaxGoldPaths(const vector<vector<int>>&gold,int n){
+  vector<vector<int>>MaxGoldToDest(n,vector<int>(n,0));
+  for(int i =0;i<n;i++) MaxGoldToDest[i][n-1] = gold[i][n-1];
+  int max_gold = 0;
+  for(int col = n-2;col>=0;col--){
+    for(int row = 0;row<n;row++){
+      MaxGoldToDest[row][col] = gold[row][col];
+      int max_content = MaxGoldToDest[row][col+1];
+      if(row-1>=0) max_content = max(max_content,MaxGoldToDest[row-1][col+1]);
+      if(row+1<n) max_content = max(max_content,MaxGoldToDest[row+1][col+1]);
+      MaxGoldToDest[row][col]+=max_content;
+      if(col==0) max_gold = max(max_gold,MaxGoldToDest[row][0]);
+    }
+  }
+  queue<pair<string,pair<int,int>>>process;
+  for(int i =0;i<n;i++) if(MaxGoldToDest[i][0]==max_gold) process.push({"",{i,0}});
+  while(process.size()){
+    auto tuple = process.front();
+    process.pop();
+    string path_so_far = tuple.first;
+    int i = tuple.second.first;
+    int j = tuple.second.second;
+    if(j==n-1){
+      cout<<path_so_far<<endl;
+    }else{
+      int max_next = MaxGoldToDest[i][j+1];
+      if(i-1>=0) max_next = max(max_next,MaxGoldToDest[i-1][j+1]);
+      if(i+1<n) max_next = max(max_next,MaxGoldToDest[i+1][j+1]);
+      if(i-1>=0 and MaxGoldToDest[i-1][j+1]==max_next) process.push({path_so_far+'U',{i-1,j+1}});
+      if(i+1<n and MaxGoldToDest[i+1][j+1]==max_next) process.push({path_so_far+'D',{i+1,j+1}});
+      if(MaxGoldToDest[i][j+1]==max_next) process.push({path_so_far+'F',{i,j+1}});
+    }
+  }
   
 }
 
@@ -250,8 +350,8 @@ int main(){
   FastIO;
   int n;
   cin>>n;
-  vector<vector<int>>inp(n,vector<int>(3,0));
-  for(int i =0;i<n;i++) cin>>inp[i][0]>>inp[i][1]>>inp[i][2];
-  cout<<MinCostHousePaint(inp);
+  vector<vector<int>>Cost(n,vector<int>(n,0)); 
+  for(int i =0;i<n;i++) for(int j =0;j<n;j++) cin>>Cost[i][j];
+  PrintAllMaxGoldPaths(Cost,n);
   return 0;
 } 
