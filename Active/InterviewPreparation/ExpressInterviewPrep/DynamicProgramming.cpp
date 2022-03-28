@@ -334,6 +334,7 @@ void PrintAllMaxGoldPaths(const vector<vector<int>>&gold,int n){
     int j = tuple.second.second;
     if(j==n-1){
       cout<<path_so_far<<endl;
+      
     }else{
       int max_next = MaxGoldToDest[i][j+1];
       if(i-1>=0) max_next = max(max_next,MaxGoldToDest[i-1][j+1]);
@@ -343,15 +344,138 @@ void PrintAllMaxGoldPaths(const vector<vector<int>>&gold,int n){
       if(MaxGoldToDest[i][j+1]==max_next) process.push({path_so_far+'F',{i,j+1}});
     }
   }
-  
 }
+
+
+
+
+
+void PrintAllTargetSumSubsets(const vector<int>&runscored,int n,int target){
+  /*
+    Scored[members][can_score] means Is it possible that 'members' number of people can score 'can_score' number of runs 
+    a batsman is either able to score or he is unable beacuse of score must be large enough for youu to be able to bat, if he is able to score we see if should or should not bat we check both options and see if his batting can make runs or it is not necessacry for him to bat
+  */
+  vector<vector<int>> Scored(n+1,vector<int>(target+1,0)); 
+  for(int i = 1;i<=target;i++) Scored[0][i] =0;
+  for(int i = 0;i<=n;i++) Scored[i][0] = 1;
+  for(int members =  1;members<=n;members++){
+    for(int can_score = 1;can_score<=target;can_score++){
+      if(can_score>=runscored[members-1]){
+        Scored[members][can_score] = (Scored[members-1][can_score-runscored[members-1]]) or (Scored[members-1][can_score]);
+      }else Scored[members][can_score] = Scored[members-1][can_score];
+    }
+  }
+  queue<pair<string,pair<int,int>>>process;
+  process.push({"",{n,target}});
+  while(process.size()){
+    auto tuple = process.front();
+    string path_so_far = tuple.first;
+    int people = tuple.second.first;
+    int scores = tuple.second.second;
+    process.pop();
+    if(people==0 and scores==0){
+      cout<<path_so_far<<'\n';
+    }else{
+      bool exc = Scored[people-1][scores];
+      bool inc = 0;
+      if(scores>=runscored[people-1]) inc = Scored[people-1][scores-runscored[people-1]];
+      if(exc) process.push({path_so_far,{people-1,scores}});
+      if(inc) process.push({path_so_far+to_string(runscored[people-1])+" ",{people-1,scores-runscored[people-1]}});
+    } 
+  }
+}
+
+
+
+int LongestBitoncSubsequence(const vector<int>&a,int n){
+  /*
+    the idea is simple we find the max LIS+LDS at any i
+    longestIncreasingSubsequnce[i] denotes the longest increasing subsequnce that ends at i or includes ith value
+    longestDecreasingSubsequnce[i] denotes the longest decreasing subsequnce in suffix starting at i 
+  */
+  vector<int>longestIncreasingSubsequnce(n,0); 
+  for(int i =0;i<n;i++){
+    longestIncreasingSubsequnce[i] = 1;
+    int max_prefix = 0;
+    for(int j =0;j<i;j++) if(a[i]>a[j]) max_prefix = max(max_prefix,longestIncreasingSubsequnce[j]);
+    longestIncreasingSubsequnce[i]+=max_prefix;
+  }
+  vector<int>longestDecreasingSubsequnce(n,0); 
+  for(int i = n-1;i>=0;i--){
+    longestDecreasingSubsequnce[i] = 1;
+    int max_suffix = 0;
+    for(int j = i+1;j<n;j++) if(a[i]>a[j]) max_suffix = max(max_suffix,longestDecreasingSubsequnce[j]);
+    longestDecreasingSubsequnce[i]+=max_suffix;
+  }
+  int longest_bitonic_len =0;
+  for(int i =0;i<n;i++) longest_bitonic_len = max(longest_bitonic_len,longestIncreasingSubsequnce[i]+longestDecreasingSubsequnce[i]-1);
+  return longest_bitonic_len;
+}
+
+
+int PerfectSquares(int n){
+  // Count[i] denotes minimum number of perfect sqaures that sum to i 
+  vector<int>Count(n+1,0);
+  Count[0] =0;
+  for(int i =1;i<=n;i++){
+    int min_reach = INT_MAX;
+    for(int j = 1;j*j<=i;j++) min_reach = min(min_reach,Count[i-j*j]);
+    Count[i] = 1+min_reach;
+  }
+  return Count[n];
+}
+
+int CatalanNumber(int n){
+  vector<ll>catlan(n+1,0);
+  catlan[0] = catlan[1] = 1;
+  for(int i = 2;i<=n;i++){
+    for(int j = 0;j<i;j++) catlan[i]+=catlan[j]*catlan[i-1-j];
+  }
+  for(int i =0;i<=n;i++) cout<<catlan[i]<<' ';
+  return catlan[n];
+}
+
+int LongestCommonSubstring(string a,string b){
+  int n = a.length();
+  int m = b.length();
+  vector<vector<int>>longest_common_suffix(n+1,vector<int>(m+1,0));
+  // longest_common_suffix[i][j] stores length of longest common suffix of substring upto i of a and substring upto j of b.
+  for(int i =0;i<=m;i++) longest_common_suffix[0][i] = 0;
+  for(int i =0;i<=n;i++) longest_common_suffix[i][0] = 0;
+  int ans =0;
+  for(int i = 1;i<=n;i++){
+    for(int j =1;j<=m;j++){
+      longest_common_suffix[i][j] = (a[i]==b[j])+longest_common_suffix[i-1][j-1];
+      ans = max(ans,longest_common_suffix[i][j]);
+    }
+  }
+  return ans;
+} 
+
+int MinimumNumberOfOpreationsToMakeStringsEqual(string a,string b,int i,int j){ // Edit distance
+    int n = a.length();
+    int m = b.length();
+    vector<vector<int>>min_ops_to_convert(n+1,vector<int>(m+1,0));
+    // min_ops_to_convert[i][j] stores min number of ops to convert string substring [0,i-1] to the substring [0,j-1] 
+    for(int i =0;i<=m;i++) min_ops_to_convert[0][i] = i;
+    for(int i =0;i<=n;i++) min_ops_to_convert[i][0] = i;
+    for(int i =1;i<=n;i++){
+      for(int j =1;j<=m;j++){
+        if(a[i-1]==b[j-1]) min_ops_to_convert[i][j] = min_ops_to_convert[i-1][j-1];
+        else{
+          min_ops_to_convert[i][j] = 1+min(min_ops_to_convert[i-1][j-1],min(min_ops_to_convert[i-1][j],min_ops_to_convert[i][j-1]));
+        }
+      }
+    }
+    return min_ops_to_convert[n][m];
+}
+
+
 
 int main(){
   FastIO;
-  int n;
-  cin>>n;
-  vector<vector<int>>Cost(n,vector<int>(n,0)); 
-  for(int i =0;i<n;i++) for(int j =0;j<n;j++) cin>>Cost[i][j];
-  PrintAllMaxGoldPaths(Cost,n);
+  string a,b; 
+  cin>>a>>b; 
+  cout<<MinimumNumberOfOpreationsToMakeStringsEqual(a,b,0,0);
   return 0;
 } 
