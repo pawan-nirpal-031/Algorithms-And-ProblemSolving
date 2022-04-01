@@ -39,7 +39,29 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      int n;
+      cin>>n;
+      vector<int>v(n);
+      for(int &x : v) cin>>x;
+      vector<int>dp(n,0);
+      for(int i = n-2;i>=0;i--){
+          if(v[i]==0) continue;
+          if(v[i] and v[i+1]){
+              dp[i] = dp[i+1];
+              continue;
+          }
+          for(int j = i+2;j<n;j++){
+              if(v[j]){
+                  dp[i]=(j-i)+dp[j];
+                  break;
+              }
+          }
+      }
+      cout<<dp[0]<<"\n";
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

@@ -39,7 +39,28 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      int n;
+      cin>>n;
+      string s;
+      cin>>s;
+      vector<bool>f(26,0);
+      bool yes =1;
+      for(int i=0;i<n;i++){
+          if(i==0){
+              f[s[i]-'A'] =1;
+              continue;
+          }
+          if(s[i-1]!=s[i] and f[s[i]-'A']){
+              yes =0;
+              break;
+          }
+          f[s[i]-'A'] =1;
+      }
+      Status(yes);
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

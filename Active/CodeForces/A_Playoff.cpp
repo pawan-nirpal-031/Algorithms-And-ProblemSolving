@@ -39,7 +39,14 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      int n;
+      cin>>n;
+      cout<<(1<<n)-1<<'\n';
+  }
+
   return 0;
 } 
 // If Solved Mark (0/1) here => []

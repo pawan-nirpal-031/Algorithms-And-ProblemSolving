@@ -39,7 +39,14 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      ull n,s;
+      cin>>n>>s;
+      cout<<(s/(n*n))<<'\n';
+  }
+
   return 0;
 } 
 // If Solved Mark (0/1) here => []

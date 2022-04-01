@@ -33,13 +33,29 @@ Author's solution :
 
 */
 
-
+class Math{
+    public:
+    int Floor(int x,int y){
+        return floor(x*1.0/y);
+    }
+    int Ceil(int x,int y){
+        return ceil(x*1.0/y);
+    }
+};
 
 
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  int x =0;
+  while(t--){
+      bool a,b,c;
+      cin>>a>>b>>c;
+      x = x + ((a+b+c>=2));
+  }
+  cout<<x;
   return 0;
 } 
 // If Solved Mark (0/1) here => []

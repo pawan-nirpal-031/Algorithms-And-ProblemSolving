@@ -39,7 +39,13 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int n,m;
+  cin>>n>>m;
+  vector<pair<int,int>>res;
+  for(int a = 0;a<32;a++){
+      for(int b = 0;b<32;b++) if(a*a+b==n and a+b*b==m) res.push_back({a,b});
+  }
+  cout<<res.size();
   return 0;
 } 
 // If Solved Mark (0/1) here => []

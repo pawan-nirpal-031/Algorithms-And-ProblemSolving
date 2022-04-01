@@ -39,7 +39,25 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int n;
+  cin>>n;
+  int a[n],b[n];
+  unordered_map<int,int>data;
+  for(int i=0;i<n;i++) cin>>a[i];
+  for(int i =0;i<n;i++){
+      cin>>b[i];
+      data[b[i]]++;
+  }
+  int same_pos =0;
+  int diff_pos = 0;
+  for(int i =0;i<n;i++){
+    auto it = data.find(a[i]);
+    if(a[i]==b[i]){
+        same_pos++;
+        diff_pos+=(it->second-1);
+    }else if(it!=data.end()) diff_pos+=(it->second);
+  }
+  cout<<same_pos<<'\n'<<diff_pos<<endl;
   return 0;
 } 
 // If Solved Mark (0/1) here => []

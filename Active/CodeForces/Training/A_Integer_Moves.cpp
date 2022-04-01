@@ -39,7 +39,15 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      int x,y;
+      cin>>x>>y;
+      if(x==0 and y==0) cout<<0<<'\n';
+      else if(sqrt(x*x+y*y)-floor(sqrt(x*x+y*y))==0) cout<<1<<'\n';
+      else cout<<2<<'\n';
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

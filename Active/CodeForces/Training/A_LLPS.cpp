@@ -33,12 +33,38 @@ Author's solution :
 
 */
 
+string ans = "0";
 
+bool Palindrome(string s,int start,int end){
+  int l = end-start+1;
+  int f = start + (l>>1);
+  int temp = start+end;
+  for(int i = start;i<f;i++) if(s[i]!=s[temp-i]) return 0;
+  return 1;
+}
 
-
+set<string>test;
+void MaxPalindrome(string s,int indx,vector<string>&vs){
+    if(indx==s.length()){
+        for(string x : vs) test.insert(x);
+        return;
+    }
+    for(int i = indx;i<s.length();i++){
+        if(Palindrome(s,indx,i)){
+            vs.push_back(s.substr(indx,i-indx+1));
+            MaxPalindrome(s,i+1,vs);
+            vs.pop_back();
+        }
+    }
+}
 
 int main(){
   FastIO;
+  string s;
+  cin>>s;
+  string soln;
+  vector<string>pq;
+  MaxPalindrome(s,0,pq);
   
   return 0;
 } 

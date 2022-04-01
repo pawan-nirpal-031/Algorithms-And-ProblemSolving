@@ -39,7 +39,28 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      int n;
+      cin>>n;
+      int mn = Mod;
+      int mx = 0;
+      int mn_i,mx_i;
+      for(int i =0;i<n;i++){
+          int x;
+          cin>>x;
+          if(x>mx){
+              mx = x;
+              mx_i = i;
+          }
+          if(x<mn){
+              mn = x;
+              mn_i  = i;
+          }
+      }
+      cout<<min(mn_i+1,mx_i+1)<<' '<<max(mn_i+1,mx_i+1)<<"\n";
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

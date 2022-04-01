@@ -39,7 +39,17 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int n,k;
+  cin>>n>>k;
+  int a[n];
+  for(int &x : a) cin>>x;
+  int kth = a[k-1];
+  int ans =0;
+  for(int i =0;i<n;i++){
+      if(a[i]==0 or a[i]<kth) break;
+      ans++;
+  }
+  cout<<ans;
   return 0;
 } 
 // If Solved Mark (0/1) here => []

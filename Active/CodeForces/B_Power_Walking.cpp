@@ -39,7 +39,28 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      int n;
+      cin>>n;
+      set<int>data;
+      for(int i =0;i<n;i++){
+          int x;
+          cin>>x;
+          data.insert(x);
+      }
+      int unique = data.size();
+      for(int k =1;k<=n;k++){
+          if(k<=unique){
+              cout<<unique<<' ';
+              continue;
+          }else{
+              cout<<++unique<<' ';
+          }
+      }
+      cout<<'\n';
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

@@ -39,7 +39,20 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  ll n;
+  cin>>n;
+  ll a[n];
+  for(ll &x : a) cin>>x;
+  vector<pair<ll,ll>>prefix(n,{10000,0});
+  prefix[0] = {a[0],a[0]};
+  int c =0;
+  for(int i =1;i<n;i++){
+      if(a[i]<prefix[i-1].first) c+=1;
+      if(a[i]>prefix[i-1].second) c+=1;
+      prefix[i].first = min(prefix[i-1].first,a[i]);
+      prefix[i].second = max(prefix[i-1].second,a[i]);
+  }
+  cout<<c;
   return 0;
 } 
 // If Solved Mark (0/1) here => []

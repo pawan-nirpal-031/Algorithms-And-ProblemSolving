@@ -34,12 +34,35 @@ Author's solution :
 */
 
 
-
+ull Power(ll a,int n){
+    ll res = 1;
+    while(n){
+        if(n&1) res = res*a;
+        n>>=1;
+        a = a*a;
+    }
+    return res;
+}
 
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      int n;
+      cin>>n;
+      ull high = Power(3,n-1);
+      if(high<=(1e9)){
+          Status(1);
+          ll res = 1;
+          for(int i =0;i<n;i++){
+              cout<<res<<' ';
+              res = res*3;
+          }
+          cout<<'\n';
+      }else Status(0);
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

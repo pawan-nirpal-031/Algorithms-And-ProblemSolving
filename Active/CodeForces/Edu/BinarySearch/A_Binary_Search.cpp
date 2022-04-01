@@ -35,11 +35,29 @@ Author's solution :
 
 
 
-
+bool HasElement(int a[],int n,int x){
+    int l =0;
+    int r = n-1;
+    while(l+1<r){
+        int m = (l + (r-l)/2);
+        if(x==a[m]) return 1;
+        else if(x<a[m]) r = m;
+        else l = m;
+    }
+    return (a[l]==x or a[r]==x);
+}
 
 int main(){
   FastIO;
-  
+  int n,q;
+  cin>>n>>q;
+  int a[n];
+  for(int &x : a) cin>>x;
+  while(q--){
+      int x;
+      cin>>x;
+      Status(HasElement(a,n,x));
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

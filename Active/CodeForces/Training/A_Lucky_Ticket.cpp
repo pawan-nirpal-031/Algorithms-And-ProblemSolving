@@ -39,7 +39,25 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int n;
+  cin>>n;
+  string s;
+  cin>>s;
+  int l = (n>>1);
+  int left = 0;
+  int right = 0;
+  for(int i =0;i<n;i++){
+      if(s[i]!='4' and s[i]!='7'){
+          Status(0);
+          return 0;
+      }
+      if(i<l){
+          left+=(s[i]-'0');
+      }else{
+          right+=(s[i]-'0');
+      }
+  }
+  Status(left==right);
   return 0;
 } 
 // If Solved Mark (0/1) here => []

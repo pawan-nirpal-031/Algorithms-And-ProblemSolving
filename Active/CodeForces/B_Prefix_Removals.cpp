@@ -39,7 +39,25 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      string s;
+      cin>>s;
+      vector<int>f(26,0);
+      for(char c : s) f[c-'a']+=1;
+      vector<bool>exist(s.length()+1,1);
+      for(int i =0;i<s.length();i++){
+          if(f[s[i]-'a']<=1) break;
+          f[s[i]-'a']-=1;
+          exist[i] = 0;
+      }
+      for(int i =0;i<s.length();i++){
+          if(exist[i]==0) continue;
+          cout<<s[i];
+      }
+      cout<<'\n';
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

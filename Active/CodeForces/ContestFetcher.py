@@ -40,7 +40,7 @@ Div2Contest = []
 EducationalContest = []
 
 
-CodeforcesContestFetcher(Div2,Div3Contest,data)
+CodeforcesContestFetcher(Div3,Div3Contest,data)
 
 
 

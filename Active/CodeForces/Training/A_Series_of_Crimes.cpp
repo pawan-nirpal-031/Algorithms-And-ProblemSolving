@@ -39,7 +39,20 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int n,m;
+  cin>>n>>m;
+  int x = 0;
+  int y = 0;
+  for(int i =1;i<=n;i++){
+      for(int j =1;j<=m;j++){
+          char c;
+          cin>>c;
+          if(c=='.') continue;
+          x = x xor i;
+          y = y xor j;
+      }
+  }
+  cout<<x<<' '<<y;
   return 0;
 } 
 // If Solved Mark (0/1) here => []

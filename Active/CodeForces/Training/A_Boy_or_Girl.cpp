@@ -33,13 +33,25 @@ Author's solution :
 
 */
 
-
+class Math{
+    public:
+    int Floor(int x,int y){
+        return floor(x*1.0/y);
+    }
+    int Ceil(int x,int y){
+        return ceil(x*1.0/y);
+    }
+};
 
 
 
 int main(){
   FastIO;
-  
+  set<char>p;
+  string s;
+  cin>>s;
+  for(char c : s) p.insert(c);
+  cout<<((p.size()&1)?"IGNORE HIM!":"CHAT WITH HER!");
   return 0;
 } 
 // If Solved Mark (0/1) here => []

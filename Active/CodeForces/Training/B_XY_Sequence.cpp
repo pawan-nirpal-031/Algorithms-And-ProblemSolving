@@ -39,7 +39,24 @@ Author's solution :
 
 int main(){
   FastIO;
-  
+  int t;
+  cin>>t;
+  while(t--){
+      ll n,b,x,y;
+      cin>>n>>b>>x>>y;
+      ll curr =0,prev =0;
+      ll sum =0;
+      for(int i =1;i<=n;i++){
+          if(prev+x<=b){
+              curr = prev+x;
+          }else{
+              curr = prev-y;
+          }
+          sum+=curr;
+          prev = curr;
+      }
+      cout<<sum<<'\n';
+  }
   return 0;
 } 
-// If Solved Mark (0/1) here => []
+// If Solved Mark (0/1) here => []  7711752

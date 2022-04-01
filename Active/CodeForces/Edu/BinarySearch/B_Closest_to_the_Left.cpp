@@ -34,12 +34,31 @@ Author's solution :
 */
 
 
-
+int LowestInPrefix(int a[],int n,int x){
+    int l =-1;
+    int r = n;
+    while(l+1<r){
+        int m = (l+(r-l)/2);
+        if(x<a[m]) r = m;
+        else l = m; 
+    }
+    if(x<=a[l]) return l+1;
+    return r;
+}
 
 
 int main(){
   FastIO;
-  
+  int n,q;
+  cin>>n>>q;
+  int a[n];
+  for(int &x : a) cin>>x;
+  while(q--){
+      int x;
+      cin>>x;
+      cout<<LowestInPrefix(a,n,x)<<'\n';
+  }
+
   return 0;
 } 
 // If Solved Mark (0/1) here => []
