@@ -108,6 +108,7 @@ class CommonUtility{
 
     bool CheckIfIdentical(node *tree1,node *tree2){
         if(tree1==NULL) return (tree2==NULL);
+        if(tree2==NULL) return tree1==NULL;
         bool lcheck = CheckIfIdentical(tree1->left,tree2->left);
         bool rcheck = CheckIfIdentical(tree1->right,tree2->right);
         return (lcheck and rcheck and (tree1->val==tree2->val));

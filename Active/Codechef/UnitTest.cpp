@@ -21,15 +21,6 @@ typedef long double ld;
 
 int main(){
   FastIO;
-  vector<int>x = {1,2,3,4,5,6,7,8};
-  vector<int>::iterator it;
-  int a[3] = {2,4,6};
-  int i = 0;
-  for(int v : x){
-      if(v==a[i]){
-          
-      }
-  }
-  for(int v : x) cout<<v<<' ';
+  
   return 0;
 } 

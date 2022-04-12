@@ -1,3 +1,4 @@
+// Problem Link : 
 #include <bits/stdc++.h>
 using namespace std;
 typedef unsigned long long int ull;
@@ -16,28 +17,33 @@ typedef long double ld;
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
-void GenerateAllSubsets(string s,int i,int n,string temp){
-    if(i<n){
-        temp+=s[i];
-        GenerateAllSubsets(s,i+1,n,temp);
-        temp.pop_back();
-        GenerateAllSubsets(s,i+1,n,temp);
-    }else cout<<temp<<'\n';
-}
 
-void PowerSet(string s,int n){
-    for(int i =0;i<(1<<n);i++){
-        for(int j =0;j<n;j++){
-            if((i&(1<<j))) cout<<s[j];
-        }
-        cout<<'\n';
-    }
-}
+/*
+Problem Statement : 
+
+
+
+*/
+
+
+/*
+Author's solution : 
+
+
+
+*/
+
+
+
+
 
 int main(){
   FastIO;
-  for(int i =1;i<=3;i++){
-      cout<<i*i<<endl;
+  int t;
+  cin>>t;
+  while(t--){
+      
   }
   return 0;
 } 
+// If Solved Mark (0/1) here => []

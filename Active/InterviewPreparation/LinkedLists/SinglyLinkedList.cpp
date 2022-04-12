@@ -230,6 +230,27 @@ class SinglyLinkedList{
             return (tmp1==tmp2 and tmp1!=NULL);
         }
 
+        node *DeleteNodes(node *head,int key){
+            node *curr = head;
+            node *prev = NULL;
+            while(curr!=NULL){
+                if(curr==head and head->key==key){
+                    curr = head->nxt;
+                    head->nxt = NULL;
+                    head = curr;
+                }
+                else if(curr->key==key){
+                    prev->nxt = curr->nxt;
+                    curr->nxt = NULL;
+                    curr = prev->nxt;
+                }else{
+                    prev = curr;
+                    curr = curr->nxt;
+                }
+            }
+            return head;
+        }
+
 };
 
 
@@ -237,21 +258,15 @@ class SinglyLinkedList{
 
 int main(){
   FastIO;
-  SinglyLinkedList l1,l2;
-  l1.head = new node(1);
-  l2.head = new node(2);
+  SinglyLinkedList l1;
+  l1.head = new node(2);
   l1.head->nxt = new node(2);
-  l2.head->nxt = new node(8);
-  l2.head->nxt->nxt = new node(1);
-  l2.head->nxt->nxt->nxt = new node(3);
-  node *ins = new node(8);
-  l1.head->nxt->nxt = ins;
-  l2.head->nxt->nxt->nxt->nxt = ins;
-  ins->nxt = new node(9);
-  ins->nxt->nxt = new node(19);
-  ins->nxt->nxt->nxt = NULL;
-  bool res = SinglyLinkedList().CheckIntersectionOptimized(l1.head,l2.head);
-  if(res) cout<<"yes";
-  else cout<<"none";
+  l1.head->nxt->nxt = new node(2);
+  l1.head->nxt->nxt->nxt = new node(4);
+  l1.head->nxt->nxt->nxt->nxt = new node(2);
+  l1.head->nxt->nxt->nxt->nxt->nxt = new node(2);
+  l1.head->nxt->nxt->nxt->nxt->nxt->nxt = new node(2);
+  l1.head = SinglyLinkedList().DeleteNodes(l1.head,2);
+  SinglyLinkedList().Show(l1.head);
   return 0;
 } 

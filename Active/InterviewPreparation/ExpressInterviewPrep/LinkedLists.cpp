@@ -45,12 +45,11 @@ class SinglyLinkedList{
             return head;
         }
         node *tmp = head;
-        while(tmp->nxt!=NULL){
-            tmp = tmp->nxt;
-        }
+        while(tmp->nxt!=NULL) tmp = tmp->nxt;
         tmp->nxt = new node(x);
         return tmp->nxt;
     }
+    
     void Show(node *root){
         while(root!=NULL){
             cout<<root->val<<' ';

@@ -133,7 +133,6 @@ void PrintFriendsPairing(int idx,int n,vector<bool>&vis,string soln){
   }else{
     vis[idx] =1;
     PrintFriendsPairing(idx+1,n,vis,soln+"("+to_string(idx)+")"); // goes alone 
-
     for(int i = idx+1;i<=n;i++){ // goes with someone else
       vis[i] = 1;
       PrintFriendsPairing(i+1,n,vis,soln+"("+to_string(idx)+to_string(i)+")");
@@ -142,7 +141,6 @@ void PrintFriendsPairing(int idx,int n,vector<bool>&vis,string soln){
     vis[idx] =0; 
   }
 }
-
 
 
 int main(){
