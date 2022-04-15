@@ -35,29 +35,40 @@ Author's solution :
 
 
 
+void solve(){
+    int n;
+    cin>>n;
+    string s;
+    cin>>s;
+    vector<int>zeroprefix(n,0),zerosuffix(n,0);
+    vector<int>oneprefix(n,0),onesuffix(n,0);
+    zeroprefix[0] = (s[0]=='0');
+    oneprefix[0] = (s[0]=='1');
+    for(int i=1;i<n;i++){
+      oneprefix[i] = oneprefix[i-1]+(s[i]=='1');
+      zeroprefix[i] = zeroprefix[i-1]+(s[i]=='0');
+    }
+    for(int i=n-2;i>=0;i--){
+      onesuffix[i] = onesuffix[i+1]+(s[i]=='1');
+      zerosuffix[i] = zerosuffix[i+1]+(s[i]=='0');
+    }
+    int last_pre = 0;
+    for(int i =0;i<n;i++){
+      if(oneprefix[i]==((i+1)>>1)) last_pre = i;
+    }
+    int last_suff = n-1;
+    for(int i = n-1;i>last_pre;i--){
+      if(onesuffix[i]==((n-i)>>1)) last_suff = i;
+    }
+    cout<<last_pre<<' '<<last_suff;
+}
 
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
-  for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
-  }
   int t;
   cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
-  }
-  Status(found);
+  while(t--) solve();
   return 0;
 } 
 // If Solved Mark (0/1) here => []

@@ -39,25 +39,23 @@ Author's solution :
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
+  int n;
+  cin>>n;
+  unordered_map<int,int>calls;
   for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
+      int x;
+      cin>>x;
+      if(x==0) continue;
+      calls[x]++;
   }
-  int t;
-  cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
+  int ans =0;
+  for(auto call : calls){
+      if(call.second>2){
+          cout<<-1;
+          return 0;
+      }else if(call.second==2) ans+=1;
   }
-  Status(found);
+  cout<<ans;
   return 0;
 } 
 // If Solved Mark (0/1) here => []

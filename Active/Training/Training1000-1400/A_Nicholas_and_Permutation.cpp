@@ -39,25 +39,30 @@ Author's solution :
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
-  for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
+  int n;
+  cin>>n;
+  int maxel = 0;
+  int maxin;
+  int minel = 1000;
+  int minin;
+  for(int i=0;i<n;i++){
+      int x;
+      cin>>x; 
+      if(x>maxel){
+          maxel = x;
+          maxin = i;
+      }
+      if(x<minel){
+          minel = x;
+          minin = i;
+      }
   }
-  int t;
-  cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
+  n-=1;
+  if((minin==0 and maxin==n) or (maxin==0 and minin==n)) cout<<abs(maxin-minin);
+  else{
+      cout<<max(abs(n-maxin),max(abs(n-minin),max(abs(maxin),abs(minin))));
   }
-  Status(found);
+
   return 0;
 } 
 // If Solved Mark (0/1) here => []

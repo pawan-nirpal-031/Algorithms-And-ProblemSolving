@@ -39,25 +39,30 @@ Author's solution :
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
+  string s;
+  cin>>s;
+  int n = s.length();
+  bool allone = 1;
   for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
+      if(s[i]=='0'){
+          allone =0;
+          break;
+      }
   }
-  int t;
-  cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
+  if(allone){
+      for(int i=0;i<n-1;i++) cout<<s[i];
+  }else{
+      int x = n-1;
+      for(int i = 0;i<n;i++){
+          if(s[i]=='0'){
+              x = i;
+              break;
+          }
+      }
+      for(int i =0;i<n;i++){
+          if(i!=x) cout<<s[i];
+      }
   }
-  Status(found);
   return 0;
 } 
 // If Solved Mark (0/1) here => []

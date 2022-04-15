@@ -39,25 +39,41 @@ Author's solution :
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
+  int n;
+  cin>>n;
+  int tfive = 0;
+  int fifty = 0;
+  bool yes = 1;
   for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
+      int x;
+      cin>>x;
+      if(x==25) tfive+=1;
+      else if(x==50){
+          if(tfive>0){
+              tfive-=1;
+              fifty+=1;
+          }else{
+              yes =0;
+          }
+      }else{    
+          if(fifty>0 or tfive>0){
+              if(fifty){
+                  if(tfive){
+                     tfive-=1;
+                     fifty-=1;
+                     continue;
+                  }else{
+                      yes =0;
+                      break;
+                  }
+              }else{
+                 if(tfive>=3) tfive-=3;
+                 else yes =0;
+              }
+          }else yes = 0;
+      }
   }
-  int t;
-  cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
-  }
-  Status(found);
+  Status(yes);
   return 0;
 } 
 // If Solved Mark (0/1) here => []

@@ -13,7 +13,7 @@ typedef long double ld;
 #define SetBits(x) __builtin_popcount(x);
 #define DebugCase(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
 #define FastIO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define Status(b) (cout<<(b?"YES\n":"NO\n"));
+#define Status(b) (cout<<(b?"#Black&White\n":"#Color\n"));
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
@@ -40,24 +40,16 @@ Author's solution :
 int main(){
   FastIO;
   int n,m;
-  cin>>n>>m; 
-  int a[n][m];
-  for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
+  cin>>n>>m;
+  bool bandw =1;
+  for(int i=0;i<n;i++){
+      for(int j =0;j<m;j++){
+          char c;
+          cin>>c; 
+          if(c=='C' or c=='M' or c=='Y') bandw = 0;
+      }
   }
-  int t;
-  cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
-  }
-  Status(found);
+  Status(bandw);
   return 0;
 } 
 // If Solved Mark (0/1) here => []

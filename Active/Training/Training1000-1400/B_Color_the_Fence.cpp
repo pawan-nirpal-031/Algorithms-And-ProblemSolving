@@ -39,25 +39,29 @@ Author's solution :
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
-  for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
+  int v;
+  cin>>v; 
+  int dig[10];
+  int max_d = INT_MAX;
+  for(int i=1;i<10;i++){
+      cin>>dig[i];
+      max_d = min(max_d,dig[i]);
   }
-  int t;
-  cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
+  int mxindx = 0;
+  for(int i =1;i<10;i++){
+      if(dig[i]==max_d){
+          mxindx = i;
+      }
   }
-  Status(found);
+  bool d = 0;
+  while(v>=dig[mxindx]){
+      d = 1;
+      cout<<mxindx;
+      v-=dig[mxindx];
+  }
+  if(not d){
+      cout<<-1;
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

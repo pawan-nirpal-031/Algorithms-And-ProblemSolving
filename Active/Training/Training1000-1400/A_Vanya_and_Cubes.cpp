@@ -39,25 +39,15 @@ Author's solution :
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
-  for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
+  ll w;
+  cin>>w;
+  ll n =0;
+  ll sum =0;
+  while(sum<=w){
+      n+=1;
+      sum+=((n*(n+1))>>1);
   }
-  int t;
-  cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
-  }
-  Status(found);
+  cout<<n-1;
   return 0;
 } 
 // If Solved Mark (0/1) here => []

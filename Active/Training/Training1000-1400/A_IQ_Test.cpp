@@ -39,25 +39,31 @@ Author's solution :
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
-  for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
+  int n = 4;
+  char a[n][n];
+  for(int i=0;i<4;i++) for(int j=0;j<4;j++) cin>>a[i][j];
+  bool can = 0;
+  for(int i=0;i<n;i++){
+      for(int j =0;j<n;j++){
+        int cnt = (a[i][j]=='#'?1:0);
+        if(i+1<n and a[i+1][j]=='#') cnt+=1;
+        if(j+1<n and a[i][j+1]=='#') cnt+=1;
+        if(i+1<n and j+1<n and a[i+1][j+1]=='#') cnt+=1;
+        if(cnt>=3) can = 1;
+      }
   }
-  int t;
-  cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
+  if(not can){
+      for(int i=0;i<n;i++){
+        for(int j =0;j<n;j++){
+            int cnt = (a[i][j]=='.'?1:0);
+            if(i+1<n and a[i+1][j]=='.') cnt+=1;
+            if(j+1<n and a[i][j+1]=='.') cnt+=1;
+            if(i+1<n and j+1<n and a[i+1][j+1]=='.') cnt+=1;
+            if(cnt>=3) can = 1;
+        }
+    }
   }
-  Status(found);
+  Status(can);
   return 0;
 } 
 // If Solved Mark (0/1) here => []

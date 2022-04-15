@@ -35,29 +35,28 @@ Author's solution :
 
 
 
-
+bool valid(int x,int y){
+    return (x>=0 and x<8 and y>=0 and y<8);
+}
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
-  for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
-  }
-  int t;
-  cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
-  }
-  Status(found);
+  char c;
+  cin>>c;
+  int row;
+  cin>>row;
+  int col = c-'a';
+  int cnt =0;
+  row--;
+  cnt+=(valid(row,col+1));
+  cnt+=valid(row+1,col+1);
+  cnt+=valid(row+1,col);
+  cnt+=valid(row+1,col-1);
+  cnt+=valid(row,col-1);
+  cnt+=valid(row-1,col-1);
+  cnt+=valid(row-1,col);
+  cnt+=valid(row-1,col+1);
+  cout<<cnt;
   return 0;
 } 
 // If Solved Mark (0/1) here => []

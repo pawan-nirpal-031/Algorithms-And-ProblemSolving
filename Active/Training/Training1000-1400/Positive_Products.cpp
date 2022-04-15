@@ -39,25 +39,29 @@ Author's solution :
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
-  for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
-  }
   int t;
   cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
+  while(t--){
+      ll n;
+      cin>>n;
+      ll a[n];
+      ll possuffix[n];
+      ll negsuffix[n];
+      for(ll &x : a) cin>>x;
+      possuffix[n-1] = 0;
+      negsuffix[n-1] = 0;
+      for(int i =n-2;i>=0;i--){
+          possuffix[i] = possuffix[i+1]+(a[i+1]>0);
+          negsuffix[i] = negsuffix[i+1]+(a[i+1]<0);
+      }
+      ll count  =0;
+      for(int i =0;i<n;i++){
+          if(a[i]==0) continue;
+          if(a[i]>0) count+=possuffix[i];
+          else count+=negsuffix[i];
+      }
+      cout<<count<<"\n";
   }
-  Status(found);
   return 0;
 } 
 // If Solved Mark (0/1) here => []

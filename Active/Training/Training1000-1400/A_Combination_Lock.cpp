@@ -39,25 +39,19 @@ Author's solution :
 
 int main(){
   FastIO;
-  int n,m;
-  cin>>n>>m; 
-  int a[n][m];
+  int n;
+  cin>>n;
+  string lock,valid;
+  cin>>lock>>valid;
+  int ans = 0;
   for(int i =0;i<n;i++){
-    for(int j =0;j<m;j++) cin>>a[i][j];
+      if(valid[i]>lock[i]){
+          ans+=min(valid[i]-lock[i],10-(valid[i]-lock[i]));
+      }else{
+          ans+=min(lock[i]-valid[i],10-(lock[i]-valid[i]));
+      }
   }
-  int t;
-  cin>>t;
-  int i = 0;
-  int j = m-1;
-  bool found =0;
-  while(i>=0 and i<n and j>=0 and j<m){
-    if(a[i][j]==t){
-      found =1;
-      break;
-    }else if(t<a[i][j]) j-=1;
-    else i+=1;
-  }
-  Status(found);
+  cout<<ans;
   return 0;
 } 
 // If Solved Mark (0/1) here => []
