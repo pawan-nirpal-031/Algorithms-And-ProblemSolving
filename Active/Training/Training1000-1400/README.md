@@ -1,0 +1,6 @@
+# Challanging problems and lessons learnt 
+
+> A_cinema_line : teaches the importance of clear thought process and how seemingly easy problems are not so easy after all
+
+> Adjacency_Love : teaches the breaking down of problem in exaustive cases and deal with each case, here if number of odd numbers is 0 or 1 then no odd sum of products permutation is possible and when all are odd and thier count is also odd say n, than n-1 is even and so this case also is not produce a permuation, in every other case a permutation is possible, say x is count of odd numbers if x is even append all odds to the start of a valid permutation and then all the even ones after them because x-1 will be odd and the rest of the adj sum of products will be even hence we have a valid permuation. If x is odd doing the same thing will fail because x-1 will be even and hence we won't have a valid permuation, but if we have even number of odd numbers at the start of a valid permuation then the rest of the odd numbers (which are odd in number) will produce even sop, but the even ones at the start will produce odd sop as they are even in count, so as a possible implementation we simply choose two of the odd numbers and append them at the start for this case and then append all evens followed by rest of the odds.
+ 

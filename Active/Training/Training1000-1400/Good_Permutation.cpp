@@ -35,46 +35,35 @@ Author's solution :
 
 
 
+
 void solve(){
     int n;
     cin>>n;
-    string s;
-    cin>>s;
-    if(n&1){
-      cout<<"NO\n";
-      return;
-    }
-    int zeros =0, ones =0;
-    for(int i =0;i<n;i++){
-      if(s[i]=='0') zeros+=1;
-      else ones+=1;
-    }
-    cout<<"YES\n";
-    if(zeros==ones){
-      cout<<1<<' '<<s.length()<<'\n';
-      return;
-    }
-    for(int i =0;i<n;i++){
-      if(s[i]=='1'){
-        ones-=1;
-        zeros+=1;
-      }else{
-        zeros-=1;
-        ones+=1;
-      }
-      if(ones==zeros){
-        cout<<1<<' '<<i+1<<'\n';
+    if(n==1 or n==3){
+        cout<<-1<<'\n';
         return;
-      }
+    }else if(n&1){
+        int a[5] = {2, 3, 5, 1, 4};
+        for(int i=0;i<5;i++) cout<<a[i]<<' ';
+        for(int i = 6;i<=n;i++){
+           if(i%2==0) cout<<i+1<<' ';
+           else cout<<i-1<<' ';
+        }   
+    }else{
+        for(int i = 1;i<=n;i++){
+           if(i&1) cout<<i+1<<' ';
+           else cout<<i-1<<' ';
+        }
     }
+    cout<<'\n';
 }
 
 
 int main(){
   FastIO;
-  int t=1;
+  int t;
   cin>>t;
   while(t--) solve();
-  return 0;
+  return 0; 
 } 
 // If Solved Mark (0/1) here => []

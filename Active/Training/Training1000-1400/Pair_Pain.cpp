@@ -34,47 +34,47 @@ Author's solution :
 */
 
 
-
-void solve(){
-    int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    if(n&1){
-      cout<<"NO\n";
-      return;
+ull CountPairs (ll arr[], int n){
+    ll cnttwo = 0, more = 0;
+    for (int i = 0; i<n; i++){
+        if (arr[i] == 2) cnttwo++;
+        else if (arr[i] > 2) more++;
     }
-    int zeros =0, ones =0;
-    for(int i =0;i<n;i++){
-      if(s[i]=='0') zeros+=1;
-      else ones+=1;
-    }
-    cout<<"YES\n";
-    if(zeros==ones){
-      cout<<1<<' '<<s.length()<<'\n';
-      return;
-    }
-    for(int i =0;i<n;i++){
-      if(s[i]=='1'){
-        ones-=1;
-        zeros+=1;
-      }else{
-        zeros-=1;
-        ones+=1;
-      }
-      if(ones==zeros){
-        cout<<1<<' '<<i+1<<'\n';
-        return;
-      }
-    }
+    ull ans = cnttwo*more +  (more*(more-1))/2;
+    return ans;
 }
 
 
+ll solveopt(ll a[],int n){
+    ull comp = CountPairs(a,n);
+    ll v = ((n*(n-1))>>1);
+    ull ans =  (v-comp);
+    return ans;
+}
+
+ll solvebf(ll a[],int n){
+  ll cnt =0;
+  for(int i =0;i<n;i++){
+    for(int j = i+1;j<n;j++){
+      if(a[i]+a[j]>=a[i]*a[j]) cnt+=1;
+    }
+  }
+  return cnt;
+}
+   
+
 int main(){
   FastIO;
-  int t=1;
+  int t;
   cin>>t;
-  while(t--) solve();
+  while(t--){
+    ll n;
+    cin>>n;
+    ll a[n];
+    for(ll &x : a) cin>>x; 
+    ll ans = solveopt(a,n);
+    cout<<ans<<'\n';
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

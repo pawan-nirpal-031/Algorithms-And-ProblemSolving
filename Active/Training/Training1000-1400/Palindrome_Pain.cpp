@@ -36,45 +36,35 @@ Author's solution :
 
 
 void solve(){
-    int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    if(n&1){
-      cout<<"NO\n";
-      return;
-    }
-    int zeros =0, ones =0;
-    for(int i =0;i<n;i++){
-      if(s[i]=='0') zeros+=1;
-      else ones+=1;
-    }
-    cout<<"YES\n";
-    if(zeros==ones){
-      cout<<1<<' '<<s.length()<<'\n';
-      return;
-    }
-    for(int i =0;i<n;i++){
-      if(s[i]=='1'){
-        ones-=1;
-        zeros+=1;
-      }else{
-        zeros-=1;
-        ones+=1;
-      }
-      if(ones==zeros){
-        cout<<1<<' '<<i+1<<'\n';
-        return;
-      }
+    int x,y;
+    cin>>x>>y;
+    if((x%2==1 and y%2==1) or (x==1 or y==1)){
+        cout<<-1<<'\n';
+    }else{
+        int lefta = (x>>1);
+        int leftb = (y>>1);
+        for(int i =0;i<lefta;i++) cout<<'a';
+        for(int i =0;i<leftb;i++) cout<<'b';
+        if(x&1 or y&1) cout<<(x&1?'a':'b');
+        for(int i =0;i<leftb;i++) cout<<'b';
+        for(int i =0;i<lefta;i++) cout<<'a';
+        cout<<'\n';
+        for(int i =0;i<leftb;i++) cout<<'b';
+        for(int i =0;i<lefta;i++) cout<<'a';
+        if(x&1 or y&1) cout<<(x&1?'a':'b');
+        for(int i =0;i<lefta;i++) cout<<'a';
+        for(int i =0;i<leftb;i++) cout<<'b';
+        cout<<'\n';
     }
 }
 
-
 int main(){
   FastIO;
-  int t=1;
+  int t;
   cin>>t;
-  while(t--) solve();
+  while(t--){
+      solve();
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

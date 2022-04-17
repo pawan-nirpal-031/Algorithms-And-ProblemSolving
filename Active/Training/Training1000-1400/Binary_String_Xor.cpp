@@ -21,7 +21,9 @@ typedef long double ld;
 /*
 Problem Statement : 
 
+Chef has a binary string S of length N. He wonders if it is possible to divide S into exactly K non-empty substrings such that each Si belongs to exactly one substring and the XOR of each substring is the same. Can you help Chef to determine if it is possible to do so?
 
+Note: XOR of substring SL⋯R is defined as: XOR(SL⋯R)=SL⊕SL+1⊕⋯⊕SR.
 
 */
 
@@ -36,43 +38,33 @@ Author's solution :
 
 
 void solve(){
-    int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    if(n&1){
-      cout<<"NO\n";
-      return;
-    }
-    int zeros =0, ones =0;
-    for(int i =0;i<n;i++){
-      if(s[i]=='0') zeros+=1;
-      else ones+=1;
-    }
-    cout<<"YES\n";
-    if(zeros==ones){
-      cout<<1<<' '<<s.length()<<'\n';
-      return;
-    }
-    for(int i =0;i<n;i++){
-      if(s[i]=='1'){
-        ones-=1;
-        zeros+=1;
-      }else{
-        zeros-=1;
-        ones+=1;
-      }
-      if(ones==zeros){
-        cout<<1<<' '<<i+1<<'\n';
-        return;
-      }
-    }
+  int n,k;
+  cin>>n>>k;
+  vector<bool>a(n,0);
+  for(int i =0;i<n;i++){
+    char c;
+    cin>>c;
+    a[i] = c-'0';
+  }
+  bool curr = 0;
+  int count =0;
+  int low = 0,high =-1;
+  for(int i = 0;i<n;i++){
+   if((curr xor a[i])==0){
+     curr = curr xor a[i];
+     high = i;
+   }else{
+     high = low = i;
+     count+=1;
+   }
+  }
+  cout<<count;
 }
 
 
 int main(){
   FastIO;
-  int t=1;
+  int t;
   cin>>t;
   while(t--) solve();
   return 0;

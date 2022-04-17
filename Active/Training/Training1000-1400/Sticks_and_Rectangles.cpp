@@ -38,41 +38,21 @@ Author's solution :
 void solve(){
     int n;
     cin>>n;
-    string s;
-    cin>>s;
-    if(n&1){
-      cout<<"NO\n";
-      return;
-    }
-    int zeros =0, ones =0;
-    for(int i =0;i<n;i++){
-      if(s[i]=='0') zeros+=1;
-      else ones+=1;
-    }
-    cout<<"YES\n";
-    if(zeros==ones){
-      cout<<1<<' '<<s.length()<<'\n';
-      return;
-    }
-    for(int i =0;i<n;i++){
-      if(s[i]=='1'){
-        ones-=1;
-        zeros+=1;
-      }else{
-        zeros-=1;
-        ones+=1;
-      }
-      if(ones==zeros){
-        cout<<1<<' '<<i+1<<'\n';
-        return;
-      }
-    }
-}
+    if(n==1){
+        cout<<3<<'\n';
+    }else if(n==2){
+        cout<<2<<'\n';
+    }else if(n==3){
+        
+    }else{
 
+    }
+
+}
 
 int main(){
   FastIO;
-  int t=1;
+  int t;
   cin>>t;
   while(t--) solve();
   return 0;

@@ -13,7 +13,7 @@ typedef long double ld;
 #define SetBits(x) __builtin_popcount(x);
 #define DebugCase(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
 #define FastIO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define Status(b) (cout<<(b?"YES\n":"NO\n"));
+#define Status(b) (cout<<(b?"Yes\n":"No\n"));
 #define Print(x) cout<<x
 #define Input(x) cin>>x
 
@@ -36,43 +36,20 @@ Author's solution :
 
 
 void solve(){
-    int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    if(n&1){
-      cout<<"NO\n";
-      return;
-    }
-    int zeros =0, ones =0;
-    for(int i =0;i<n;i++){
-      if(s[i]=='0') zeros+=1;
-      else ones+=1;
-    }
-    cout<<"YES\n";
-    if(zeros==ones){
-      cout<<1<<' '<<s.length()<<'\n';
-      return;
-    }
-    for(int i =0;i<n;i++){
-      if(s[i]=='1'){
-        ones-=1;
-        zeros+=1;
-      }else{
-        zeros-=1;
-        ones+=1;
-      }
-      if(ones==zeros){
-        cout<<1<<' '<<i+1<<'\n';
-        return;
-      }
-    }
+  int n;
+  cin>>n;
+  bool yes = 0;
+  for(int i =0;i<n;i++){
+      char c;
+      cin>>c; 
+      if(c=='0' or c=='5') yes = 1;
+  }
+  Status(yes);
 }
-
 
 int main(){
   FastIO;
-  int t=1;
+  int t;
   cin>>t;
   while(t--) solve();
   return 0;

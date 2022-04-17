@@ -34,47 +34,35 @@ Author's solution :
 */
 
 
-
 void solve(){
-    int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    if(n&1){
-      cout<<"NO\n";
-      return;
+  int n;
+  cin>>n;
+  int a[2];
+  cin>>a[0]>>a[1];
+  sort(a,a+2);
+  if(a[1]==a[0]+1){
+    if(a[1]==n or a[0]==1){
+      cout<<1<<'\n';
+    }else{
+      cout<<2<<'\n';
     }
-    int zeros =0, ones =0;
-    for(int i =0;i<n;i++){
-      if(s[i]=='0') zeros+=1;
-      else ones+=1;
+  }else{// 4 2 
+    if(a[1]-a[0]==2){
+      cout<<1<<'\n';
+    }else{
+      cout<<0<<'\n';
     }
-    cout<<"YES\n";
-    if(zeros==ones){
-      cout<<1<<' '<<s.length()<<'\n';
-      return;
-    }
-    for(int i =0;i<n;i++){
-      if(s[i]=='1'){
-        ones-=1;
-        zeros+=1;
-      }else{
-        zeros-=1;
-        ones+=1;
-      }
-      if(ones==zeros){
-        cout<<1<<' '<<i+1<<'\n';
-        return;
-      }
-    }
+  }
 }
 
 
 int main(){
   FastIO;
-  int t=1;
+  int t;
   cin>>t;
-  while(t--) solve();
+  while(t--){
+    solve();
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []
