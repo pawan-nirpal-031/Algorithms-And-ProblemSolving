@@ -39,12 +39,13 @@ Author's solution :
 
 int main(){
   FastIO;
-  map<int,int>t;
-  t[1]+=1;
-  t[2]+=1;
-  t[1]+=1;
-  t[2]+=3;
-  for(auto it : t) cout<<it.first<<" "<<it.second<<'\n';
+  string s1,s2;
+  cin>>s1>>s2;
+  for(char &x : s1) x = (char)tolower(x);
+  for(char &x : s2) x = (char)tolower(x);
+  if(s1==s2) cout<<0;
+  else if(s1<s2) cout<<-1;
+  else cout<<1;
   return 0;
 } 
 // If Solved Mark (0/1) here => []

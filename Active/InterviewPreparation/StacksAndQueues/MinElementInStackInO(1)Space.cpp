@@ -48,11 +48,6 @@ void Pop(int x){
 
 int main(){
   FastIO;
-  cin>>n;
-  for(int i =0;i<n;i++){
-      
-  }
-
   
   return 0;
 } 

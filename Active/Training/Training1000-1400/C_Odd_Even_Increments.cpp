@@ -39,12 +39,33 @@ Author's solution :
 
 int main(){
   FastIO;
-  map<int,int>t;
-  t[1]+=1;
-  t[2]+=1;
-  t[1]+=1;
-  t[2]+=3;
-  for(auto it : t) cout<<it.first<<" "<<it.second<<'\n';
+  int t;
+  cin>>t;
+  while(t--){
+      int n;
+      cin>>n; 
+      int a[n];
+      for(int i=0;i<n;i++){
+          cin>>a[i];
+      }
+      int odd = (a[0]&1);
+      int evn = (a[1]&1);
+      bool yes =1;
+      for(int i =0;i<n;i++){
+          if(i&1){// evn 
+            if((a[i]&1)==(not evn)){
+                yes = 0;
+                break;
+            }
+          }else{// odd
+            if((a[i]&1)==(not odd)){
+                yes = 0;
+                break;
+            }
+          }
+      }
+      Status(yes);
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

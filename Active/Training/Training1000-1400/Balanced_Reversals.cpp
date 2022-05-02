@@ -39,12 +39,21 @@ Author's solution :
 
 int main(){
   FastIO;
-  map<int,int>t;
-  t[1]+=1;
-  t[2]+=1;
-  t[1]+=1;
-  t[2]+=3;
-  for(auto it : t) cout<<it.first<<" "<<it.second<<'\n';
+  int t;
+  cin>>t;
+  while(t--){
+      int n;
+      cin>>n;
+      string s;
+      cin>>s; 
+      int z =0;
+      for(char c : s){
+          z+=(c=='0');
+      }
+      for(int i=0;i<z;i++) cout<<'0';
+      for(int i = 0;i<n-z;i++) cout<<'1';
+      cout<<'\n';
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

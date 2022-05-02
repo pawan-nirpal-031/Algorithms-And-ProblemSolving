@@ -39,12 +39,21 @@ Author's solution :
 
 int main(){
   FastIO;
-  map<int,int>t;
-  t[1]+=1;
-  t[2]+=1;
-  t[1]+=1;
-  t[2]+=3;
-  for(auto it : t) cout<<it.first<<" "<<it.second<<'\n';
+  int t;
+  cin>>t;
+  while(t--){
+      int x;
+      cin>>x;
+      if(x>=1900){
+          cout<<"Division 1\n";
+      }else if(x>=1600 and x<=1899){
+          cout<<"Division 2\n";
+      }else if(x>=1400 and x<=1599){
+          cout<<"Division 3\n";
+      }else{
+          cout<<"Division 4\n";
+      }
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

@@ -39,12 +39,24 @@ Author's solution :
 
 int main(){
   FastIO;
-  map<int,int>t;
-  t[1]+=1;
-  t[2]+=1;
-  t[1]+=1;
-  t[2]+=3;
-  for(auto it : t) cout<<it.first<<" "<<it.second<<'\n';
+  string s;
+  getline(cin,s);
+  vector<string>cache;
+  string tmp;
+  stringstream stream(s);
+  while(stream>>tmp){
+      cache.push_back(tmp);
+  }
+  char c;
+  if(cache.back()=="?"){
+      cache.pop_back();
+      c = cache.back().back();
+  }else{
+      c = cache.back()[cache.back().size()-2];
+  }
+  Status(c=='a' or c=='e' or c=='i' or c=='o' or c=='u' or c=='y' or c=='A' or c=='E' or c=='I' or c=='O' or c=='U' or c=='Y');
+
+  
   return 0;
 } 
 // If Solved Mark (0/1) here => []

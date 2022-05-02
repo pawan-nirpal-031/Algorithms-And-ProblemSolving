@@ -31,9 +31,6 @@ class Utilty{
     }
 };
 
-void ReversePairs(){
-    
-}
 
 
 int MergeAndCount(int a[],int l,int m,int r){

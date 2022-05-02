@@ -39,12 +39,29 @@ Author's solution :
 
 int main(){
   FastIO;
-  map<int,int>t;
-  t[1]+=1;
-  t[2]+=1;
-  t[1]+=1;
-  t[2]+=3;
-  for(auto it : t) cout<<it.first<<" "<<it.second<<'\n';
+  int t;
+  cin>>t;
+  while(t--){
+      int n;
+      cin>>n;
+      ll a[n];
+      map<ll,int>table;
+      ll sum =0;
+      for(ll &x : a){
+        cin>>x;
+        sum+=x;
+      }
+      ll count =0;
+      ll fix = (2*sum)/n;
+      for(int i =0;i<n;i++){
+        if((2*sum)%n==0){
+          auto it = table.find(fix-a[i]);
+          if(it!=table.end()) count+=(it->second);
+        }
+        table[a[i]]+=1;
+      }
+      cout<<count<<'\n';
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

@@ -8,7 +8,7 @@ typedef long double ld;
 #define Infinity (ll)1e18
 #define Append(a) push_back(a)
 #define Pair(a,b) make_pair(a,b)
-#define Clear(a) for(ll &x : a){x=0;}
+#define Clear(a) for(ll &x : a) {x=0;}
 #define Point(x) std::fixed<<setprecision(15)<<x
 #define SetBits(x) __builtin_popcount(x);
 #define DebugCase(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
@@ -39,12 +39,7 @@ Author's solution :
 
 int main(){
   FastIO;
-  map<int,int>t;
-  t[1]+=1;
-  t[2]+=1;
-  t[1]+=1;
-  t[2]+=3;
-  for(auto it : t) cout<<it.first<<" "<<it.second<<'\n';
+  
   return 0;
 } 
 // If Solved Mark (0/1) here => []

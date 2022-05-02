@@ -39,12 +39,19 @@ Author's solution :
 
 int main(){
   FastIO;
-  map<int,int>t;
-  t[1]+=1;
-  t[2]+=1;
-  t[1]+=1;
-  t[2]+=3;
-  for(auto it : t) cout<<it.first<<" "<<it.second<<'\n';
+  int t;
+  cin>>t;
+  while(t--){
+    int n;
+    cin>>n; 
+    string s;
+    cin>>s;
+    string x = s;
+    sort(x.begin(),x.end());
+    bool yes =1;
+    for(int i =0;i<(n>>1);i++) if(s[i]>s[n-1-i]) swap(s[i],s[n-1-i]);
+    Status(s==x);
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

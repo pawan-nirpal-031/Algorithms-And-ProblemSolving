@@ -39,12 +39,21 @@ Author's solution :
 
 int main(){
   FastIO;
-  map<int,int>t;
-  t[1]+=1;
-  t[2]+=1;
-  t[1]+=1;
-  t[2]+=3;
-  for(auto it : t) cout<<it.first<<" "<<it.second<<'\n';
+  int t;
+  cin>>t;
+  while(t--){
+      int n;
+      cin>>n;
+      int a[n];
+      vector<int>f(n+1,0);
+      int ans =-1;
+      for(int &x : a){
+           cin>>x;
+           f[x]+=1;
+           if(f[x]>=3) ans = x;
+      }
+      cout<<ans<<'\n';
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []

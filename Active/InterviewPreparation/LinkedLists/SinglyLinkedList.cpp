@@ -128,7 +128,6 @@ class SinglyLinkedList{
                 tmp = tmp->nxt;
             }
             return 0;
-
         }
 
         bool DetectCycleOptimized(node *tmp){

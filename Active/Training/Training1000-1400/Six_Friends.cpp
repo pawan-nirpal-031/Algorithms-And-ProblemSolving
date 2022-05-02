@@ -39,12 +39,13 @@ Author's solution :
 
 int main(){
   FastIO;
-  map<int,int>t;
-  t[1]+=1;
-  t[2]+=1;
-  t[1]+=1;
-  t[2]+=3;
-  for(auto it : t) cout<<it.first<<" "<<it.second<<'\n';
+  int t; 
+  cin>>t;
+  while(t--){
+      int d,x;
+      cin>>d>>x;
+      cout<<min(3*d,2*x)<<"\n";
+  }
   return 0;
 } 
 // If Solved Mark (0/1) here => []
