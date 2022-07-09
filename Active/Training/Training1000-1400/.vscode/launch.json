@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch ReduceZero",
+            "request": "launch",
+            "mainClass": "ReduceZero",
+            "projectName": "Training1000-1400_46e014e3"
+        },
+        {
+            "type": "java",
+            "name": "Launch Solve",
+            "request": "launch",
+            "mainClass": "Solve",
+            "projectName": "Training1000-1400_46e014e3"
+        },
+        {
+            "name": "Extension",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${C:\\Users\\jayspc\\Documents\\GitHub\\ComputerScienceLabs\\SystemProgramming-And-CompilerDesign\\CodeOptimization\\unit.cpp}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ]
+        }
+    ]
+}
