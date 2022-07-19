@@ -15,29 +15,29 @@ typedef long double ld;
 
 int main(){
   FastIO;
-  vector<int>good(502,1);
-  vector<int>sets;
-  good[0] =0;
-  sets.push_back(1); 
-  sets.push_back(2); 
-  for(int i = 3;i<=500;i++){
-    for(int j = 1;j<=(i/2);j++){
-      int n = j; 
-      int m = i-j; 
-      if(n==m) continue;
-      if(good[n] and good[m]) good[i] =0; 
-    } 
-    if(good[i]) sets.push_back(i);
-  } 
-  int t; 
+  int t;
   cin>>t; 
   while(t--){
-    int n;
+    int n; 
     cin>>n; 
-    for(int i =0;i<n;i++){
-      cout<<sets[i]<<' ';
+    bool yes = 1;
+    int prefix_min = Mod; 
+    int prefix_max = 0;
+    for(int i =1;i<=n;i++){
+        int x; 
+        cin>>x; 
+        if(i==1){
+            prefix_max = prefix_min = x;
+            continue;
+        }
+        if(x<=prefix_min){
+            prefix_min = x;
+        }else if(x>=prefix_max){
+            prefix_max = x;
+        }else yes =0; 
     }
-    cout<<'\n';
+    Status(yes);
   }
+
   return 0;
 } 

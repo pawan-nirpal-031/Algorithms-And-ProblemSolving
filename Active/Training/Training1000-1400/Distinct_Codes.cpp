@@ -15,29 +15,19 @@ typedef long double ld;
 
 int main(){
   FastIO;
-  vector<int>good(502,1);
-  vector<int>sets;
-  good[0] =0;
-  sets.push_back(1); 
-  sets.push_back(2); 
-  for(int i = 3;i<=500;i++){
-    for(int j = 1;j<=(i/2);j++){
-      int n = j; 
-      int m = i-j; 
-      if(n==m) continue;
-      if(good[n] and good[m]) good[i] =0; 
-    } 
-    if(good[i]) sets.push_back(i);
-  } 
-  int t; 
+  int t;
   cin>>t; 
   while(t--){
-    int n;
-    cin>>n; 
-    for(int i =0;i<n;i++){
-      cout<<sets[i]<<' ';
+    string s; 
+    cin>>s; 
+    set<string>cache;  
+    int n = s.length();
+    for(int i =1;i<n;i++){ 
+        string code; 
+        for(int j = 0;j<=1;j++) code+=s[i+j-1];
+        if(cache.find(code)==cache.end()) cache.insert(code);
     }
-    cout<<'\n';
+    cout<<cache.size()<<'\n';
   }
   return 0;
 } 

@@ -15,29 +15,29 @@ typedef long double ld;
 
 int main(){
   FastIO;
-  vector<int>good(502,1);
-  vector<int>sets;
-  good[0] =0;
-  sets.push_back(1); 
-  sets.push_back(2); 
-  for(int i = 3;i<=500;i++){
-    for(int j = 1;j<=(i/2);j++){
-      int n = j; 
-      int m = i-j; 
-      if(n==m) continue;
-      if(good[n] and good[m]) good[i] =0; 
-    } 
-    if(good[i]) sets.push_back(i);
-  } 
-  int t; 
+  int t;
   cin>>t; 
   while(t--){
     int n;
-    cin>>n; 
+    cin>>n;
+    int freq[11] = {0}; 
+    int max_freq =0;
     for(int i =0;i<n;i++){
-      cout<<sets[i]<<' ';
+        int x;
+        cin>>x; 
+        freq[x]+=1;
+        max_freq = max(max_freq,freq[x]);
     }
-    cout<<'\n';
+    int freq_freq[max_freq+2] = {0}; 
+    int max_freq_freq =0;
+    for(int i = 1;i<=10;i++) freq_freq[freq[i]]+=1;
+    for(int i =1;i<=max_freq;i++) max_freq_freq = max(max_freq_freq,freq_freq[i]);
+    int ans =0;
+    for(int i =1;i<=max_freq;i++) if(max_freq_freq==freq_freq[i]){
+        ans = i; 
+        break;
+    }
+    cout<<ans<<'\n';
   }
   return 0;
 } 

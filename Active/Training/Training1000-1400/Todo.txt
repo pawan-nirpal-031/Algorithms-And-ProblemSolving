@@ -1,3 +1,6 @@
 https://www.codechef.com/practice?page=0&limit=20&sort_by=difficulty_rating&sort_order=desc&search=&start_rating=1200&end_rating=1399&topic=&tags=&group=unattempted
 
 https://www.codechef.com/submit/CHBLLNS
+
+
+1 3 100101110000001011000001111110010011110010010111000101 001010000000101111100000000000000111101010101111111010 011110011110000001010100101110001011111010001001111010
