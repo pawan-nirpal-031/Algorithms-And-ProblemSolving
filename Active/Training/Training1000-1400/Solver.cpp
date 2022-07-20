@@ -9,7 +9,7 @@ typedef long double ld;
 #define SetBits(x) __builtin_popcount(x);
 #define Case(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
 #define FastIO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define Status(b) (cout<<(b?"Yes\n":"No\n"));
+#define Status(b) (cout<<(b?"YES\n":"NO\n"));
 
 
 
@@ -170,10 +170,114 @@ void LittleChefAndSums(){
   }
 }
 
+
+void MagicPairs(){
+  int n;
+  cin>>n; 
+  ull count =0; 
+  for(int i =0;i<n;i++){
+    int x;
+    cin>>x; 
+    count+=i;
+  }
+  cout<<count<<'\n';
+}
+
+
+void EVMHAck(){
+  int a,b,c,x,y,z; 
+  cin>>a>>b>>c>>x>>y>>z; 
+  float needed = (1.0*(x+y+z))/2.0; 
+  int first = (x+b+c);
+  int second = (a+y+c); 
+  int third = (a+b+z); 
+  Status(first>needed or second>needed or third>needed);
+}
+
+
+void VillageRecruit(){
+  int p; 
+  cin>>p; 
+  int m,c; 
+  cin>>m>>c; 
+  ll positive =0;
+  ll negetive = 0; 
+  for(int i =0;i<p;i++){
+    ll x,y,s; 
+    cin>>x>>y>>s; 
+    ll fx = y - m*x -c; 
+    if(fx>0) positive+=s; 
+    else negetive+=s;
+  }
+  cout<<max(positive,negetive);
+}
+
+
+void FootBallMatch(){
+  int n;
+  cin>>n; 
+  vector<pair<string,int>>data; 
+  for(int i =0;i<n;i++){
+    string s; 
+    cin>>s; 
+    if(data.size()==0){
+      data.push_back({s,1});
+    }else if(data.size()==1){
+      if(s==data[0].first) data[0].second+=1;
+      else data.push_back({s,1});
+    }else{
+      if(s==data[0].first) data[0].second+=1;
+      else data[1].second+=1; 
+    }
+  }
+  if(n==0) cout<<"Draw\n"; 
+  else if(n==1) cout<<data[0].first<<"\n"; 
+  else{
+    if(data[0].second>data[1].second) cout<<data[0].first<<'\n';
+    else if(data[1].second>data[0].second) cout<<data[1].first<<'\n';
+    else cout<<"Draw\n";
+  }
+}
+
+void DivBy3ButNot9(){
+  int n;
+  cin>>n; 
+  if(n==1) cout<<3<<'\n'; 
+  else{
+    cout<<1; 
+    for(int i =1;i<=n-2;i++) cout<<0; 
+    cout<<5<<'\n';
+  }
+}
+
+
+void ChefKingship(){
+  int n;
+  cin>>n; 
+  ll a[n]; 
+  for(ll &x : a) cin>>x; 
+  ull ans =0; 
+  sort(a,a+n); 
+  for(int i=1;i<n;i++){
+    ans+=(a[0]*a[i]);
+  }
+  cout<<ans<<'\n';
+}
+
+void UnchangingOr(){
+  int n;
+  cin>>n; 
+  int orarry[n+1] = {0};
+  for(int i =1;i<=n;i++) orarry[i] = i | orarry[i-1];
+  for(int i =0;i<=n;i++){
+    cout<<i<<" "<<orarry[i]<<'\n';
+  }
+}
+
 int main(){
   FastIO;
   int t;
   cin>>t; 
-  while(t--) LittleChefAndSums();
+  while(t--) UnchangingOr();
   return 0;
 } 
