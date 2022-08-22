@@ -13,14 +13,26 @@ typedef long double ld;
 
 
 void solve(){
-    
+    int n;
+    cin>>n; 
+    vector<int>tree(n+1,0); 
+    for(int i =0;i<n;i++){
+        int x;
+        cin>>x; 
+        tree[x] = 1; 
+    }
+    for(int i = 1;i<=n;i++){
+        if(tree[i]) continue; 
+        cout<<i<<' ';
+    }
+    cout<<'\n';
 }
 
 
 int main(){
   FastIO;
   int t = 1;
-  cin>>t; 
+ // cin>>t; 
   while(t--) solve();
   return 0;
 } 

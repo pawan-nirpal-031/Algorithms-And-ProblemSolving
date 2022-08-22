@@ -13,7 +13,15 @@ typedef long double ld;
 
 
 void solve(){
-    
+    int n,x; 
+    cin>>n>>x; 
+    bool yes =0; 
+    for(int i =0;i<n;i++){
+        int v; 
+        cin>>v; 
+        if(v>=x) yes = 1;
+    }
+    Status(yes);
 }
 
 

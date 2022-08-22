@@ -13,7 +13,16 @@ typedef long double ld;
 
 
 void solve(){
-    
+    int n;  
+    cin>>n;
+    int t[n-1];  
+    for(int &x : t) cin>>x;
+    ll pa[n-1],pb[n-1]; 
+    pa[0] = t[0];
+    for(int i =1;i<n-1;i++) pa[i] = pa[i-1]+t[i]; 
+    pb[0] = 2*pa[0]; 
+    for(int i =1;i<n-1;i++) pb[i] = pa[i]+t[i]; 
+    cout<<pb[n-2]<<'\n';
 }
 
 

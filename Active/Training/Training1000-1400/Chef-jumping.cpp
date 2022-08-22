@@ -9,18 +9,20 @@ typedef long double ld;
 #define SetBits(x) __builtin_popcount(x);
 #define Case(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
 #define FastIO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define Status(b) (cout<<(b?"YES\n":"NO\n"));
+#define Status(b) (cout<<(b?"yes\n":"no\n"));
 
 
 void solve(){
-    
+    ull x; 
+    cin>>x;
+    Status(x%3==0 or (x+5)%6==0);
 }
 
 
 int main(){
   FastIO;
   int t = 1;
-  cin>>t; 
+  //cin>>t; 
   while(t--) solve();
   return 0;
 } 
