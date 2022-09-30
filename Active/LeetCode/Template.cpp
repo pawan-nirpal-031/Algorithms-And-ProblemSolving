@@ -4,25 +4,23 @@ typedef unsigned long long int ull;
 typedef long long int ll;
 typedef long double ld;
 #define Mod 1000000007
-#define Infinity (ll)1e18
-#define Append(a) push_back(a)
 #define Pair(a,b) make_pair(a,b)
-#define Clear(a) for(ll &x : a){x=0;}
-#define Point(x) std::fixed<<setprecision(15)<<x
+#define Point(x) std::fixed<<setprecision(6)<<x
 #define SetBits(x) __builtin_popcount(x);
-#define DebugCase(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
+#define Case(i,x) cout<<"Case #"<<i<<": "<<x<<'\n'
 #define FastIO ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 #define Status(b) (cout<<(b?"YES\n":"NO\n"));
 
 
+void solve(){
+    
+}
 
 
 int main(){
   FastIO;
-  int x; 
-  while(cin>>x){
-    if(x==42) break; 
-    cout<<x<<'\n';
-  }
+  int t = 1;
+  cin>>t; 
+  while(t--) solve();
   return 0;
 } 
